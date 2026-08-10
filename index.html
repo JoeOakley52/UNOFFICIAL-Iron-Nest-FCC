@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<!-- saved from url=(0052)file:///C:/Users/jztlw/Downloads/iron-nest-calc.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.4, maximum-scale=4">
 <title>Iron Nest Unofficial Fire Control Calculator</title>
 <style>
   :root{
@@ -18,7 +18,7 @@
     --glow: #ff8a3d;
   }
   *{box-sizing:border-box;}
-  html,body{
+  html, body{
     margin:0; padding:0; min-height:100%;
     background:
       radial-gradient(ellipse at 50% -10%, #2b2519 0%, transparent 60%),
@@ -196,8 +196,8 @@
   }
   label{
     display:block;
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 13px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--ivory-dim);
     margin-bottom: 8px;
@@ -209,8 +209,8 @@
     border-radius: 3px;
     color: var(--brass-bright);
     font-family: 'Courier New', monospace;
-    font-size: 24px;
-    padding: 10px 12px;
+    font-size: 30px;
+    padding: 12px 14px;
     letter-spacing: 0.05em;
     outline: none;
   }
@@ -230,9 +230,9 @@
   }
   .field-hint{
     text-align: right;
-    font-size: 12px;
+    font-size: 14px;
     color: var(--ivory-dim);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     margin-top: 6px;
   }
 
@@ -244,13 +244,13 @@
   .charge-btn{
     flex: 1 1 40px;
     min-width: 40px;
-    padding: 10px 0;
+    padding: 13px 0;
     text-align:center;
     background: #0f0d09;
     border: 1px solid #4a4332;
     border-radius: 3px;
     color: var(--ivory-dim);
-    font-size: 16px;
+    font-size: 21px;
     cursor: pointer;
     user-select: none;
     transition: all 0.12s ease;
@@ -260,6 +260,106 @@
     border-color: var(--glow);
     color: var(--brass-bright);
     box-shadow: 0 0 10px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .charge-btn.round-btn{
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    padding: 16px 0 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .round-btn::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+  }
+  .round-type-he{
+    background: rgba(255,140,0,0.12);
+    border-color: #ff8c00;
+    color: #ffb066;
+  }
+  .round-type-he::before{ background: #ff8c00; }
+  .round-type-he.active{
+    background: rgba(255,140,0,0.28);
+    border-color: #ff8c00;
+    color: #ffd7a8;
+    box-shadow: 0 0 10px rgba(255,140,0,0.4);
+  }
+
+  .round-type-ap{
+    background: rgba(198,40,40,0.12);
+    border-color: #c62828;
+    color: #ff8a80;
+  }
+  .round-type-ap::before{ background: #c62828; }
+  .round-type-ap.active{
+    background: rgba(198,40,40,0.28);
+    border-color: #c62828;
+    color: #ffb3ab;
+    box-shadow: 0 0 10px rgba(198,40,40,0.4);
+  }
+
+  .round-type-dril{
+    background: #0c0c0c;
+    border-color: #1565c0;
+    color: #b0bec5;
+  }
+  .round-type-dril::before{ background: #1565c0; }
+  .round-type-dril.active{
+    background: #1a1a1a;
+    border-color: #2196f3;
+    color: #e3f2fd;
+    box-shadow: 0 0 10px rgba(33,150,243,0.45);
+  }
+
+  .round-type-star{
+    background: #0d47a1;
+    border-color: #1565c0;
+    color: #cfe3fb;
+  }
+  .round-type-star::before{ background: #ffffff; }
+  .round-type-star.active{
+    background: #1565c0;
+    border-color: #ffffff;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.35);
+  }
+  .round-tag{
+    display:inline-flex;
+    align-items:center;
+    position: relative;
+    padding: 2px 8px 2px 12px;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    overflow: hidden;
+    white-space: nowrap;
+    background: rgba(195,154,84,0.15);
+    color: var(--brass-bright);
+  }
+  .round-tag::before{
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--brass);
+  }
+  .round-tag.round-type-he{ background: rgba(255,140,0,0.18); color: #ffb066; }
+  .round-tag.round-type-he::before{ background: #ff8c00; }
+  .round-tag.round-type-ap{ background: rgba(198,40,40,0.18); color: #ff8a80; }
+  .round-tag.round-type-ap::before{ background: #c62828; }
+  .round-tag.round-type-dril{ background: #0c0c0c; color: #b0bec5; }
+  .round-tag.round-type-dril::before{ background: #1565c0; }
+  .round-tag.round-type-star{ background: #0d47a1; color: #cfe3fb; }
+  .round-tag.round-type-star::before{ background: #ffffff; }
+  .gr-meta-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .divider{
@@ -314,6 +414,25 @@
     display:flex;
     gap: 8px;
   }
+  .log-btn-big{
+    display:block;
+    width: 100%;
+    margin-top: 16px;
+    padding: 18px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--brass-bright);
+    background: linear-gradient(180deg, #3a3020, #241d13);
+    border: 1px solid var(--glow);
+    box-shadow: 0 0 14px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .log-btn-big:active{
+    transform: translateY(1px);
+  }
   .log-btn, .clear-btn{
     font-family: 'Courier New', monospace;
     font-size: 11px;
@@ -337,8 +456,6 @@
     display:flex;
     flex-direction: column;
     gap: 8px;
-    max-height: 260px;
-    overflow-y: auto;
   }
   .history-empty{
     text-align:center;
@@ -350,37 +467,285 @@
   .history-row{
     display:flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 5px;
     background: #0f0d09;
     border: 1px solid #35301f;
     border-radius: 3px;
-    padding: 9px 12px;
-    font-size: 13px;
+    padding: 12px 14px;
+    font-size: 17px;
+    position: relative;
   }
-  .history-row .h-top{
+  .history-row.assigned-1{ border-left: 4px solid var(--brass); }
+  .history-row.assigned-2{ border-left: 4px solid var(--rust); }
+  .h-controls{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 20px;
+  }
+  .gun-tag{
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 9px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .gun-tag.gun-tag-1{
+    background: rgba(195,154,84,0.15);
+    color: var(--brass-bright);
+    border: 1px solid var(--brass);
+  }
+  .gun-tag.gun-tag-2{
+    background: rgba(154,75,48,0.18);
+    color: #e08a63;
+    border: 1px solid var(--rust);
+  }
+  .fired-tag{
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 3px 9px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: rgba(255,255,255,0.06);
+    color: var(--ivory-dim);
+    border: 1px solid #4a4332;
+  }
+  .history-row.fired-row{
+    opacity: 0.55;
+  }
+  .history-row.fired-row .stat-value{
+    text-decoration: line-through;
+  }
+  .h-remove{
+    color: var(--ivory-dim);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 2px 6px;
+    margin-left: auto;
+  }
+  .h-remove:active{
+    color: var(--rust);
+  }
+  .history-row .h-secondary{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    color: var(--ivory-dim);
+    font-size: 14px;
+    letter-spacing: 0.03em;
+  }
+  .history-row .h-time{
+    font-size: 12px;
+    color: var(--ivory-dim);
+    opacity: 0.65;
+    margin-left: 10px;
+  }
+  .stat-trio{
+    display:flex;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .stat-block{
+    flex: 1;
+    text-align:center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 3px;
+    padding: 6px 2px 5px;
+  }
+  .stat-label{
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+    opacity: 0.75;
+    margin-bottom: 2px;
+  }
+  .stat-value{
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--brass-bright);
+    line-height: 1.05;
+  }
+  .stat-value.elev{
+    color: var(--glow);
+    text-shadow: 0 0 10px rgba(255,138,61,0.35);
+  }
+  .gun-round .stat-value{
+    font-size: 22px;
+  }
+  .gun-round .stat-label{
+    font-size: 9px;
+  }
+  .gun-stat-top{
+    display:flex;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .gun-stat-top .stat-block{
+    flex: 1;
+  }
+  .gun-stat-bearing{
+    width: 100%;
+    margin-bottom: 6px;
+  }
+  .drag-hint{
+    text-align:center;
+    font-size: 10px;
+    color: var(--ivory-dim);
+    opacity: 0.5;
+    margin-top: 10px;
+    letter-spacing: 0.08em;
+  }
+  .history-row.draggable-card{
+    cursor: grab;
+    touch-action: none;
+  }
+  .history-row.dragging-source{
+    opacity: 0.35;
+  }
+
+  .gun-controls{
+    display:flex;
+    justify-content:center;
+    margin-top: 18px;
+    margin-bottom: -6px;
+  }
+  .auto-sort-btn{
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 12px 32px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--brass-bright);
+    background: linear-gradient(180deg, #3a3020, #241d13);
+    border: 1px solid var(--glow);
+    box-shadow: 0 0 14px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .auto-sort-btn:active{
+    transform: translateY(1px);
+  }
+  .gun-panels{
+    display:flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .gun-panel{
+    flex: 1;
+    padding: 16px 12px;
+  }
+  .gun-header{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  .gun-enable-btn{
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #4a4332;
+    background: #0f0d09;
+    color: var(--ivory-dim);
+  }
+  .gun-enable-btn.active{
+    border-color: var(--glow);
+    background: rgba(255,138,61,0.12);
+    color: var(--brass-bright);
+  }
+  .gun-enable-btn.disabled-state{
+    border-color: var(--rust);
+    background: rgba(154,75,48,0.15);
+    color: #e08a63;
+    text-decoration: line-through;
+  }
+  .gun-count{
+    font-size: 11px;
+    color: var(--brass);
+    letter-spacing: 0.08em;
+  }
+  .gun-dropzone{
+    display:flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 90px;
+    border: 1px dashed #4a4332;
+    border-radius: 4px;
+    padding: 8px;
+    transition: all 0.12s ease;
+  }
+  .gun-dropzone.drop-hover{
+    border-color: var(--glow);
+    background: rgba(255,138,61,0.06);
+  }
+  .gun-dropzone.drop-full{
+    border-color: var(--rust);
+  }
+  .gun-empty{
+    text-align:center;
+    font-size: 11px;
+    color: var(--ivory-dim);
+    opacity: 0.5;
+    padding: 20px 0;
+  }
+  .gun-round{
+    background: #0f0d09;
+    border: 1px solid #35301f;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 15px;
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .gun-round .gr-top{
     display:flex;
     justify-content: space-between;
     align-items:center;
   }
-  .history-row .h-meta{
-    color: var(--ivory-dim);
-    letter-spacing: 0.04em;
-  }
-  .history-row .h-elev{
-    color: var(--glow);
+  .gun-round .gr-num{
+    color: var(--rust);
     font-weight: 700;
-    letter-spacing: 0.03em;
+    font-size: 18px;
+    min-width: 22px;
   }
-  .history-row .h-time{
-    font-size: 10px;
+  .gun-round .gr-meta{
     color: var(--ivory-dim);
-    opacity: 0.6;
-    margin-left: 8px;
+    font-size: 12px;
+    opacity: 0.8;
   }
-  .history-row .h-extra{
-    font-size: 11px;
-    color: var(--brass);
-    letter-spacing: 0.06em;
+  .gun-round .gr-remove{
+    color: var(--rust);
+    cursor: pointer;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    border: 1px solid var(--rust);
+    border-radius: 3px;
+    background: rgba(154,75,48,0.12);
+  }
+  .gun-round .gr-remove:active{
+    background: rgba(154,75,48,0.3);
+    color: #ff9e7a;
+  }
+  .drag-ghost{
+    position: fixed;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.9;
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   }
 </style>
 </head>
@@ -428,19 +793,24 @@
 
         <div class="field">
           <label for="bearing">Bearing</label>
-          <input type="text" class="roll-input" id="bearing" inputmode="numeric" value="000.0">
+          <input type="text" class="roll-input" id="bearing" inputmode="numeric" enterkeyhint="next" value="000.0">
           <div class="field-hint">degrees</div>
         </div>
 
         <div class="field">
           <label for="distance">Target Distance</label>
-          <input type="text" class="roll-input" id="distance" inputmode="numeric" value="00.00">
+          <input type="text" class="roll-input" id="distance" inputmode="numeric" enterkeyhint="go" value="00.00">
           <div class="field-hint" id="meterHint">= 0000 m</div>
         </div>
 
         <div class="field">
           <label>Powder Charges <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
-          <div class="charge-row" id="chargeRow"></div>
+          <div class="charge-row" id="chargeRow"><div class="charge-btn active">1</div><div class="charge-btn">2</div><div class="charge-btn">3</div><div class="charge-btn">4</div><div class="charge-btn">5</div><div class="charge-btn">6</div></div>
+        </div>
+
+        <div class="field">
+          <label>Round Type</label>
+          <div class="charge-row" id="basicRoundRow"><div class="charge-btn round-btn round-type-he">HE</div><div class="charge-btn round-btn round-type-ap">AP</div><div class="charge-btn round-btn round-type-dril">DRIL</div><div class="charge-btn round-btn round-type-star">STAR</div></div>
         </div>
 
         <div class="divider"></div>
@@ -450,6 +820,8 @@
           <div class="readout-value" id="output">—</div>
           <div class="readout-unit">degrees</div>
         </div>
+
+        <button class="log-btn-big" id="basicLogBtnBig">LOG SHOT</button>
       </div>
     </div>
 
@@ -462,39 +834,62 @@
         <div class="field-row">
           <div class="field">
             <label for="targetType">Target Type</label>
-            <input type="text" class="short-input" id="targetType" maxlength="4" placeholder="ARTY">
+            <input type="text" class="short-input" id="targetType" maxlength="4" placeholder="ARTY" enterkeyhint="next">
           </div>
           <div class="field">
             <label for="roundType">Round Type</label>
-            <input type="text" class="short-input" id="roundType" maxlength="4" placeholder="HE">
+            <input type="text" class="short-input" id="roundType" maxlength="4" placeholder="HE" list="roundTypeList" autocomplete="off" enterkeyhint="next">
+            <datalist id="roundTypeList">
+              <option value="HE">
+              </option><option value="AP">
+              </option><option value="HCHE">
+              </option><option value="STAR">
+              </option><option value="PHGN">
+              </option><option value="SMK">
+              </option><option value="TEAR">
+              </option><option value="APHE">
+              </option><option value="ATMC">
+              </option><option value="CLMN">
+              </option><option value="CYAN">
+              </option><option value="DRIL">
+              </option><option value="EQKE">
+              </option><option value="FLCH">
+              </option><option value="INCN">
+              </option><option value="LE">
+              </option><option value="PLCM">
+              </option><option value="PRPG">
+              </option><option value="THRM">
+              </option><option value="WP">
+              </option><option value="EMPT">
+            </option></datalist>
           </div>
         </div>
 
         <div class="field">
           <label for="advBearing">Bearing</label>
-          <input type="text" class="roll-input" id="advBearing" inputmode="numeric" value="000.0">
+          <input type="text" class="roll-input" id="advBearing" inputmode="numeric" enterkeyhint="next" value="000.0">
           <div class="field-hint">degrees</div>
         </div>
 
         <div class="field">
           <label for="advDistance">Target Distance</label>
-          <input type="text" class="roll-input" id="advDistance" inputmode="numeric" value="00.00">
+          <input type="text" class="roll-input" id="advDistance" inputmode="numeric" enterkeyhint="next" value="00.00">
           <div class="field-hint" id="advMeterHint">= 0000 m</div>
         </div>
 
         <div class="field">
           <label>Powder Charges <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
-          <div class="charge-row" id="advChargeRow"></div>
+          <div class="charge-row" id="advChargeRow"><div class="charge-btn active">1</div><div class="charge-btn">2</div><div class="charge-btn">3</div><div class="charge-btn">4</div><div class="charge-btn">5</div><div class="charge-btn">6</div></div>
         </div>
 
         <div class="field-row">
           <div class="field">
             <label for="flightTime">Time of Flight (s)</label>
-            <input type="number" id="flightTime" step="0.1" min="0" placeholder="12.4">
+            <input type="number" id="flightTime" step="0.1" min="0" placeholder="12.4" enterkeyhint="next">
           </div>
           <div class="field">
-            <label for="targetTime">Target Time</label>
-            <input type="time" id="targetTime" step="1">
+            <label for="targetTime">Target Time (24hr)</label>
+            <input type="text" class="roll-input" id="targetTime" inputmode="numeric" enterkeyhint="go" value="00:00:00">
           </div>
         </div>
 
@@ -512,6 +907,8 @@
             <div class="readout-unit">clock time</div>
           </div>
         </div>
+
+        <button class="log-btn-big" id="advLogBtnBig">LOG SHOT</button>
       </div>
     </div>
 
@@ -521,12 +918,43 @@
       <div class="history-header">
         <span class="readout-label" style="margin-bottom:0;">Firing Log</span>
         <div class="history-actions">
-          <button class="log-btn" id="logBtn">LOG SHOT</button>
           <button class="clear-btn" id="clearBtn">CLEAR</button>
         </div>
       </div>
       <div id="historyList" class="history-list">
         <div class="history-empty">No shots logged yet.</div>
+      </div>
+      <div class="drag-hint">Drag a card below onto GUN 1 or GUN 2</div>
+    </div>
+
+    <div class="gun-controls">
+      <button class="auto-sort-btn" id="autoSortBtn">AUTO SORT</button>
+    </div>
+
+    <div class="gun-panels">
+      <div class="plate gun-panel" id="gunPanel1" data-gun="1">
+        <div class="rivet tl"></div><div class="rivet tr"></div>
+        <div class="rivet bl"></div><div class="rivet br"></div>
+        <div class="gun-header">
+          <span class="readout-label" style="margin-bottom:0;">Gun 1</span>
+          <button class="gun-enable-btn active" id="gunEnable1" data-gun="1">ENABLED</button>
+          <span class="gun-count" id="gunCount1">0/7</span>
+        </div>
+        <div class="gun-dropzone" id="gunZone1" data-gun="1">
+          <div class="gun-empty">Empty</div>
+        </div>
+      </div>
+      <div class="plate gun-panel" id="gunPanel2" data-gun="2">
+        <div class="rivet tl"></div><div class="rivet tr"></div>
+        <div class="rivet bl"></div><div class="rivet br"></div>
+        <div class="gun-header">
+          <span class="readout-label" style="margin-bottom:0;">Gun 2</span>
+          <button class="gun-enable-btn active" id="gunEnable2" data-gun="2">ENABLED</button>
+          <span class="gun-count" id="gunCount2">0/7</span>
+        </div>
+        <div class="gun-dropzone" id="gunZone2" data-gun="2">
+          <div class="gun-empty">Empty</div>
+        </div>
       </div>
     </div>
   </div>
@@ -557,6 +985,36 @@
     function push(d){ bDigits = (bDigits + d).slice(-4); render(); }
     function pop(){ bDigits = ('0' + bDigits).slice(0,4); render(); }
     inputEl.addEventListener('focus', ()=>{ bDigits = '0000'; render(); });
+    inputEl.addEventListener('beforeinput', (e)=>{
+      e.preventDefault();
+      if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
+      else if(e.inputType === 'deleteContentBackward') pop();
+    });
+    render();
+    return { getValue: render };
+  }
+
+  function makeTimeField(inputEl, onChange){
+    let tDigits = '000000'; // HHMMSS, always 24hr
+    function render(){
+      let hh = parseInt(tDigits.slice(0,2), 10);
+      let mm = parseInt(tDigits.slice(2,4), 10);
+      let ss = parseInt(tDigits.slice(4,6), 10);
+      if(hh > 23) hh = 23;
+      if(mm > 59) mm = 59;
+      if(ss > 59) ss = 59;
+      const val = String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+      inputEl.value = val;
+      return val;
+    }
+    function renderAndNotify(){
+      const val = render();
+      if(onChange) onChange(val);
+      return val;
+    }
+    function push(d){ tDigits = (tDigits + d).slice(-6); renderAndNotify(); }
+    function pop(){ tDigits = ('0' + tDigits).slice(0,6); renderAndNotify(); }
+    inputEl.addEventListener('focus', ()=>{ tDigits = '000000'; renderAndNotify(); });
     inputEl.addEventListener('beforeinput', (e)=>{
       e.preventDefault();
       if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
@@ -630,6 +1088,29 @@
       }
     }
     return { getValue: ()=>selected, setValue, updateValidity };
+  }
+
+  function makeRoundTypeRow(containerEl, options){
+    let selected = null;
+    const buttons = [];
+    options.forEach(label=>{
+      const btn = document.createElement('div');
+      btn.className = 'charge-btn round-btn round-type-' + label.toLowerCase();
+      btn.textContent = label;
+      btn.addEventListener('click', ()=>{
+        if(selected === label){
+          selected = null;
+          btn.classList.remove('active');
+        } else {
+          buttons.forEach(b=>b.classList.remove('active'));
+          selected = label;
+          btn.classList.add('active');
+        }
+      });
+      buttons.push(btn);
+      containerEl.appendChild(btn);
+    });
+    return { getValue: ()=>selected };
   }
 
   // ---- Preferences ----
@@ -731,12 +1212,38 @@
     return String(fh).padStart(2,'0') + ':' + String(fm).padStart(2,'0') + ':' + fs.toFixed(1).padStart(4,'0');
   }
 
+  // ---- Field chaining: "Next" moves focus forward, "Go" dismisses + scrolls to result ----
+  function attachFieldChain(inputEl, nextEl, scrollTargetEl){
+    function trigger(){
+      if(nextEl){
+        inputEl.blur();
+        setTimeout(()=> nextEl.focus(), 30);
+      } else {
+        inputEl.blur();
+        if(scrollTargetEl){
+          setTimeout(()=>{
+            scrollTargetEl.scrollIntoView({behavior:'smooth', block:'center'});
+          }, 60);
+        }
+      }
+    }
+    inputEl.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){ e.preventDefault(); trigger(); }
+    });
+    inputEl.addEventListener('beforeinput', (e)=>{
+      if(e.inputType === 'insertLineBreak'){ trigger(); }
+    });
+  }
+
   // ---- Basic tab wiring ----
   const output = document.getElementById('output');
   const chargeRow = document.getElementById('chargeRow');
   const basicCharges = makeChargeRow(chargeRow, ()=>calcBasic());
   const basicBearing = makeBearingField(document.getElementById('bearing'));
   const basicDistance = makeDistanceField(document.getElementById('distance'), document.getElementById('meterHint'), ()=>calcBasic());
+  const basicRoundType = makeRoundTypeRow(document.getElementById('basicRoundRow'), ['HE','AP','DRIL','STAR']);
+  attachFieldChain(document.getElementById('bearing'), document.getElementById('distance'));
+  attachFieldChain(document.getElementById('distance'), null, output.closest('.readout'));
 
   function calcBasic(){
     const meters = basicDistance.getMeters();
@@ -759,7 +1266,14 @@
   const advBearing = makeBearingField(document.getElementById('advBearing'));
   const advDistance = makeDistanceField(document.getElementById('advDistance'), document.getElementById('advMeterHint'), ()=>calcAdvanced());
   const flightTimeInput = document.getElementById('flightTime');
-  const targetTimeInput = document.getElementById('targetTime');
+  const targetTimeField = makeTimeField(document.getElementById('targetTime'), ()=>calcAdvanced());
+  const advReadoutGroup = advOutput.closest('.readout-group');
+  attachFieldChain(document.getElementById('targetType'), document.getElementById('roundType'));
+  attachFieldChain(document.getElementById('roundType'), document.getElementById('advBearing'));
+  attachFieldChain(document.getElementById('advBearing'), document.getElementById('advDistance'));
+  attachFieldChain(document.getElementById('advDistance'), flightTimeInput);
+  attachFieldChain(flightTimeInput, document.getElementById('targetTime'));
+  attachFieldChain(document.getElementById('targetTime'), null, advReadoutGroup);
 
   function calcAdvanced(){
     const meters = advDistance.getMeters();
@@ -775,52 +1289,307 @@
       advOutput.textContent = ((meters * 0.012) / charges).toFixed(2);
     }
     const flight = parseFloat(flightTimeInput.value);
-    const fireTime = computeFireTime(targetTimeInput.value, flight);
+    const fireTime = computeFireTime(targetTimeField.getValue(), flight);
     fireTimeOutput.textContent = fireTime || '—';
   }
 
   flightTimeInput.addEventListener('input', calcAdvanced);
-  targetTimeInput.addEventListener('input', calcAdvanced);
 
   // ---- History log (shared) ----
   const historyList = document.getElementById('historyList');
-  const logBtn = document.getElementById('logBtn');
   const clearBtn = document.getElementById('clearBtn');
   let history = [];
+  let nextId = 1;
+
+  let gun1 = []; // array of entry ids, in drop order
+  let gun2 = [];
+
+  function statTrioHTML(entry){
+    return `
+      <div class="stat-trio">
+        <div class="stat-block">
+          <div class="stat-label">CH#</div>
+          <div class="stat-value">${entry.charges}</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Bearing</div>
+          <div class="stat-value">${entry.bearing}°</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Elev</div>
+          <div class="stat-value elev">${entry.elevation}°</div>
+        </div>
+      </div>`;
+  }
+
+  function gunStatsHTML(entry){
+    return `
+      <div class="gun-stat-top">
+        <div class="stat-block">
+          <div class="stat-label">CH#</div>
+          <div class="stat-value">${entry.charges}</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Elev</div>
+          <div class="stat-value elev">${entry.elevation}°</div>
+        </div>
+      </div>
+      <div class="stat-block gun-stat-bearing">
+        <div class="stat-label">Bearing</div>
+        <div class="stat-value">${entry.bearing}°</div>
+      </div>`;
+  }
+
+  function secondaryLineHTML(entry){
+    const bits = [entry.meters + 'm'];
+    if(entry.targetType) bits.push('TGT ' + entry.targetType);
+    if(entry.fireTime) bits.push('FIRE @ ' + entry.fireTime);
+    return bits.join(' · ');
+  }
+
+  function roundTagHTML(entry){
+    if(!entry.roundType) return '';
+    return `<span class="round-tag round-type-${entry.roundType.toLowerCase()}">${entry.roundType}</span>`;
+  }
 
   function renderHistory(){
     if(history.length === 0){
       historyList.innerHTML = '<div class="history-empty">No shots logged yet.</div>';
       return;
     }
-    historyList.innerHTML = history.map(entry => `
-      <div class="history-row">
-        <div class="h-top">
-          <span class="h-meta">${entry.bearing}° · ${entry.meters}m · ${entry.charges} chg</span>
-          <span>
-            <span class="h-elev">${entry.elevation}°</span>
-            <span class="h-time">${entry.loggedAt}</span>
-          </span>
+    historyList.innerHTML = history.map(entry => {
+      const gunNum = gun1.includes(entry.id) ? 1 : gun2.includes(entry.id) ? 2 : null;
+      return `
+      <div class="history-row draggable-card${gunNum ? ' assigned-'+gunNum : ''}${entry.fired ? ' fired-row' : ''}" data-id="${entry.id}">
+        <div class="h-controls">
+          ${gunNum ? `<span class="gun-tag gun-tag-${gunNum}">Gun ${gunNum}</span>` : entry.fired ? `<span class="fired-tag">FIRED @ ${entry.firedAt}</span>` : '<span></span>'}
+          <span class="h-remove" data-remove-history="${entry.id}">✕</span>
         </div>
-        ${entry.targetType || entry.roundType || entry.fireTime ? `
-        <div class="h-extra">
-          ${entry.targetType ? 'TGT ' + entry.targetType : ''}
-          ${entry.roundType ? ' · RND ' + entry.roundType : ''}
-          ${entry.fireTime ? ' · FIRE @ ' + entry.fireTime : ''}
-        </div>` : ''}
+        ${statTrioHTML(entry)}
+        <div class="h-secondary">
+          <span>${secondaryLineHTML(entry)}</span>
+          ${roundTagHTML(entry)}
+          <span class="h-time">${entry.loggedAt}</span>
+        </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
+    historyList.querySelectorAll('.draggable-card').forEach(el=>{
+      el.addEventListener('pointerdown', onCardPointerDown);
+    });
+    historyList.querySelectorAll('.h-remove').forEach(btn=>{
+      btn.addEventListener('pointerdown', (e)=> e.stopPropagation());
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        deleteHistoryEntry(parseFloat(btn.dataset.removeHistory));
+      });
+    });
   }
 
-  logBtn.addEventListener('click', ()=>{
+  function deleteHistoryEntry(id){
+    const idx = history.findIndex(e => e.id === id);
+    if(idx > -1) history.splice(idx, 1);
+    const g1idx = gun1.indexOf(id);
+    if(g1idx > -1) gun1.splice(g1idx, 1);
+    const g2idx = gun2.indexOf(id);
+    if(g2idx > -1) gun2.splice(g2idx, 1);
+    renderHistory();
+    renderGuns();
+  }
+
+  function renderGuns(){
+    [ {arr: gun1, zone: document.getElementById('gunZone1'), count: document.getElementById('gunCount1')},
+      {arr: gun2, zone: document.getElementById('gunZone2'), count: document.getElementById('gunCount2')} ]
+    .forEach(({arr, zone, count})=>{
+      count.textContent = arr.length + '/7';
+      if(arr.length === 0){
+        zone.innerHTML = '<div class="gun-empty">Empty</div>';
+        return;
+      }
+      zone.innerHTML = arr.map((id, i)=>{
+        const entry = history.find(e=>e.id===id);
+        if(!entry) return '';
+        const label = i === 0 ? 'C' : i; // C = chamber, then 1-6 mag order
+        return `
+        <div class="gun-round" data-id="${entry.id}">
+          <div class="gr-top">
+            <span class="gr-num">${label}</span>
+            <span class="gr-remove" data-remove="${entry.id}" data-gun="${arr===gun1?1:2}">FIRE</span>
+          </div>
+          ${gunStatsHTML(entry)}
+          <div class="gr-meta-row">
+            <span class="gr-meta">${secondaryLineHTML(entry)}</span>
+            ${roundTagHTML(entry)}
+          </div>
+        </div>`;
+      }).join('');
+      zone.querySelectorAll('.gr-remove').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const id = parseFloat(btn.dataset.remove);
+          const g = btn.dataset.gun === '1' ? gun1 : gun2;
+          const idx = g.indexOf(id);
+          if(idx > -1) g.splice(idx,1);
+          const entry = history.find(x=>x.id===id);
+          if(entry){
+            entry.fired = true;
+            entry.firedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+          }
+          renderGuns();
+          renderHistory();
+        });
+      });
+    });
+  }
+
+  function pruneGunsToHistory(){
+    const validIds = new Set(history.map(e=>e.id));
+    gun1 = gun1.filter(id=>validIds.has(id));
+    gun2 = gun2.filter(id=>validIds.has(id));
+  }
+
+  // ---- Auto-sort into gun magazines, grouped by bearing ----
+  function bearingOf(entry){ return parseFloat(entry.bearing); }
+
+  let gun1Enabled = true;
+  let gun2Enabled = true;
+
+  function setupGunEnableToggle(btnId, gunNum){
+    const btn = document.getElementById(btnId);
+    btn.addEventListener('click', ()=>{
+      const nowEnabled = !btn.classList.contains('active');
+      btn.classList.toggle('active', nowEnabled);
+      btn.classList.toggle('disabled-state', !nowEnabled);
+      btn.textContent = nowEnabled ? 'ENABLED' : 'DISABLED';
+      if(gunNum === 1) gun1Enabled = nowEnabled; else gun2Enabled = nowEnabled;
+    });
+  }
+  setupGunEnableToggle('gunEnable1', 1);
+  setupGunEnableToggle('gunEnable2', 2);
+
+  function autoSortAll(){
+    // never touch fired rounds - they're spent, not part of the loadout pool
+    const liveHistory = history.filter(e => !e.fired);
+
+    if(gun1Enabled && gun2Enabled){
+      const pool = liveHistory.slice().sort((a,b)=> bearingOf(a) - bearingOf(b));
+      const newGun1 = [], newGun2 = [];
+      pool.forEach((e, i)=>{
+        if(i % 2 === 0){
+          if(newGun1.length < 7) newGun1.push(e.id);
+        } else {
+          if(newGun2.length < 7) newGun2.push(e.id);
+        }
+      });
+      gun1 = newGun1;
+      gun2 = newGun2;
+    } else if(gun1Enabled){
+      const pool = liveHistory
+        .filter(e => gun1.includes(e.id) || (!gun1.includes(e.id) && !gun2.includes(e.id)))
+        .sort((a,b)=> bearingOf(a) - bearingOf(b));
+      gun1 = pool.slice(0, 7).map(e=>e.id);
+    } else if(gun2Enabled){
+      const pool = liveHistory
+        .filter(e => gun2.includes(e.id) || (!gun1.includes(e.id) && !gun2.includes(e.id)))
+        .sort((a,b)=> bearingOf(a) - bearingOf(b));
+      gun2 = pool.slice(0, 7).map(e=>e.id);
+    } else {
+      return; // both disabled - nothing to sort
+    }
+    renderGuns();
+    renderHistory();
+  }
+
+  document.getElementById('autoSortBtn').addEventListener('click', autoSortAll);
+
+  // ---- Drag and drop (pointer events, touch-friendly) ----
+  let dragState = null;
+
+  function onCardPointerDown(e){
+    const cardEl = e.currentTarget;
+    const id = parseFloat(cardEl.dataset.id);
+    const entry = history.find(x=>x.id===id);
+    if(!entry) return;
+    e.preventDefault();
+
+    const rect = cardEl.getBoundingClientRect();
+    const ghost = cardEl.cloneNode(true);
+    ghost.classList.add('drag-ghost');
+    ghost.style.width = rect.width + 'px';
+    ghost.style.left = rect.left + 'px';
+    ghost.style.top = rect.top + 'px';
+    document.body.appendChild(ghost);
+
+    cardEl.classList.add('dragging-source');
+
+    dragState = {
+      id, offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top,
+      ghost, cardEl
+    };
+
+    cardEl.setPointerCapture(e.pointerId);
+    cardEl.addEventListener('pointermove', onCardPointerMove);
+    cardEl.addEventListener('pointerup', onCardPointerUp);
+    cardEl.addEventListener('pointercancel', onCardPointerUp);
+  }
+
+  function onCardPointerMove(e){
+    if(!dragState) return;
+    dragState.ghost.style.left = (e.clientX - dragState.offsetX) + 'px';
+    dragState.ghost.style.top = (e.clientY - dragState.offsetY) + 'px';
+
+    document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover'));
+    dragState.ghost.style.display = 'none';
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    dragState.ghost.style.display = '';
+    const zone = under ? under.closest('.gun-dropzone') : null;
+    if(zone){
+      const gunNum = zone.dataset.gun;
+      const arr = gunNum === '1' ? gun1 : gun2;
+      zone.classList.toggle('drop-full', arr.length >= 7 && !arr.includes(dragState.id));
+      if(arr.length < 7 || arr.includes(dragState.id)) zone.classList.add('drop-hover');
+    }
+  }
+
+  function onCardPointerUp(e){
+    if(!dragState) return;
+    const { id, ghost, cardEl } = dragState;
+
+    ghost.style.display = 'none';
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    ghost.remove();
+    cardEl.classList.remove('dragging-source');
+    cardEl.removeEventListener('pointermove', onCardPointerMove);
+    cardEl.removeEventListener('pointerup', onCardPointerUp);
+    cardEl.removeEventListener('pointercancel', onCardPointerUp);
+    document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover','drop-full'));
+
+    const zone = under ? under.closest('.gun-dropzone') : null;
+    if(zone){
+      const gunNum = zone.dataset.gun;
+      const arr = gunNum === '1' ? gun1 : gun2;
+      const other = gunNum === '1' ? gun2 : gun1;
+      const idx = other.indexOf(id);
+      if(idx > -1) other.splice(idx,1); // move from other gun if it was there
+      if(!arr.includes(id) && arr.length < 7){
+        arr.push(id);
+      }
+      renderGuns();
+      renderHistory();
+    }
+    dragState = null;
+  }
+
+  function handleLogShot(){
     const loggedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    const id = nextId++;
     if(activeTab === 'basic'){
       const meters = basicDistance.getMeters();
       if(meters <= 0) return;
       const bearing = basicBearing.getValue();
       const charges = basicCharges.getValue();
       const elevation = ((meters * 0.012) / charges).toFixed(2);
-      history.unshift({ bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt });
+      const roundType = basicRoundType.getValue();
+      history.unshift({ id, bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt, roundType });
     } else {
       const meters = advDistance.getMeters();
       if(meters <= 0) return;
@@ -828,20 +1597,32 @@
       const charges = advCharges.getValue();
       const elevation = ((meters * 0.012) / charges).toFixed(2);
       const flight = parseFloat(flightTimeInput.value);
-      const fireTime = computeFireTime(targetTimeInput.value, flight);
+      const fireTime = computeFireTime(targetTimeField.getValue(), flight);
       const targetType = document.getElementById('targetType').value.trim();
       const roundType = document.getElementById('roundType').value.trim();
-      history.unshift({ bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt, targetType, roundType, fireTime });
+      history.unshift({ id, bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt, targetType, roundType, fireTime });
     }
-    if(history.length > 20) history.pop();
+    if(history.length > 20){
+      history.pop();
+      pruneGunsToHistory();
+    }
     renderHistory();
+    renderGuns();
     if(prefs.mode === 'history'){ calcBasic(); calcAdvanced(); }
-  });
+  }
+
+  document.getElementById('advLogBtnBig').addEventListener('click', handleLogShot);
+  document.getElementById('basicLogBtnBig').addEventListener('click', handleLogShot);
 
   clearBtn.addEventListener('click', ()=>{
     history = [];
+    gun1 = [];
+    gun2 = [];
     renderHistory();
+    renderGuns();
   });
 </script>
-</body>
-</html>
+
+
+
+</body></html>
