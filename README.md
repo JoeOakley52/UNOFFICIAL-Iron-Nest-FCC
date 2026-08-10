@@ -2,7 +2,7 @@
 
 A quick web-based fire control calculator for [IRON NEST: Heavy Turret Simulator](https://store.steampowered.com/app/2950790), built because the in-game ballistic calculator can be slow to work through shot after shot.
 
-**[Open the calculator](https://yourusername.github.io/iron-nest-calc/)** *(update this link once GitHub Pages is live)*
+**[Open the calculator](https://github.com/JoeOakley52/UNOFFICIAL-Iron-Nest-FCC.git)** *(update this link once GitHub Pages is live)*
 
 ## What it does
 
