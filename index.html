@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.4, maximum-scale=4">
 <title>Iron Nest Unofficial Fire Control Calculator</title>
 <style>
@@ -804,12 +805,12 @@
 
         <div class="field">
           <label>Powder Charges <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
-          <div class="charge-row" id="chargeRow"><div class="charge-btn active">1</div><div class="charge-btn">2</div><div class="charge-btn">3</div><div class="charge-btn">4</div><div class="charge-btn">5</div><div class="charge-btn">6</div></div>
+          <div class="charge-row" id="chargeRow"></div>
         </div>
 
         <div class="field">
           <label>Round Type</label>
-          <div class="charge-row" id="basicRoundRow"><div class="charge-btn round-btn round-type-he">HE</div><div class="charge-btn round-btn round-type-ap">AP</div><div class="charge-btn round-btn round-type-dril">DRIL</div><div class="charge-btn round-btn round-type-star">STAR</div></div>
+          <div class="charge-row" id="basicRoundRow"></div>
         </div>
 
         <div class="divider"></div>
@@ -840,27 +841,27 @@
             <input type="text" class="short-input" id="roundType" maxlength="4" placeholder="HE" list="roundTypeList" autocomplete="off" enterkeyhint="next">
             <datalist id="roundTypeList">
               <option value="HE">
-              </option><option value="AP">
-              </option><option value="HCHE">
-              </option><option value="STAR">
-              </option><option value="PHGN">
-              </option><option value="SMK">
-              </option><option value="TEAR">
-              </option><option value="APHE">
-              </option><option value="ATMC">
-              </option><option value="CLMN">
-              </option><option value="CYAN">
-              </option><option value="DRIL">
-              </option><option value="EQKE">
-              </option><option value="FLCH">
-              </option><option value="INCN">
-              </option><option value="LE">
-              </option><option value="PLCM">
-              </option><option value="PRPG">
-              </option><option value="THRM">
-              </option><option value="WP">
-              </option><option value="EMPT">
-            </option></datalist>
+              <option value="AP">
+              <option value="HCHE">
+              <option value="STAR">
+              <option value="PHGN">
+              <option value="SMK">
+              <option value="TEAR">
+              <option value="APHE">
+              <option value="ATMC">
+              <option value="CLMN">
+              <option value="CYAN">
+              <option value="DRIL">
+              <option value="EQKE">
+              <option value="FLCH">
+              <option value="INCN">
+              <option value="LE">
+              <option value="PLCM">
+              <option value="PRPG">
+              <option value="THRM">
+              <option value="WP">
+              <option value="EMPT">
+            </datalist>
           </div>
         </div>
 
@@ -878,7 +879,7 @@
 
         <div class="field">
           <label>Powder Charges <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
-          <div class="charge-row" id="advChargeRow"><div class="charge-btn active">1</div><div class="charge-btn">2</div><div class="charge-btn">3</div><div class="charge-btn">4</div><div class="charge-btn">5</div><div class="charge-btn">6</div></div>
+          <div class="charge-row" id="advChargeRow"></div>
         </div>
 
         <div class="field-row">
@@ -1622,6 +1623,5 @@
   });
 </script>
 
-
-
-</body></html>
+</body>
+</html>
