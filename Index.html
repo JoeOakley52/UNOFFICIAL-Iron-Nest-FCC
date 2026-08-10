@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Iron Nest Unofficial Fire Control Calculator</title>
+<style>
+  :root{
+    --iron: #17150f;
+    --panel: #221f18;
+    --panel-raised: #2c2820;
+    --rivet: #0c0b08;
+    --brass: #c39a54;
+    --brass-bright: #e0b876;
+    --rust: #9a4b30;
+    --ivory: #e9dfc6;
+    --ivory-dim: #a89c80;
+    --glow: #ff8a3d;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; min-height:100%;
+    background:
+      radial-gradient(ellipse at 50% -10%, #2b2519 0%, transparent 60%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px),
+      var(--iron);
+    color: var(--ivory);
+    font-family: 'Courier New', 'IBM Plex Mono', monospace;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wrap{
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
+  }
+  .header{
+    text-align:center;
+    margin-bottom: 18px;
+  }
+  .eyebrow{
+    letter-spacing: 0.35em;
+    font-size: 11px;
+    color: var(--rust);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h1{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    font-size: 28px;
+    margin: 0;
+    color: var(--brass-bright);
+    text-shadow: 0 0 18px rgba(224,184,118,0.25);
+  }
+  h1 .sub{
+    display:block;
+    font-family: 'Courier New', monospace;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--ivory-dim);
+    margin-top: 4px;
+  }
+  .credit{
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ivory-dim);
+    opacity: 0.55;
+    margin-top: 8px;
+  }
+
+  .tabs{
+    display:flex;
+    gap: 6px;
+    margin-bottom: 18px;
+    background: #0f0d09;
+    border: 1px solid #3a3427;
+    border-radius: 6px;
+    padding: 4px;
+  }
+  .tab-btn{
+    flex: 1;
+    text-align:center;
+    padding: 10px 0;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tab-btn.active{
+    background: linear-gradient(180deg, #3a3020, #241d13);
+    color: var(--brass-bright);
+    box-shadow: 0 0 10px rgba(255,138,61,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; }
+
+  .prefs-toggle{
+    text-align:center;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brass);
+    padding: 8px 0;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+    border: 1px dashed #4a4332;
+    border-radius: 4px;
+  }
+  .prefs-toggle:active{ opacity: 0.7; }
+  .prefs-panel{ margin-bottom: 18px; }
+  .mode-row{
+    display:flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .mode-btn{
+    flex: 1 1 45%;
+    text-align:center;
+    padding: 9px 4px;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    background: #0f0d09;
+    border: 1px solid #4a4332;
+    border-radius: 3px;
+    color: var(--ivory-dim);
+    cursor: pointer;
+    user-select: none;
+  }
+  .mode-btn.active{
+    background: linear-gradient(180deg, #3a3020, #241d13);
+    border-color: var(--glow);
+    color: var(--brass-bright);
+    box-shadow: 0 0 8px rgba(255,138,61,0.15);
+  }
+  .mode-desc{
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--ivory-dim);
+    line-height: 1.5;
+  }
+  .charge-row.auto-locked{
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .charge-btn.charge-invalid{
+    opacity: 0.3;
+    color: var(--rust);
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .charge-btn.charge-invalid.active{
+    opacity: 0.55;
+    box-shadow: 0 0 8px rgba(154,75,48,0.4);
+  }
+  .auto-badge{
+    display:inline-block;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--glow);
+    margin-left: 8px;
+  }
+
+  .plate{
+    background: linear-gradient(180deg, var(--panel-raised), var(--panel));
+    border: 1px solid #3a3427;
+    border-radius: 6px;
+    padding: 22px 20px;
+    position: relative;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.04),
+      0 10px 30px rgba(0,0,0,0.5);
+  }
+  .rivet{
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, #4a4332, var(--rivet));
+    box-shadow: 0 1px 1px rgba(0,0,0,0.6);
+  }
+  .rivet.tl{top:8px;left:8px;} .rivet.tr{top:8px;right:8px;}
+  .rivet.bl{bottom:8px;left:8px;} .rivet.br{bottom:8px;right:8px;}
+
+  .field{
+    margin-bottom: 18px;
+  }
+  .field-row{
+    display:flex;
+    gap: 12px;
+  }
+  .field-row .field{
+    flex: 1;
+  }
+  label{
+    display:block;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+    margin-bottom: 8px;
+  }
+  input[type=number], input[type=time], input[type=text]{
+    width: 100%;
+    background: #0f0d09;
+    border: 1px solid #4a4332;
+    border-radius: 3px;
+    color: var(--brass-bright);
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    padding: 10px 12px;
+    letter-spacing: 0.05em;
+    outline: none;
+  }
+  input:focus{
+    border-color: var(--glow);
+    box-shadow: 0 0 0 2px rgba(255,138,61,0.15);
+  }
+  input[type=number]::-webkit-inner-spin-button{opacity:0.6;}
+  .roll-input{
+    text-align: right;
+    caret-color: transparent;
+    cursor: default;
+  }
+  .short-input{
+    text-align:center;
+    text-transform: uppercase;
+  }
+  .field-hint{
+    text-align: right;
+    font-size: 12px;
+    color: var(--ivory-dim);
+    letter-spacing: 0.15em;
+    margin-top: 6px;
+  }
+
+  .charge-row{
+    display:flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .charge-btn{
+    flex: 1 1 40px;
+    min-width: 40px;
+    padding: 10px 0;
+    text-align:center;
+    background: #0f0d09;
+    border: 1px solid #4a4332;
+    border-radius: 3px;
+    color: var(--ivory-dim);
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.12s ease;
+  }
+  .charge-btn.active{
+    background: linear-gradient(180deg, #3a3020, #241d13);
+    border-color: var(--glow);
+    color: var(--brass-bright);
+    box-shadow: 0 0 10px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .divider{
+    height:1px;
+    background: linear-gradient(90deg, transparent, #4a4332, transparent);
+    margin: 20px 0;
+  }
+
+  .readout-group{
+    display:flex;
+    gap: 10px;
+  }
+  .readout{
+    text-align:center;
+    padding: 18px 10px 8px;
+    flex: 1;
+  }
+  .readout-label{
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+  .readout-value{
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--glow);
+    text-shadow: 0 0 25px rgba(255,138,61,0.45);
+    letter-spacing: 0.02em;
+    line-height:1;
+  }
+  .readout-value.small{ font-size: 30px; }
+  .readout-unit{
+    font-size: 13px;
+    color: var(--ivory-dim);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  .history-plate{
+    margin-top: 20px;
+    padding: 18px 16px;
+  }
+  .history-header{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .history-actions{
+    display:flex;
+    gap: 8px;
+  }
+  .log-btn, .clear-btn{
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 7px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #4a4332;
+    background: #0f0d09;
+    color: var(--ivory-dim);
+  }
+  .log-btn{
+    color: var(--brass-bright);
+    border-color: var(--glow);
+    box-shadow: 0 0 8px rgba(255,138,61,0.15);
+  }
+  .clear-btn:active, .log-btn:active{
+    transform: translateY(1px);
+  }
+  .history-list{
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .history-empty{
+    text-align:center;
+    font-size: 12px;
+    color: var(--ivory-dim);
+    opacity: 0.6;
+    padding: 10px 0;
+  }
+  .history-row{
+    display:flex;
+    flex-direction: column;
+    gap: 3px;
+    background: #0f0d09;
+    border: 1px solid #35301f;
+    border-radius: 3px;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+  .history-row .h-top{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+  }
+  .history-row .h-meta{
+    color: var(--ivory-dim);
+    letter-spacing: 0.04em;
+  }
+  .history-row .h-elev{
+    color: var(--glow);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .history-row .h-time{
+    font-size: 10px;
+    color: var(--ivory-dim);
+    opacity: 0.6;
+    margin-left: 8px;
+  }
+  .history-row .h-extra{
+    font-size: 11px;
+    color: var(--brass);
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="eyebrow">Field Reference · Unofficial</div>
+      <h1>Iron Nest
+        <span class="sub">Fire Control Calculator</span>
+      </h1>
+      <div class="credit">made by: Joe Oakley</div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab-btn active" data-tab="basic">Basic</div>
+      <div class="tab-btn" data-tab="advanced">Advanced</div>
+    </div>
+
+    <div class="prefs-toggle" id="prefsToggle">⚙ Charge Preferences</div>
+    <div class="plate prefs-panel" id="prefsPanel" style="display:none;">
+      <div class="rivet tl"></div><div class="rivet tr"></div>
+      <div class="rivet bl"></div><div class="rivet br"></div>
+
+      <label>Charge Selection Mode</label>
+      <div class="mode-row" id="modeRow">
+        <div class="mode-btn active" data-mode="manual">Manual</div>
+        <div class="mode-btn" data-mode="lowangle">Low Angle</div>
+        <div class="mode-btn" data-mode="economy">Economy</div>
+        <div class="mode-btn" data-mode="history">Match History</div>
+      </div>
+
+      <div class="field" id="lowAngleField" style="display:none; margin-top:16px;">
+        <label for="lowAngleMax">Max Angle (Low Angle mode)</label>
+        <input type="number" id="lowAngleMax" value="45" min="1" max="60" step="1">
+      </div>
+
+      <div class="mode-desc" id="modeDesc">Charge is selected manually below.</div>
+    </div>
+
+    <!-- BASIC PANEL -->
+    <div class="tab-panel active" id="panel-basic">
+      <div class="plate">
+        <div class="rivet tl"></div><div class="rivet tr"></div>
+        <div class="rivet bl"></div><div class="rivet br"></div>
+
+        <div class="field">
+          <label for="bearing">Bearing</label>
+          <input type="text" class="roll-input" id="bearing" inputmode="numeric" value="000.0">
+          <div class="field-hint">degrees</div>
+        </div>
+
+        <div class="field">
+          <label for="distance">Target Distance</label>
+          <input type="text" class="roll-input" id="distance" inputmode="numeric" value="00.00">
+          <div class="field-hint" id="meterHint">= 0000 m</div>
+        </div>
+
+        <div class="field">
+          <label>Powder Charges <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
+          <div class="charge-row" id="chargeRow"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="readout">
+          <div class="readout-label">Required Elevation</div>
+          <div class="readout-value" id="output">—</div>
+          <div class="readout-unit">degrees</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVANCED PANEL -->
+    <div class="tab-panel" id="panel-advanced">
+      <div class="plate">
+        <div class="rivet tl"></div><div class="rivet tr"></div>
+        <div class="rivet bl"></div><div class="rivet br"></div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="targetType">Target Type</label>
+            <input type="text" class="short-input" id="targetType" maxlength="4" placeholder="ARTY">
+          </div>
+          <div class="field">
+            <label for="roundType">Round Type</label>
+            <input type="text" class="short-input" id="roundType" maxlength="4" placeholder="HE">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="advBearing">Bearing</label>
+          <input type="text" class="roll-input" id="advBearing" inputmode="numeric" value="000.0">
+          <div class="field-hint">degrees</div>
+        </div>
+
+        <div class="field">
+          <label for="advDistance">Target Distance</label>
+          <input type="text" class="roll-input" id="advDistance" inputmode="numeric" value="00.00">
+          <div class="field-hint" id="advMeterHint">= 0000 m</div>
+        </div>
+
+        <div class="field">
+          <label>Powder Charges <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
+          <div class="charge-row" id="advChargeRow"></div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="flightTime">Time of Flight (s)</label>
+            <input type="number" id="flightTime" step="0.1" min="0" placeholder="12.4">
+          </div>
+          <div class="field">
+            <label for="targetTime">Target Time</label>
+            <input type="time" id="targetTime" step="1">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="readout-group">
+          <div class="readout">
+            <div class="readout-label">Elevation</div>
+            <div class="readout-value small" id="advOutput">—</div>
+            <div class="readout-unit">degrees</div>
+          </div>
+          <div class="readout">
+            <div class="readout-label">Fire At</div>
+            <div class="readout-value small" id="fireTimeOutput">—</div>
+            <div class="readout-unit">clock time</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plate history-plate">
+      <div class="rivet tl"></div><div class="rivet tr"></div>
+      <div class="rivet bl"></div><div class="rivet br"></div>
+      <div class="history-header">
+        <span class="readout-label" style="margin-bottom:0;">Firing Log</span>
+        <div class="history-actions">
+          <button class="log-btn" id="logBtn">LOG SHOT</button>
+          <button class="clear-btn" id="clearBtn">CLEAR</button>
+        </div>
+      </div>
+      <div id="historyList" class="history-list">
+        <div class="history-empty">No shots logged yet.</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      activeTab = btn.dataset.tab;
+      // move the log button into view context (it's shared, stays fixed below)
+    });
+  });
+  let activeTab = 'basic';
+
+  // ---- Reusable field factories ----
+  function makeBearingField(inputEl){
+    let bDigits = '0000'; // XXX.X
+    function render(){
+      let val = parseInt(bDigits, 10) / 10;
+      if(val > 359.9) val = 359.9;
+      inputEl.value = val.toFixed(1).padStart(5,'0');
+      return val;
+    }
+    function push(d){ bDigits = (bDigits + d).slice(-4); render(); }
+    function pop(){ bDigits = ('0' + bDigits).slice(0,4); render(); }
+    inputEl.addEventListener('focus', ()=>{ bDigits = '0000'; render(); });
+    inputEl.addEventListener('beforeinput', (e)=>{
+      e.preventDefault();
+      if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
+      else if(e.inputType === 'deleteContentBackward') pop();
+    });
+    render();
+    return { getValue: render };
+  }
+
+  function makeDistanceField(inputEl, hintEl, onChange){
+    let digits = '0000'; // KK.KK km
+    function render(){
+      const whole = digits.slice(0,2), frac = digits.slice(2,4);
+      inputEl.value = whole + '.' + frac;
+      const meters = parseInt(digits, 10) * 10;
+      if(hintEl) hintEl.textContent = '= ' + String(meters).padStart(4,'0') + ' m';
+      return meters;
+    }
+    function renderAndNotify(){
+      const meters = render();
+      if(onChange) onChange(meters);
+      return meters;
+    }
+    function push(d){ digits = (digits + d).slice(-4); renderAndNotify(); }
+    function pop(){ digits = ('0' + digits).slice(0,4); renderAndNotify(); }
+    inputEl.addEventListener('focus', ()=>{ digits = '0000'; renderAndNotify(); });
+    inputEl.addEventListener('beforeinput', (e)=>{
+      e.preventDefault();
+      if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
+      else if(e.inputType === 'deleteContentBackward') pop();
+    });
+    render();
+    return { getMeters: render };
+  }
+
+  function makeChargeRow(containerEl, onChange){
+    let selected = 1;
+    const buttons = [];
+    for(let i=1;i<=6;i++){
+      const btn = document.createElement('div');
+      btn.className = 'charge-btn' + (i===1 ? ' active' : '');
+      btn.textContent = i;
+      btn.addEventListener('click', ()=>{
+        if(btn.classList.contains('charge-invalid')) return;
+        containerEl.querySelectorAll('.charge-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        selected = i;
+        onChange(selected);
+      });
+      buttons.push(btn);
+      containerEl.appendChild(btn);
+    }
+    function setValue(v){
+      selected = v;
+      buttons.forEach(b => b.classList.toggle('active', parseInt(b.textContent,10) === v));
+    }
+    function updateValidity(meters){
+      buttons.forEach(b=>{
+        const c = parseInt(b.textContent,10);
+        const invalid = meters > 0 && ((meters * 0.012) / c) > 60;
+        b.classList.toggle('charge-invalid', invalid);
+      });
+      // if the currently selected charge is now invalid, bump up to the next charge that works
+      if(meters > 0 && ((meters * 0.012) / selected) > 60){
+        let found = null;
+        for(let c = selected + 1; c <= 6; c++){
+          if(((meters * 0.012) / c) <= 60){ found = c; break; }
+        }
+        // nothing higher works either -> settle on 6, the lowest achievable angle
+        setValue(found || 6);
+      }
+    }
+    return { getValue: ()=>selected, setValue, updateValidity };
+  }
+
+  // ---- Preferences ----
+  const prefs = { mode: 'manual', lowAngleMax: 45 };
+  const prefsToggle = document.getElementById('prefsToggle');
+  const prefsPanel = document.getElementById('prefsPanel');
+  const modeRow = document.getElementById('modeRow');
+  const lowAngleField = document.getElementById('lowAngleField');
+  const lowAngleMaxInput = document.getElementById('lowAngleMax');
+  const modeDesc = document.getElementById('modeDesc');
+  const basicAutoBadge = document.getElementById('basicAutoBadge');
+  const advAutoBadge = document.getElementById('advAutoBadge');
+
+  const modeDescriptions = {
+    manual: 'Charge is selected manually below.',
+    lowangle: 'Picks the lowest charge that keeps elevation at or under the max angle.',
+    economy: 'Picks the lowest charge that lands elevation between 30°–50°.',
+    history: 'Picks the charge that lands closest to your average logged elevation.'
+  };
+
+  prefsToggle.addEventListener('click', ()=>{
+    prefsPanel.style.display = prefsPanel.style.display === 'none' ? 'block' : 'none';
+  });
+
+  modeRow.querySelectorAll('.mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      modeRow.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      prefs.mode = btn.dataset.mode;
+      modeDesc.textContent = modeDescriptions[prefs.mode];
+      lowAngleField.style.display = prefs.mode === 'lowangle' ? 'block' : 'none';
+      const isAuto = prefs.mode !== 'manual';
+      document.getElementById('chargeRow').classList.toggle('auto-locked', isAuto);
+      document.getElementById('advChargeRow').classList.toggle('auto-locked', isAuto);
+      basicAutoBadge.style.display = isAuto ? 'inline-block' : 'none';
+      advAutoBadge.style.display = isAuto ? 'inline-block' : 'none';
+      calcBasic();
+      calcAdvanced();
+    });
+  });
+
+  lowAngleMaxInput.addEventListener('input', ()=>{
+    prefs.lowAngleMax = parseFloat(lowAngleMaxInput.value) || 45;
+    calcBasic();
+    calcAdvanced();
+  });
+
+  function getHistoryAvgElevation(){
+    if(history.length === 0) return null;
+    const sum = history.reduce((acc,e)=>acc + parseFloat(e.elevation), 0);
+    return sum / history.length;
+  }
+
+  function pickAutoCharge(meters, avgOverride){
+    if(meters <= 0) return null;
+    const elevs = {};
+    for(let c=1;c<=6;c++) elevs[c] = (meters * 0.012) / c;
+
+    if(prefs.mode === 'lowangle'){
+      for(let c=1;c<=6;c++){ if(elevs[c] <= prefs.lowAngleMax) return c; }
+      return 6; // fallback: highest charge gives lowest achievable angle
+    }
+    if(prefs.mode === 'economy'){
+      for(let c=1;c<=6;c++){ if(elevs[c] >= 30 && elevs[c] <= 50) return c; }
+      // fallback: charge closest to the 30-50 band
+      let best = 1, bestDist = Infinity;
+      for(let c=1;c<=6;c++){
+        const d = elevs[c] < 30 ? (30 - elevs[c]) : (elevs[c] > 50 ? (elevs[c] - 50) : 0);
+        if(d < bestDist){ bestDist = d; best = c; }
+      }
+      return best;
+    }
+    if(prefs.mode === 'history'){
+      const avg = avgOverride !== undefined ? avgOverride : getHistoryAvgElevation();
+      if(avg === null) return null; // no history yet, leave manual
+      let best = 1, bestDiff = Infinity;
+      for(let c=1;c<=6;c++){
+        const diff = Math.abs(elevs[c] - avg);
+        if(diff < bestDiff){ bestDiff = diff; best = c; }
+      }
+      return best;
+    }
+    return null; // manual
+  }
+
+  function computeFireTime(targetTimeStr, flightSeconds){
+    if(!targetTimeStr || isNaN(flightSeconds)) return null;
+    const parts = targetTimeStr.split(':').map(Number);
+    const h = parts[0] || 0, m = parts[1] || 0, s = parts[2] || 0;
+    const dayMs = 24*3600*1000;
+    let totalMs = ((h*3600)+(m*60)+s)*1000;
+    let fireMs = totalMs - (flightSeconds*1000);
+    fireMs = ((fireMs % dayMs) + dayMs) % dayMs;
+    const fh = Math.floor(fireMs/3600000);
+    const remH = fireMs - fh*3600000;
+    const fm = Math.floor(remH/60000);
+    const remM = remH - fm*60000;
+    const fs = remM/1000;
+    return String(fh).padStart(2,'0') + ':' + String(fm).padStart(2,'0') + ':' + fs.toFixed(1).padStart(4,'0');
+  }
+
+  // ---- Basic tab wiring ----
+  const output = document.getElementById('output');
+  const chargeRow = document.getElementById('chargeRow');
+  const basicCharges = makeChargeRow(chargeRow, ()=>calcBasic());
+  const basicBearing = makeBearingField(document.getElementById('bearing'));
+  const basicDistance = makeDistanceField(document.getElementById('distance'), document.getElementById('meterHint'), ()=>calcBasic());
+
+  function calcBasic(){
+    const meters = basicDistance.getMeters();
+    basicCharges.updateValidity(meters);
+    if(prefs.mode !== 'manual' && meters > 0){
+      const auto = pickAutoCharge(meters);
+      if(auto) basicCharges.setValue(auto);
+    }
+    const charges = basicCharges.getValue();
+    if(meters <= 0){ output.textContent = '—'; return; }
+    output.textContent = ((meters * 0.012) / charges).toFixed(2);
+  }
+
+
+  // ---- Advanced tab wiring ----
+  const advOutput = document.getElementById('advOutput');
+  const fireTimeOutput = document.getElementById('fireTimeOutput');
+  const advChargeRow = document.getElementById('advChargeRow');
+  const advCharges = makeChargeRow(advChargeRow, ()=>calcAdvanced());
+  const advBearing = makeBearingField(document.getElementById('advBearing'));
+  const advDistance = makeDistanceField(document.getElementById('advDistance'), document.getElementById('advMeterHint'), ()=>calcAdvanced());
+  const flightTimeInput = document.getElementById('flightTime');
+  const targetTimeInput = document.getElementById('targetTime');
+
+  function calcAdvanced(){
+    const meters = advDistance.getMeters();
+    advCharges.updateValidity(meters);
+    if(prefs.mode !== 'manual' && meters > 0){
+      const auto = pickAutoCharge(meters);
+      if(auto) advCharges.setValue(auto);
+    }
+    const charges = advCharges.getValue();
+    if(meters <= 0){
+      advOutput.textContent = '—';
+    } else {
+      advOutput.textContent = ((meters * 0.012) / charges).toFixed(2);
+    }
+    const flight = parseFloat(flightTimeInput.value);
+    const fireTime = computeFireTime(targetTimeInput.value, flight);
+    fireTimeOutput.textContent = fireTime || '—';
+  }
+
+  flightTimeInput.addEventListener('input', calcAdvanced);
+  targetTimeInput.addEventListener('input', calcAdvanced);
+
+  // ---- History log (shared) ----
+  const historyList = document.getElementById('historyList');
+  const logBtn = document.getElementById('logBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  let history = [];
+
+  function renderHistory(){
+    if(history.length === 0){
+      historyList.innerHTML = '<div class="history-empty">No shots logged yet.</div>';
+      return;
+    }
+    historyList.innerHTML = history.map(entry => `
+      <div class="history-row">
+        <div class="h-top">
+          <span class="h-meta">${entry.bearing}° · ${entry.meters}m · ${entry.charges} chg</span>
+          <span>
+            <span class="h-elev">${entry.elevation}°</span>
+            <span class="h-time">${entry.loggedAt}</span>
+          </span>
+        </div>
+        ${entry.targetType || entry.roundType || entry.fireTime ? `
+        <div class="h-extra">
+          ${entry.targetType ? 'TGT ' + entry.targetType : ''}
+          ${entry.roundType ? ' · RND ' + entry.roundType : ''}
+          ${entry.fireTime ? ' · FIRE @ ' + entry.fireTime : ''}
+        </div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  logBtn.addEventListener('click', ()=>{
+    const loggedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    if(activeTab === 'basic'){
+      const meters = basicDistance.getMeters();
+      if(meters <= 0) return;
+      const bearing = basicBearing.getValue();
+      const charges = basicCharges.getValue();
+      const elevation = ((meters * 0.012) / charges).toFixed(2);
+      history.unshift({ bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt });
+    } else {
+      const meters = advDistance.getMeters();
+      if(meters <= 0) return;
+      const bearing = advBearing.getValue();
+      const charges = advCharges.getValue();
+      const elevation = ((meters * 0.012) / charges).toFixed(2);
+      const flight = parseFloat(flightTimeInput.value);
+      const fireTime = computeFireTime(targetTimeInput.value, flight);
+      const targetType = document.getElementById('targetType').value.trim();
+      const roundType = document.getElementById('roundType').value.trim();
+      history.unshift({ bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt, targetType, roundType, fireTime });
+    }
+    if(history.length > 20) history.pop();
+    renderHistory();
+    if(prefs.mode === 'history'){ calcBasic(); calcAdvanced(); }
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    history = [];
+    renderHistory();
+  });
+</script>
+</body>
+</html>
