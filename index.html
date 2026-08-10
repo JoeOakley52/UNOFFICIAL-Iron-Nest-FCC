@@ -69,6 +69,16 @@
     opacity: 0.55;
     margin-top: 8px;
   }
+  .lang-select{
+    margin-top: 12px;
+    background: #0f0d09;
+    border: 1px solid #4a4332;
+    border-radius: 4px;
+    color: var(--brass-bright);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 
   .tabs{
     display:flex;
@@ -752,37 +762,48 @@
 <body>
   <div class="wrap">
     <div class="header">
-      <div class="eyebrow">Field Reference · Unofficial</div>
+      <div class="eyebrow" data-i18n="eyebrow">Field Reference · Unofficial</div>
       <h1>Iron Nest
-        <span class="sub">Fire Control Calculator</span>
+        <span class="sub" data-i18n="subtitle">Fire Control Calculator</span>
       </h1>
-      <div class="credit">made by: Joe Oakley</div>
+      <div class="credit"><span data-i18n="madeBy">made by:</span> Joe Oakley</div>
+      <select id="langSelect" class="lang-select">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="pt">Português</option>
+        <option value="ru">Русский</option>
+        <option value="it">Italiano</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+      </select>
     </div>
 
     <div class="tabs">
-      <div class="tab-btn active" data-tab="basic">Basic</div>
-      <div class="tab-btn" data-tab="advanced">Advanced</div>
+      <div class="tab-btn active" data-tab="basic" data-i18n="tabBasic">Basic</div>
+      <div class="tab-btn" data-tab="advanced" data-i18n="tabAdvanced">Advanced</div>
     </div>
 
-    <div class="prefs-toggle" id="prefsToggle">⚙ Charge Preferences</div>
+    <div class="prefs-toggle" id="prefsToggle">⚙ <span data-i18n="prefsToggle">Charge Preferences</span></div>
     <div class="plate prefs-panel" id="prefsPanel" style="display:none;">
       <div class="rivet tl"></div><div class="rivet tr"></div>
       <div class="rivet bl"></div><div class="rivet br"></div>
 
-      <label>Charge Selection Mode</label>
+      <label data-i18n="chargeModeLabel">Charge Selection Mode</label>
       <div class="mode-row" id="modeRow">
-        <div class="mode-btn active" data-mode="manual">Manual</div>
-        <div class="mode-btn" data-mode="lowangle">Low Angle</div>
-        <div class="mode-btn" data-mode="economy">Economy</div>
-        <div class="mode-btn" data-mode="history">Match History</div>
+        <div class="mode-btn active" data-mode="manual" data-i18n="modeManual">Manual</div>
+        <div class="mode-btn" data-mode="lowangle" data-i18n="modeLowAngle">Low Angle</div>
+        <div class="mode-btn" data-mode="economy" data-i18n="modeEconomy">Economy</div>
+        <div class="mode-btn" data-mode="history" data-i18n="modeHistory">Match History</div>
       </div>
 
       <div class="field" id="lowAngleField" style="display:none; margin-top:16px;">
-        <label for="lowAngleMax">Max Angle (Low Angle mode)</label>
+        <label for="lowAngleMax" data-i18n="maxAngleLabel">Max Angle (Low Angle mode)</label>
         <input type="number" id="lowAngleMax" value="45" min="1" max="60" step="1">
       </div>
 
-      <div class="mode-desc" id="modeDesc">Charge is selected manually below.</div>
+      <div class="mode-desc" id="modeDesc" data-i18n="modeDescManual">Charge is selected manually below.</div>
     </div>
 
     <!-- BASIC PANEL -->
@@ -792,36 +813,36 @@
         <div class="rivet bl"></div><div class="rivet br"></div>
 
         <div class="field">
-          <label for="bearing">Bearing</label>
+          <label for="bearing" data-i18n="labelBearing">Bearing</label>
           <input type="text" class="roll-input" id="bearing" inputmode="numeric" enterkeyhint="next" value="000.0">
-          <div class="field-hint">degrees</div>
+          <div class="field-hint" data-i18n="unitDegrees">degrees</div>
         </div>
 
         <div class="field">
-          <label for="distance">Target Distance</label>
+          <label for="distance" data-i18n="labelDistance">Target Distance</label>
           <input type="text" class="roll-input" id="distance" inputmode="numeric" enterkeyhint="go" value="00.00">
           <div class="field-hint" id="meterHint">= 0000 m</div>
         </div>
 
         <div class="field">
-          <label>Powder Charges <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
+          <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
           <div class="charge-row" id="chargeRow"></div>
         </div>
 
         <div class="field">
-          <label>Round Type</label>
+          <label data-i18n="labelRoundType">Round Type</label>
           <div class="charge-row" id="basicRoundRow"></div>
         </div>
 
         <div class="divider"></div>
 
         <div class="readout">
-          <div class="readout-label">Required Elevation</div>
+          <div class="readout-label" data-i18n="requiredElevation">Required Elevation</div>
           <div class="readout-value" id="output">—</div>
-          <div class="readout-unit">degrees</div>
+          <div class="readout-unit" data-i18n="unitDegrees">degrees</div>
         </div>
 
-        <button class="log-btn-big" id="basicLogBtnBig">LOG SHOT</button>
+        <button class="log-btn-big" id="basicLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
       </div>
     </div>
 
@@ -833,11 +854,11 @@
 
         <div class="field-row">
           <div class="field">
-            <label for="targetType">Target Type</label>
+            <label for="targetType" data-i18n="labelTargetType">Target Type</label>
             <input type="text" class="short-input" id="targetType" maxlength="4" placeholder="ARTY" enterkeyhint="next">
           </div>
           <div class="field">
-            <label for="roundType">Round Type</label>
+            <label for="roundType" data-i18n="labelRoundType">Round Type</label>
             <input type="text" class="short-input" id="roundType" maxlength="4" placeholder="HE" list="roundTypeList" autocomplete="off" enterkeyhint="next">
             <datalist id="roundTypeList">
               <option value="HE">
@@ -866,29 +887,29 @@
         </div>
 
         <div class="field">
-          <label for="advBearing">Bearing</label>
+          <label for="advBearing" data-i18n="labelBearing">Bearing</label>
           <input type="text" class="roll-input" id="advBearing" inputmode="numeric" enterkeyhint="next" value="000.0">
-          <div class="field-hint">degrees</div>
+          <div class="field-hint" data-i18n="unitDegrees">degrees</div>
         </div>
 
         <div class="field">
-          <label for="advDistance">Target Distance</label>
+          <label for="advDistance" data-i18n="labelDistance">Target Distance</label>
           <input type="text" class="roll-input" id="advDistance" inputmode="numeric" enterkeyhint="next" value="00.00">
           <div class="field-hint" id="advMeterHint">= 0000 m</div>
         </div>
 
         <div class="field">
-          <label>Powder Charges <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
+          <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
           <div class="charge-row" id="advChargeRow"></div>
         </div>
 
         <div class="field-row">
           <div class="field">
-            <label for="flightTime">Time of Flight (s)</label>
+            <label for="flightTime" data-i18n="labelFlightTime">Time of Flight (s)</label>
             <input type="number" id="flightTime" step="0.1" min="0" placeholder="12.4" enterkeyhint="next">
           </div>
           <div class="field">
-            <label for="targetTime">Target Time (24hr)</label>
+            <label for="targetTime" data-i18n="labelTargetTime">Target Time (24hr)</label>
             <input type="text" class="roll-input" id="targetTime" inputmode="numeric" enterkeyhint="go" value="00:00:00">
           </div>
         </div>
@@ -897,18 +918,18 @@
 
         <div class="readout-group">
           <div class="readout">
-            <div class="readout-label">Elevation</div>
+            <div class="readout-label" data-i18n="labelElevation">Elevation</div>
             <div class="readout-value small" id="advOutput">—</div>
-            <div class="readout-unit">degrees</div>
+            <div class="readout-unit" data-i18n="unitDegrees">degrees</div>
           </div>
           <div class="readout">
-            <div class="readout-label">Fire At</div>
+            <div class="readout-label" data-i18n="labelFireAt">Fire At</div>
             <div class="readout-value small" id="fireTimeOutput">—</div>
-            <div class="readout-unit">clock time</div>
+            <div class="readout-unit" data-i18n="unitClockTime">clock time</div>
           </div>
         </div>
 
-        <button class="log-btn-big" id="advLogBtnBig">LOG SHOT</button>
+        <button class="log-btn-big" id="advLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
       </div>
     </div>
 
@@ -916,19 +937,19 @@
       <div class="rivet tl"></div><div class="rivet tr"></div>
       <div class="rivet bl"></div><div class="rivet br"></div>
       <div class="history-header">
-        <span class="readout-label" style="margin-bottom:0;">Firing Log</span>
+        <span class="readout-label" style="margin-bottom:0;" data-i18n="firingLog">Firing Log</span>
         <div class="history-actions">
-          <button class="clear-btn" id="clearBtn">CLEAR</button>
+          <button class="clear-btn" id="clearBtn" data-i18n="clearBtn">CLEAR</button>
         </div>
       </div>
       <div id="historyList" class="history-list">
-        <div class="history-empty">No shots logged yet.</div>
+        <div class="history-empty" data-i18n="noShotsLogged">No shots logged yet.</div>
       </div>
-      <div class="drag-hint">Drag a card below onto GUN 1 or GUN 2</div>
+      <div class="drag-hint" data-i18n="dragHint">Drag a card below onto GUN 1 or GUN 2</div>
     </div>
 
     <div class="gun-controls">
-      <button class="auto-sort-btn" id="autoSortBtn">AUTO SORT</button>
+      <button class="auto-sort-btn" id="autoSortBtn" data-i18n="autoSortBtn">AUTO SORT</button>
     </div>
 
     <div class="gun-panels">
@@ -936,30 +957,227 @@
         <div class="rivet tl"></div><div class="rivet tr"></div>
         <div class="rivet bl"></div><div class="rivet br"></div>
         <div class="gun-header">
-          <span class="readout-label" style="margin-bottom:0;">Gun 1</span>
+          <span class="readout-label" style="margin-bottom:0;" data-i18n="gun1">Gun 1</span>
           <button class="gun-enable-btn active" id="gunEnable1" data-gun="1">ENABLED</button>
           <span class="gun-count" id="gunCount1">0/7</span>
         </div>
         <div class="gun-dropzone" id="gunZone1" data-gun="1">
-          <div class="gun-empty">Empty</div>
+          <div class="gun-empty" data-i18n="empty">Empty</div>
         </div>
       </div>
       <div class="plate gun-panel" id="gunPanel2" data-gun="2">
         <div class="rivet tl"></div><div class="rivet tr"></div>
         <div class="rivet bl"></div><div class="rivet br"></div>
         <div class="gun-header">
-          <span class="readout-label" style="margin-bottom:0;">Gun 2</span>
+          <span class="readout-label" style="margin-bottom:0;" data-i18n="gun2">Gun 2</span>
           <button class="gun-enable-btn active" id="gunEnable2" data-gun="2">ENABLED</button>
           <span class="gun-count" id="gunCount2">0/7</span>
         </div>
         <div class="gun-dropzone" id="gunZone2" data-gun="2">
-          <div class="gun-empty">Empty</div>
+          <div class="gun-empty" data-i18n="empty">Empty</div>
         </div>
       </div>
     </div>
   </div>
 
 <script>
+  // ---- Translations ----
+  const translations = {
+    en: {
+      eyebrow: "Field Reference · Unofficial", subtitle: "Fire Control Calculator", madeBy: "made by:",
+      tabBasic: "Basic", tabAdvanced: "Advanced", prefsToggle: "Charge Preferences",
+      chargeModeLabel: "Charge Selection Mode", modeManual: "Manual", modeLowAngle: "Low Angle",
+      modeEconomy: "Economy", modeHistory: "Match History", maxAngleLabel: "Max Angle (Low Angle mode)",
+      modeDescManual: "Charge is selected manually below.",
+      modeDescLowAngle: "Picks the lowest charge that keeps elevation at or under the max angle.",
+      modeDescEconomy: "Picks the lowest charge that lands elevation between 30°–50°.",
+      modeDescHistory: "Picks the charge that lands closest to your average logged elevation.",
+      labelBearing: "Bearing", unitDegrees: "degrees", labelDistance: "Target Distance",
+      labelCharges: "Powder Charges", labelRoundType: "Round Type", requiredElevation: "Required Elevation",
+      logShotBtn: "LOG SHOT", labelTargetType: "Target Type", labelFlightTime: "Time of Flight (s)",
+      labelTargetTime: "Target Time (24hr)", labelElevation: "Elevation", labelFireAt: "Fire At",
+      unitClockTime: "clock time", firingLog: "Firing Log", clearBtn: "CLEAR",
+      noShotsLogged: "No shots logged yet.", dragHint: "Drag a card below onto GUN 1 or GUN 2",
+      autoSortBtn: "AUTO SORT", gun1: "Gun 1", gun2: "Gun 2", enabled: "ENABLED", disabled: "DISABLED",
+      empty: "Empty", fireBtn: "FIRE", statCH: "CH#", statBearing: "Bearing", statElev: "Elev",
+      firedLabel: "FIRED @"
+    },
+    es: {
+      eyebrow: "Referencia de Campo · No Oficial", subtitle: "Calculadora de Control de Fuego", madeBy: "hecho por:",
+      tabBasic: "Básico", tabAdvanced: "Avanzado", prefsToggle: "Preferencias de Carga",
+      chargeModeLabel: "Modo de Selección de Carga", modeManual: "Manual", modeLowAngle: "Ángulo Bajo",
+      modeEconomy: "Económico", modeHistory: "Historial", maxAngleLabel: "Ángulo Máximo (modo Ángulo Bajo)",
+      modeDescManual: "La carga se selecciona manualmente abajo.",
+      modeDescLowAngle: "Elige la carga más baja que mantenga la elevación en o por debajo del ángulo máximo.",
+      modeDescEconomy: "Elige la carga más baja que sitúe la elevación entre 30°–50°.",
+      modeDescHistory: "Elige la carga más cercana a tu elevación promedio registrada.",
+      labelBearing: "Rumbo", unitDegrees: "grados", labelDistance: "Distancia al Objetivo",
+      labelCharges: "Cargas de Pólvora", labelRoundType: "Tipo de Proyectil", requiredElevation: "Elevación Requerida",
+      logShotBtn: "REGISTRAR DISPARO", labelTargetType: "Tipo de Objetivo", labelFlightTime: "Tiempo de Vuelo (s)",
+      labelTargetTime: "Hora del Objetivo (24h)", labelElevation: "Elevación", labelFireAt: "Disparar a las",
+      unitClockTime: "hora", firingLog: "Registro de Disparos", clearBtn: "BORRAR",
+      noShotsLogged: "Aún no hay disparos registrados.", dragHint: "Arrastra una tarjeta abajo hacia CAÑÓN 1 o CAÑÓN 2",
+      autoSortBtn: "ORDENAR AUTO", gun1: "Cañón 1", gun2: "Cañón 2", enabled: "ACTIVADO", disabled: "DESACTIVADO",
+      empty: "Vacío", fireBtn: "DISPARAR", statCH: "CG#", statBearing: "Rumbo", statElev: "Elev",
+      firedLabel: "DISPARADO A"
+    },
+    fr: {
+      eyebrow: "Référence de Terrain · Non Officiel", subtitle: "Calculateur de Tir", madeBy: "créé par :",
+      tabBasic: "Basique", tabAdvanced: "Avancé", prefsToggle: "Préférences de Charge",
+      chargeModeLabel: "Mode de Sélection de Charge", modeManual: "Manuel", modeLowAngle: "Angle Bas",
+      modeEconomy: "Économique", modeHistory: "Historique", maxAngleLabel: "Angle Max (mode Angle Bas)",
+      modeDescManual: "La charge est sélectionnée manuellement ci-dessous.",
+      modeDescLowAngle: "Choisit la charge la plus faible maintenant l'élévation sous l'angle max.",
+      modeDescEconomy: "Choisit la charge la plus faible donnant une élévation entre 30°–50°.",
+      modeDescHistory: "Choisit la charge la plus proche de votre élévation moyenne enregistrée.",
+      labelBearing: "Relèvement", unitDegrees: "degrés", labelDistance: "Distance Cible",
+      labelCharges: "Charges de Poudre", labelRoundType: "Type d'Obus", requiredElevation: "Élévation Requise",
+      logShotBtn: "ENREGISTRER TIR", labelTargetType: "Type de Cible", labelFlightTime: "Temps de Vol (s)",
+      labelTargetTime: "Heure Cible (24h)", labelElevation: "Élévation", labelFireAt: "Tirer à",
+      unitClockTime: "heure", firingLog: "Journal de Tir", clearBtn: "EFFACER",
+      noShotsLogged: "Aucun tir enregistré.", dragHint: "Glissez une carte ci-dessous vers CANON 1 ou CANON 2",
+      autoSortBtn: "TRI AUTO", gun1: "Canon 1", gun2: "Canon 2", enabled: "ACTIVÉ", disabled: "DÉSACTIVÉ",
+      empty: "Vide", fireBtn: "TIRER", statCH: "CH#", statBearing: "Relèv.", statElev: "Élév",
+      firedLabel: "TIRÉ À"
+    },
+    de: {
+      eyebrow: "Feldreferenz · Inoffiziell", subtitle: "Feuerleitrechner", madeBy: "erstellt von:",
+      tabBasic: "Einfach", tabAdvanced: "Erweitert", prefsToggle: "Ladungseinstellungen",
+      chargeModeLabel: "Ladungsauswahlmodus", modeManual: "Manuell", modeLowAngle: "Flacher Winkel",
+      modeEconomy: "Sparsam", modeHistory: "Verlaufsabgleich", maxAngleLabel: "Maximalwinkel (Modus Flacher Winkel)",
+      modeDescManual: "Die Ladung wird unten manuell ausgewählt.",
+      modeDescLowAngle: "Wählt die niedrigste Ladung, die die Erhöhung auf oder unter dem Maximalwinkel hält.",
+      modeDescEconomy: "Wählt die niedrigste Ladung, die die Erhöhung zwischen 30°–50° bringt.",
+      modeDescHistory: "Wählt die Ladung, die Ihrer durchschnittlichen protokollierten Erhöhung am nächsten kommt.",
+      labelBearing: "Peilung", unitDegrees: "Grad", labelDistance: "Zielentfernung",
+      labelCharges: "Treibladungen", labelRoundType: "Geschosstyp", requiredElevation: "Erforderliche Erhöhung",
+      logShotBtn: "SCHUSS PROTOKOLLIEREN", labelTargetType: "Zieltyp", labelFlightTime: "Flugzeit (s)",
+      labelTargetTime: "Zielzeit (24h)", labelElevation: "Erhöhung", labelFireAt: "Feuer um",
+      unitClockTime: "Uhrzeit", firingLog: "Feuerprotokoll", clearBtn: "LÖSCHEN",
+      noShotsLogged: "Noch keine Schüsse protokolliert.", dragHint: "Karte unten auf KANONE 1 oder KANONE 2 ziehen",
+      autoSortBtn: "AUTO-SORTIERUNG", gun1: "Kanone 1", gun2: "Kanone 2", enabled: "AKTIVIERT", disabled: "DEAKTIVIERT",
+      empty: "Leer", fireBtn: "FEUER", statCH: "LAD#", statBearing: "Peilung", statElev: "Erhöh",
+      firedLabel: "ABGEFEUERT UM"
+    },
+    pt: {
+      eyebrow: "Referência de Campo · Não Oficial", subtitle: "Calculadora de Controle de Tiro", madeBy: "feito por:",
+      tabBasic: "Básico", tabAdvanced: "Avançado", prefsToggle: "Preferências de Carga",
+      chargeModeLabel: "Modo de Seleção de Carga", modeManual: "Manual", modeLowAngle: "Ângulo Baixo",
+      modeEconomy: "Econômico", modeHistory: "Histórico", maxAngleLabel: "Ângulo Máximo (modo Ângulo Baixo)",
+      modeDescManual: "A carga é selecionada manualmente abaixo.",
+      modeDescLowAngle: "Escolhe a menor carga que mantém a elevação no máximo do ângulo definido.",
+      modeDescEconomy: "Escolhe a menor carga que resulta em elevação entre 30°–50°.",
+      modeDescHistory: "Escolhe a carga mais próxima da sua elevação média registrada.",
+      labelBearing: "Marcação", unitDegrees: "graus", labelDistance: "Distância do Alvo",
+      labelCharges: "Cargas de Pólvora", labelRoundType: "Tipo de Munição", requiredElevation: "Elevação Necessária",
+      logShotBtn: "REGISTRAR TIRO", labelTargetType: "Tipo de Alvo", labelFlightTime: "Tempo de Voo (s)",
+      labelTargetTime: "Hora do Alvo (24h)", labelElevation: "Elevação", labelFireAt: "Disparar às",
+      unitClockTime: "horário", firingLog: "Registro de Tiros", clearBtn: "LIMPAR",
+      noShotsLogged: "Nenhum tiro registrado ainda.", dragHint: "Arraste um cartão abaixo para CANHÃO 1 ou CANHÃO 2",
+      autoSortBtn: "ORDENAR AUTO", gun1: "Canhão 1", gun2: "Canhão 2", enabled: "ATIVADO", disabled: "DESATIVADO",
+      empty: "Vazio", fireBtn: "DISPARAR", statCH: "CG#", statBearing: "Marc.", statElev: "Elev",
+      firedLabel: "DISPARADO ÀS"
+    },
+    ru: {
+      eyebrow: "Полевой справочник · Неофициально", subtitle: "Калькулятор управления огнём", madeBy: "автор:",
+      tabBasic: "Базовый", tabAdvanced: "Расширенный", prefsToggle: "Настройки заряда",
+      chargeModeLabel: "Режим выбора заряда", modeManual: "Вручную", modeLowAngle: "Настильный огонь",
+      modeEconomy: "Экономичный", modeHistory: "По истории", maxAngleLabel: "Макс. угол (режим настильного огня)",
+      modeDescManual: "Заряд выбирается вручную ниже.",
+      modeDescLowAngle: "Выбирает наименьший заряд, при котором угол возвышения не превышает максимум.",
+      modeDescEconomy: "Выбирает наименьший заряд, дающий угол возвышения 30°–50°.",
+      modeDescHistory: "Выбирает заряд, ближайший к среднему углу из журнала.",
+      labelBearing: "Азимут", unitDegrees: "градусы", labelDistance: "Дальность до цели",
+      labelCharges: "Пороховые заряды", labelRoundType: "Тип снаряда", requiredElevation: "Требуемый угол возвышения",
+      logShotBtn: "ЗАПИСАТЬ ВЫСТРЕЛ", labelTargetType: "Тип цели", labelFlightTime: "Время полёта (с)",
+      labelTargetTime: "Время цели (24ч)", labelElevation: "Угол возвышения", labelFireAt: "Огонь в",
+      unitClockTime: "время", firingLog: "Журнал стрельбы", clearBtn: "ОЧИСТИТЬ",
+      noShotsLogged: "Выстрелов пока не записано.", dragHint: "Перетащите карточку на ОРУДИЕ 1 или ОРУДИЕ 2",
+      autoSortBtn: "АВТОСОРТИРОВКА", gun1: "Орудие 1", gun2: "Орудие 2", enabled: "ВКЛЮЧЕНО", disabled: "ВЫКЛЮЧЕНО",
+      empty: "Пусто", fireBtn: "ОГОНЬ", statCH: "ЗАР№", statBearing: "Азимут", statElev: "Возв",
+      firedLabel: "ВЫСТРЕЛ В"
+    },
+    it: {
+      eyebrow: "Riferimento da Campo · Non Ufficiale", subtitle: "Calcolatore di Controllo del Fuoco", madeBy: "creato da:",
+      tabBasic: "Base", tabAdvanced: "Avanzato", prefsToggle: "Preferenze Carica",
+      chargeModeLabel: "Modalità Selezione Carica", modeManual: "Manuale", modeLowAngle: "Angolo Basso",
+      modeEconomy: "Economico", modeHistory: "Cronologia", maxAngleLabel: "Angolo Massimo (modalità Angolo Basso)",
+      modeDescManual: "La carica viene selezionata manualmente qui sotto.",
+      modeDescLowAngle: "Sceglie la carica più bassa che mantiene l'elevazione entro l'angolo massimo.",
+      modeDescEconomy: "Sceglie la carica più bassa che porta l'elevazione tra 30°–50°.",
+      modeDescHistory: "Sceglie la carica più vicina alla tua elevazione media registrata.",
+      labelBearing: "Rilevamento", unitDegrees: "gradi", labelDistance: "Distanza Bersaglio",
+      labelCharges: "Cariche di Lancio", labelRoundType: "Tipo di Proiettile", requiredElevation: "Elevazione Richiesta",
+      logShotBtn: "REGISTRA COLPO", labelTargetType: "Tipo di Bersaglio", labelFlightTime: "Tempo di Volo (s)",
+      labelTargetTime: "Ora Bersaglio (24h)", labelElevation: "Elevazione", labelFireAt: "Sparare alle",
+      unitClockTime: "orario", firingLog: "Registro di Fuoco", clearBtn: "CANCELLA",
+      noShotsLogged: "Nessun colpo ancora registrato.", dragHint: "Trascina una scheda qui sotto su CANNONE 1 o CANNONE 2",
+      autoSortBtn: "ORDINA AUTO", gun1: "Cannone 1", gun2: "Cannone 2", enabled: "ABILITATO", disabled: "DISABILITATO",
+      empty: "Vuoto", fireBtn: "SPARA", statCH: "CAR#", statBearing: "Rilev.", statElev: "Elev",
+      firedLabel: "SPARATO ALLE"
+    },
+    zh: {
+      eyebrow: "现场参考 · 非官方", subtitle: "火控计算器", madeBy: "制作者：",
+      tabBasic: "基础", tabAdvanced: "高级", prefsToggle: "装药偏好设置",
+      chargeModeLabel: "装药选择模式", modeManual: "手动", modeLowAngle: "低角度",
+      modeEconomy: "经济模式", modeHistory: "历史匹配", maxAngleLabel: "最大角度（低角度模式）",
+      modeDescManual: "装药在下方手动选择。",
+      modeDescLowAngle: "选择能将仰角保持在最大角度以内的最小装药。",
+      modeDescEconomy: "选择能使仰角落在30°–50°之间的最小装药。",
+      modeDescHistory: "选择最接近你平均记录仰角的装药。",
+      labelBearing: "方位角", unitDegrees: "度", labelDistance: "目标距离",
+      labelCharges: "发射药", labelRoundType: "弹种", requiredElevation: "所需仰角",
+      logShotBtn: "记录射击", labelTargetType: "目标类型", labelFlightTime: "飞行时间（秒）",
+      labelTargetTime: "目标时间（24小时制）", labelElevation: "仰角", labelFireAt: "开火时间",
+      unitClockTime: "时间", firingLog: "射击日志", clearBtn: "清除",
+      noShotsLogged: "尚未记录任何射击。", dragHint: "将下方卡片拖到 火炮1 或 火炮2",
+      autoSortBtn: "自动排序", gun1: "火炮1", gun2: "火炮2", enabled: "已启用", disabled: "已禁用",
+      empty: "空", fireBtn: "开火", statCH: "装药", statBearing: "方位", statElev: "仰角",
+      firedLabel: "开火于"
+    },
+    ja: {
+      eyebrow: "フィールドリファレンス・非公式", subtitle: "射撃管制計算機", madeBy: "制作：",
+      tabBasic: "基本", tabAdvanced: "詳細", prefsToggle: "装薬設定",
+      chargeModeLabel: "装薬選択モード", modeManual: "手動", modeLowAngle: "低角度",
+      modeEconomy: "経済モード", modeHistory: "履歴照合", maxAngleLabel: "最大角度（低角度モード）",
+      modeDescManual: "装薬は下で手動で選択します。",
+      modeDescLowAngle: "仰角を最大角度以下に保つ最小の装薬を選択します。",
+      modeDescEconomy: "仰角が30°〜50°になる最小の装薬を選択します。",
+      modeDescHistory: "記録された平均仰角に最も近い装薬を選択します。",
+      labelBearing: "方位", unitDegrees: "度", labelDistance: "目標距離",
+      labelCharges: "装薬数", labelRoundType: "弾種", requiredElevation: "必要仰角",
+      logShotBtn: "射撃を記録", labelTargetType: "目標種別", labelFlightTime: "飛行時間（秒）",
+      labelTargetTime: "目標時刻（24時間制）", labelElevation: "仰角", labelFireAt: "発射時刻",
+      unitClockTime: "時刻", firingLog: "射撃記録", clearBtn: "クリア",
+      noShotsLogged: "まだ記録された射撃はありません。", dragHint: "下のカードを 砲1 または 砲2 にドラッグ",
+      autoSortBtn: "自動並べ替え", gun1: "砲1", gun2: "砲2", enabled: "有効", disabled: "無効",
+      empty: "空", fireBtn: "発射", statCH: "装薬", statBearing: "方位", statElev: "仰角",
+      firedLabel: "発射時刻"
+    }
+  };
+
+  let currentLang = 'en';
+  function t(key){
+    return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+  }
+  const modeDescKeys = { manual: 'modeDescManual', lowangle: 'modeDescLowAngle', economy: 'modeDescEconomy', history: 'modeDescHistory' };
+
+  function applyLanguage(lang){
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      el.textContent = t(el.dataset.i18n);
+    });
+    modeDesc.textContent = t(modeDescKeys[prefs.mode]);
+    document.getElementById('gunEnable1').textContent = gun1Enabled ? t('enabled') : t('disabled');
+    document.getElementById('gunEnable2').textContent = gun2Enabled ? t('enabled') : t('disabled');
+    renderHistory();
+    renderGuns();
+  }
+
+  document.getElementById('langSelect').addEventListener('change', (e)=>{
+    applyLanguage(e.target.value);
+  });
+
   // ---- Tabs ----
   document.querySelectorAll('.tab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -1124,13 +1342,6 @@
   const basicAutoBadge = document.getElementById('basicAutoBadge');
   const advAutoBadge = document.getElementById('advAutoBadge');
 
-  const modeDescriptions = {
-    manual: 'Charge is selected manually below.',
-    lowangle: 'Picks the lowest charge that keeps elevation at or under the max angle.',
-    economy: 'Picks the lowest charge that lands elevation between 30°–50°.',
-    history: 'Picks the charge that lands closest to your average logged elevation.'
-  };
-
   prefsToggle.addEventListener('click', ()=>{
     prefsPanel.style.display = prefsPanel.style.display === 'none' ? 'block' : 'none';
   });
@@ -1140,7 +1351,7 @@
       modeRow.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       prefs.mode = btn.dataset.mode;
-      modeDesc.textContent = modeDescriptions[prefs.mode];
+      modeDesc.textContent = t(modeDescKeys[prefs.mode]);
       lowAngleField.style.display = prefs.mode === 'lowangle' ? 'block' : 'none';
       const isAuto = prefs.mode !== 'manual';
       document.getElementById('chargeRow').classList.toggle('auto-locked', isAuto);
@@ -1308,15 +1519,15 @@
     return `
       <div class="stat-trio">
         <div class="stat-block">
-          <div class="stat-label">CH#</div>
+          <div class="stat-label">${t('statCH')}</div>
           <div class="stat-value">${entry.charges}</div>
         </div>
         <div class="stat-block">
-          <div class="stat-label">Bearing</div>
+          <div class="stat-label">${t('statBearing')}</div>
           <div class="stat-value">${entry.bearing}°</div>
         </div>
         <div class="stat-block">
-          <div class="stat-label">Elev</div>
+          <div class="stat-label">${t('statElev')}</div>
           <div class="stat-value elev">${entry.elevation}°</div>
         </div>
       </div>`;
@@ -1326,16 +1537,16 @@
     return `
       <div class="gun-stat-top">
         <div class="stat-block">
-          <div class="stat-label">CH#</div>
+          <div class="stat-label">${t('statCH')}</div>
           <div class="stat-value">${entry.charges}</div>
         </div>
         <div class="stat-block">
-          <div class="stat-label">Elev</div>
+          <div class="stat-label">${t('statElev')}</div>
           <div class="stat-value elev">${entry.elevation}°</div>
         </div>
       </div>
       <div class="stat-block gun-stat-bearing">
-        <div class="stat-label">Bearing</div>
+        <div class="stat-label">${t('statBearing')}</div>
         <div class="stat-value">${entry.bearing}°</div>
       </div>`;
   }
@@ -1362,7 +1573,7 @@
       return `
       <div class="history-row draggable-card${gunNum ? ' assigned-'+gunNum : ''}${entry.fired ? ' fired-row' : ''}" data-id="${entry.id}">
         <div class="h-controls">
-          ${gunNum ? `<span class="gun-tag gun-tag-${gunNum}">Gun ${gunNum}</span>` : entry.fired ? `<span class="fired-tag">FIRED @ ${entry.firedAt}</span>` : '<span></span>'}
+          ${gunNum ? `<span class="gun-tag gun-tag-${gunNum}">${t(gunNum===1?'gun1':'gun2')}</span>` : entry.fired ? `<span class="fired-tag">${t('firedLabel')} ${entry.firedAt}</span>` : '<span></span>'}
           <span class="h-remove" data-remove-history="${entry.id}">✕</span>
         </div>
         ${statTrioHTML(entry)}
@@ -1414,7 +1625,7 @@
         <div class="gun-round" data-id="${entry.id}">
           <div class="gr-top">
             <span class="gr-num">${label}</span>
-            <span class="gr-remove" data-remove="${entry.id}" data-gun="${arr===gun1?1:2}">FIRE</span>
+            <span class="gr-remove" data-remove="${entry.id}" data-gun="${arr===gun1?1:2}">${t('fireBtn')}</span>
           </div>
           ${gunStatsHTML(entry)}
           <div class="gr-meta-row">
@@ -1459,7 +1670,7 @@
       const nowEnabled = !btn.classList.contains('active');
       btn.classList.toggle('active', nowEnabled);
       btn.classList.toggle('disabled-state', !nowEnabled);
-      btn.textContent = nowEnabled ? 'ENABLED' : 'DISABLED';
+      btn.textContent = nowEnabled ? t('enabled') : t('disabled');
       if(gunNum === 1) gun1Enabled = nowEnabled; else gun2Enabled = nowEnabled;
     });
   }
