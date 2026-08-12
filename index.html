@@ -1,3 +1,6 @@
+
+
+Iron nest calc · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +35,26 @@
     max-width: 480px;
     margin: 0 auto;
     padding: 28px 18px 60px;
+  }
+  .desktop-grid{
+    display:block;
+  }
+  @media (min-width: 900px){
+    .wrap{
+      max-width: 1140px;
+    }
+    .desktop-grid{
+      display:grid;
+      grid-template-columns: 440px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .calc-column, .log-column{
+      min-width: 0;
+    }
+    .header{
+      text-align: center;
+    }
   }
   .header{
     text-align:center;
@@ -96,7 +119,7 @@
     color: var(--brass-bright);
     font-weight: 700;
   }
-
+ 
   .tabs{
     display:flex;
     gap: 6px;
@@ -125,7 +148,7 @@
   }
   .tab-panel{ display:none; }
   .tab-panel.active{ display:block; }
-
+ 
   .prefs-toggle{
     text-align:center;
     font-size: 11px;
@@ -192,7 +215,7 @@
     color: var(--glow);
     margin-left: 8px;
   }
-
+ 
   .plate{
     background: linear-gradient(180deg, var(--panel-raised), var(--panel));
     border: 1px solid #3a3427;
@@ -210,7 +233,7 @@
   }
   .rivet.tl{top:8px;left:8px;} .rivet.tr{top:8px;right:8px;}
   .rivet.bl{bottom:8px;left:8px;} .rivet.br{bottom:8px;right:8px;}
-
+ 
   .field{
     margin-bottom: 18px;
   }
@@ -262,7 +285,7 @@
     letter-spacing: 0.12em;
     margin-top: 6px;
   }
-
+ 
   .charge-row{
     display:flex;
     gap: 8px;
@@ -313,7 +336,7 @@
     color: #ffd7a8;
     box-shadow: 0 0 10px rgba(255,140,0,0.4);
   }
-
+ 
   .round-type-ap{
     background: rgba(198,40,40,0.12);
     border-color: #c62828;
@@ -326,7 +349,7 @@
     color: #ffb3ab;
     box-shadow: 0 0 10px rgba(198,40,40,0.4);
   }
-
+ 
   .round-type-dril{
     background: #0c0c0c;
     border-color: #1565c0;
@@ -339,7 +362,7 @@
     color: #e3f2fd;
     box-shadow: 0 0 10px rgba(33,150,243,0.45);
   }
-
+ 
   .round-type-star{
     background: #0d47a1;
     border-color: #1565c0;
@@ -388,13 +411,13 @@
     gap: 8px;
     flex-wrap: wrap;
   }
-
+ 
   .divider{
     height:1px;
     background: linear-gradient(90deg, transparent, #4a4332, transparent);
     margin: 20px 0;
   }
-
+ 
   .readout-group{
     display:flex;
     gap: 10px;
@@ -426,7 +449,7 @@
     margin-top: 6px;
     letter-spacing: 0.1em;
   }
-
+ 
   .history-plate{
     margin-top: 20px;
     padding: 18px 16px;
@@ -633,7 +656,7 @@
   .history-row.dragging-source{
     opacity: 0.35;
   }
-
+ 
   .gun-controls{
     display:flex;
     justify-content:center;
@@ -799,17 +822,19 @@
         <option value="ja">日本語</option>
       </select>
     </div>
-
+ 
+    <div class="desktop-grid">
+    <div class="calc-column">
     <div class="tabs">
       <div class="tab-btn active" data-tab="basic" data-i18n="tabBasic">Basic</div>
       <div class="tab-btn" data-tab="advanced" data-i18n="tabAdvanced">Advanced</div>
     </div>
-
+ 
     <div class="prefs-toggle" id="prefsToggle">⚙ <span data-i18n="prefsToggle">Charge Preferences</span></div>
     <div class="plate prefs-panel" id="prefsPanel" style="display:none;">
       <div class="rivet tl"></div><div class="rivet tr"></div>
       <div class="rivet bl"></div><div class="rivet br"></div>
-
+ 
       <label data-i18n="chargeModeLabel">Charge Selection Mode</label>
       <div class="mode-row" id="modeRow">
         <div class="mode-btn active" data-mode="manual" data-i18n="modeManual">Manual</div>
@@ -817,61 +842,61 @@
         <div class="mode-btn" data-mode="economy" data-i18n="modeEconomy">Economy</div>
         <div class="mode-btn" data-mode="history" data-i18n="modeHistory">Match History</div>
       </div>
-
+ 
       <div class="field" id="lowAngleField" style="display:none; margin-top:16px;">
         <label for="lowAngleMax" data-i18n="maxAngleLabel">Max Angle (Low Angle mode)</label>
         <input type="number" id="lowAngleMax" value="45" min="1" max="60" step="1">
       </div>
-
+ 
       <div class="mode-desc" id="modeDesc" data-i18n="modeDescManual">Charge is selected manually below.</div>
     </div>
-
+ 
     <!-- BASIC PANEL -->
     <div class="tab-panel active" id="panel-basic">
       <div class="plate">
         <div class="rivet tl"></div><div class="rivet tr"></div>
         <div class="rivet bl"></div><div class="rivet br"></div>
-
+ 
         <div class="field">
           <label for="bearing" data-i18n="labelBearing">Bearing</label>
           <input type="text" class="roll-input" id="bearing" inputmode="numeric" enterkeyhint="next" value="000.0">
           <div class="field-hint" data-i18n="unitDegrees">degrees</div>
         </div>
-
+ 
         <div class="field">
           <label for="distance" data-i18n="labelDistance">Target Distance</label>
           <input type="text" class="roll-input" id="distance" inputmode="numeric" enterkeyhint="go" value="00.00">
           <div class="field-hint" id="meterHint">= 0000 m</div>
         </div>
-
+ 
         <div class="field">
           <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
           <div class="charge-row" id="chargeRow"></div>
         </div>
-
+ 
         <div class="field">
           <label data-i18n="labelRoundType">Round Type</label>
           <div class="charge-row" id="basicRoundRow"></div>
         </div>
-
+ 
         <div class="divider"></div>
-
+ 
         <div class="readout">
           <div class="readout-label" data-i18n="requiredElevation">Required Elevation</div>
           <div class="readout-value" id="output">—</div>
           <div class="readout-unit" data-i18n="unitDegrees">degrees</div>
         </div>
-
+ 
         <button class="log-btn-big" id="basicLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
       </div>
     </div>
-
+ 
     <!-- ADVANCED PANEL -->
     <div class="tab-panel" id="panel-advanced">
       <div class="plate">
         <div class="rivet tl"></div><div class="rivet tr"></div>
         <div class="rivet bl"></div><div class="rivet br"></div>
-
+ 
         <div class="field-row">
           <div class="field">
             <label for="targetType" data-i18n="labelTargetType">Target Type</label>
@@ -905,24 +930,24 @@
             </datalist>
           </div>
         </div>
-
+ 
         <div class="field">
           <label for="advBearing" data-i18n="labelBearing">Bearing</label>
           <input type="text" class="roll-input" id="advBearing" inputmode="numeric" enterkeyhint="next" value="000.0">
           <div class="field-hint" data-i18n="unitDegrees">degrees</div>
         </div>
-
+ 
         <div class="field">
           <label for="advDistance" data-i18n="labelDistance">Target Distance</label>
           <input type="text" class="roll-input" id="advDistance" inputmode="numeric" enterkeyhint="next" value="00.00">
           <div class="field-hint" id="advMeterHint">= 0000 m</div>
         </div>
-
+ 
         <div class="field">
           <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
           <div class="charge-row" id="advChargeRow"></div>
         </div>
-
+ 
         <div class="field-row">
           <div class="field">
             <label for="flightTime" data-i18n="labelFlightTime">Time of Flight (s)</label>
@@ -933,9 +958,9 @@
             <input type="text" class="roll-input" id="targetTime" inputmode="numeric" enterkeyhint="go" value="00:00:00">
           </div>
         </div>
-
+ 
         <div class="divider"></div>
-
+ 
         <div class="readout-group">
           <div class="readout">
             <div class="readout-label" data-i18n="labelElevation">Elevation</div>
@@ -948,11 +973,13 @@
             <div class="readout-unit" data-i18n="unitClockTime">clock time</div>
           </div>
         </div>
-
+ 
         <button class="log-btn-big" id="advLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
       </div>
     </div>
-
+    </div>
+ 
+    <div class="log-column">
     <div class="plate history-plate">
       <div class="rivet tl"></div><div class="rivet tr"></div>
       <div class="rivet bl"></div><div class="rivet br"></div>
@@ -967,11 +994,11 @@
       </div>
       <div class="drag-hint" data-i18n="dragHint">Drag a card below onto GUN 1 or GUN 2</div>
     </div>
-
+ 
     <div class="gun-controls">
       <button class="auto-sort-btn" id="autoSortBtn" data-i18n="autoSortBtn">AUTO SORT</button>
     </div>
-
+ 
     <div class="gun-panels">
       <div class="plate gun-panel" id="gunPanel1" data-gun="1">
         <div class="rivet tl"></div><div class="rivet tr"></div>
@@ -998,8 +1025,10 @@
         </div>
       </div>
     </div>
+    </div>
+    </div>
   </div>
-
+ 
 <script>
   // ---- Translations ----
   const translations = {
@@ -1175,13 +1204,13 @@
       firedLabel: "発射時刻", usageSuffix: "回使用"
     }
   };
-
+ 
   let currentLang = 'en';
   function t(key){
     return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
   }
   const modeDescKeys = { manual: 'modeDescManual', lowangle: 'modeDescLowAngle', economy: 'modeDescEconomy', history: 'modeDescHistory' };
-
+ 
   function applyLanguage(lang){
     currentLang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el=>{
@@ -1194,11 +1223,11 @@
     renderHistory();
     renderGuns();
   }
-
+ 
   document.getElementById('langSelect').addEventListener('change', (e)=>{
     applyLanguage(e.target.value);
   });
-
+ 
   // ---- Usage badge (total uses, via GoatCounter's public counter endpoint) ----
   let cachedUsageCount = null;
   function renderUsageBadge(){
@@ -1216,7 +1245,7 @@
       }
     })
     .catch(()=>{ /* analytics unavailable - fail silently, not critical to app function */ });
-
+ 
   // ---- Tabs ----
   document.querySelectorAll('.tab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -1229,7 +1258,7 @@
     });
   });
   let activeTab = 'basic';
-
+ 
   // ---- Reusable field factories ----
   function makeBearingField(inputEl){
     let bDigits = '0000'; // XXX.X
@@ -1250,7 +1279,7 @@
     render();
     return { getValue: render };
   }
-
+ 
   function makeTimeField(inputEl, onChange){
     let tDigits = '000000'; // HHMMSS, always 24hr
     function render(){
@@ -1280,7 +1309,7 @@
     render();
     return { getValue: render };
   }
-
+ 
   function makeDistanceField(inputEl, hintEl, onChange){
     let digits = '0000'; // KK.KK km
     function render(){
@@ -1306,7 +1335,7 @@
     render();
     return { getMeters: render };
   }
-
+ 
   function makeChargeRow(containerEl, onChange){
     let selected = 1;
     const buttons = [];
@@ -1346,7 +1375,7 @@
     }
     return { getValue: ()=>selected, setValue, updateValidity };
   }
-
+ 
   function makeRoundTypeRow(containerEl, options){
     let selected = null;
     const buttons = [];
@@ -1369,7 +1398,7 @@
     });
     return { getValue: ()=>selected };
   }
-
+ 
   // ---- Preferences ----
   const prefs = { mode: 'manual', lowAngleMax: 45 };
   const prefsToggle = document.getElementById('prefsToggle');
@@ -1380,11 +1409,11 @@
   const modeDesc = document.getElementById('modeDesc');
   const basicAutoBadge = document.getElementById('basicAutoBadge');
   const advAutoBadge = document.getElementById('advAutoBadge');
-
+ 
   prefsToggle.addEventListener('click', ()=>{
     prefsPanel.style.display = prefsPanel.style.display === 'none' ? 'block' : 'none';
   });
-
+ 
   modeRow.querySelectorAll('.mode-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       modeRow.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
@@ -1401,24 +1430,24 @@
       calcAdvanced();
     });
   });
-
+ 
   lowAngleMaxInput.addEventListener('input', ()=>{
     prefs.lowAngleMax = parseFloat(lowAngleMaxInput.value) || 45;
     calcBasic();
     calcAdvanced();
   });
-
+ 
   function getHistoryAvgElevation(){
     if(history.length === 0) return null;
     const sum = history.reduce((acc,e)=>acc + parseFloat(e.elevation), 0);
     return sum / history.length;
   }
-
+ 
   function pickAutoCharge(meters, avgOverride){
     if(meters <= 0) return null;
     const elevs = {};
     for(let c=1;c<=6;c++) elevs[c] = (meters * 0.012) / c;
-
+ 
     if(prefs.mode === 'lowangle'){
       for(let c=1;c<=6;c++){ if(elevs[c] <= prefs.lowAngleMax) return c; }
       return 6; // fallback: highest charge gives lowest achievable angle
@@ -1445,7 +1474,7 @@
     }
     return null; // manual
   }
-
+ 
   function computeFireTime(targetTimeStr, flightSeconds){
     if(!targetTimeStr || isNaN(flightSeconds)) return null;
     const parts = targetTimeStr.split(':').map(Number);
@@ -1461,7 +1490,7 @@
     const fs = remM/1000;
     return String(fh).padStart(2,'0') + ':' + String(fm).padStart(2,'0') + ':' + fs.toFixed(1).padStart(4,'0');
   }
-
+ 
   // ---- Field chaining: "Next" moves focus forward, "Go" dismisses + scrolls to result ----
   function attachFieldChain(inputEl, nextEl, scrollTargetEl){
     function trigger(){
@@ -1484,7 +1513,7 @@
       if(e.inputType === 'insertLineBreak'){ trigger(); }
     });
   }
-
+ 
   // ---- Basic tab wiring ----
   const output = document.getElementById('output');
   const chargeRow = document.getElementById('chargeRow');
@@ -1494,7 +1523,7 @@
   const basicRoundType = makeRoundTypeRow(document.getElementById('basicRoundRow'), ['HE','AP','DRIL','STAR']);
   attachFieldChain(document.getElementById('bearing'), document.getElementById('distance'));
   attachFieldChain(document.getElementById('distance'), null, output.closest('.readout'));
-
+ 
   function calcBasic(){
     const meters = basicDistance.getMeters();
     basicCharges.updateValidity(meters);
@@ -1506,8 +1535,8 @@
     if(meters <= 0){ output.textContent = '—'; return; }
     output.textContent = ((meters * 0.012) / charges).toFixed(2);
   }
-
-
+ 
+ 
   // ---- Advanced tab wiring ----
   const advOutput = document.getElementById('advOutput');
   const fireTimeOutput = document.getElementById('fireTimeOutput');
@@ -1524,7 +1553,7 @@
   attachFieldChain(document.getElementById('advDistance'), flightTimeInput);
   attachFieldChain(flightTimeInput, document.getElementById('targetTime'));
   attachFieldChain(document.getElementById('targetTime'), null, advReadoutGroup);
-
+ 
   function calcAdvanced(){
     const meters = advDistance.getMeters();
     advCharges.updateValidity(meters);
@@ -1542,18 +1571,18 @@
     const fireTime = computeFireTime(targetTimeField.getValue(), flight);
     fireTimeOutput.textContent = fireTime || '—';
   }
-
+ 
   flightTimeInput.addEventListener('input', calcAdvanced);
-
+ 
   // ---- History log (shared) ----
   const historyList = document.getElementById('historyList');
   const clearBtn = document.getElementById('clearBtn');
   let history = [];
   let nextId = 1;
-
+ 
   let gun1 = []; // array of entry ids, in drop order
   let gun2 = [];
-
+ 
   function statTrioHTML(entry){
     return `
       <div class="stat-trio">
@@ -1571,7 +1600,7 @@
         </div>
       </div>`;
   }
-
+ 
   function gunStatsHTML(entry){
     return `
       <div class="gun-stat-top">
@@ -1589,19 +1618,19 @@
         <div class="stat-value">${entry.bearing}°</div>
       </div>`;
   }
-
+ 
   function secondaryLineHTML(entry){
     const bits = [entry.meters + 'm'];
     if(entry.targetType) bits.push('TGT ' + entry.targetType);
     if(entry.fireTime) bits.push('FIRE @ ' + entry.fireTime);
     return bits.join(' · ');
   }
-
+ 
   function roundTagHTML(entry){
     if(!entry.roundType) return '';
     return `<span class="round-tag round-type-${entry.roundType.toLowerCase()}">${entry.roundType}</span>`;
   }
-
+ 
   function renderHistory(){
     if(history.length === 0){
       historyList.innerHTML = '<div class="history-empty">No shots logged yet.</div>';
@@ -1635,7 +1664,7 @@
       });
     });
   }
-
+ 
   function deleteHistoryEntry(id){
     const idx = history.findIndex(e => e.id === id);
     if(idx > -1) history.splice(idx, 1);
@@ -1646,7 +1675,7 @@
     renderHistory();
     renderGuns();
   }
-
+ 
   function renderGuns(){
     [ {arr: gun1, zone: document.getElementById('gunZone1'), count: document.getElementById('gunCount1')},
       {arr: gun2, zone: document.getElementById('gunZone2'), count: document.getElementById('gunCount2')} ]
@@ -1690,19 +1719,19 @@
       });
     });
   }
-
+ 
   function pruneGunsToHistory(){
     const validIds = new Set(history.map(e=>e.id));
     gun1 = gun1.filter(id=>validIds.has(id));
     gun2 = gun2.filter(id=>validIds.has(id));
   }
-
+ 
   // ---- Auto-sort into gun magazines, grouped by bearing ----
   function bearingOf(entry){ return parseFloat(entry.bearing); }
-
+ 
   let gun1Enabled = true;
   let gun2Enabled = true;
-
+ 
   function setupGunEnableToggle(btnId, gunNum){
     const btn = document.getElementById(btnId);
     btn.addEventListener('click', ()=>{
@@ -1715,11 +1744,11 @@
   }
   setupGunEnableToggle('gunEnable1', 1);
   setupGunEnableToggle('gunEnable2', 2);
-
+ 
   function autoSortAll(){
     // never touch fired rounds - they're spent, not part of the loadout pool
     const liveHistory = history.filter(e => !e.fired);
-
+ 
     if(gun1Enabled && gun2Enabled){
       const pool = liveHistory.slice().sort((a,b)=> bearingOf(a) - bearingOf(b));
       const newGun1 = [], newGun2 = [];
@@ -1748,19 +1777,19 @@
     renderGuns();
     renderHistory();
   }
-
+ 
   document.getElementById('autoSortBtn').addEventListener('click', autoSortAll);
-
+ 
   // ---- Drag and drop (pointer events, touch-friendly) ----
   let dragState = null;
-
+ 
   function onCardPointerDown(e){
     const cardEl = e.currentTarget;
     const id = parseFloat(cardEl.dataset.id);
     const entry = history.find(x=>x.id===id);
     if(!entry) return;
     e.preventDefault();
-
+ 
     const rect = cardEl.getBoundingClientRect();
     const ghost = cardEl.cloneNode(true);
     ghost.classList.add('drag-ghost');
@@ -1768,25 +1797,25 @@
     ghost.style.left = rect.left + 'px';
     ghost.style.top = rect.top + 'px';
     document.body.appendChild(ghost);
-
+ 
     cardEl.classList.add('dragging-source');
-
+ 
     dragState = {
       id, offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top,
       ghost, cardEl
     };
-
+ 
     cardEl.setPointerCapture(e.pointerId);
     cardEl.addEventListener('pointermove', onCardPointerMove);
     cardEl.addEventListener('pointerup', onCardPointerUp);
     cardEl.addEventListener('pointercancel', onCardPointerUp);
   }
-
+ 
   function onCardPointerMove(e){
     if(!dragState) return;
     dragState.ghost.style.left = (e.clientX - dragState.offsetX) + 'px';
     dragState.ghost.style.top = (e.clientY - dragState.offsetY) + 'px';
-
+ 
     document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover'));
     dragState.ghost.style.display = 'none';
     const under = document.elementFromPoint(e.clientX, e.clientY);
@@ -1799,11 +1828,11 @@
       if(arr.length < 7 || arr.includes(dragState.id)) zone.classList.add('drop-hover');
     }
   }
-
+ 
   function onCardPointerUp(e){
     if(!dragState) return;
     const { id, ghost, cardEl } = dragState;
-
+ 
     ghost.style.display = 'none';
     const under = document.elementFromPoint(e.clientX, e.clientY);
     ghost.remove();
@@ -1812,7 +1841,7 @@
     cardEl.removeEventListener('pointerup', onCardPointerUp);
     cardEl.removeEventListener('pointercancel', onCardPointerUp);
     document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover','drop-full'));
-
+ 
     const zone = under ? under.closest('.gun-dropzone') : null;
     if(zone){
       const gunNum = zone.dataset.gun;
@@ -1828,7 +1857,7 @@
     }
     dragState = null;
   }
-
+ 
   function handleLogShot(){
     const loggedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     const id = nextId++;
@@ -1860,10 +1889,10 @@
     renderGuns();
     if(prefs.mode === 'history'){ calcBasic(); calcAdvanced(); }
   }
-
+ 
   document.getElementById('advLogBtnBig').addEventListener('click', handleLogShot);
   document.getElementById('basicLogBtnBig').addEventListener('click', handleLogShot);
-
+ 
   clearBtn.addEventListener('click', ()=>{
     history = [];
     gun1 = [];
@@ -1872,1807 +1901,7 @@
     renderGuns();
   });
 </script>
-
-</body>
-</html>    text-align:center;
-    margin-bottom: 18px;
-  }
-  .eyebrow{
-    letter-spacing: 0.35em;
-    font-size: 11px;
-    color: var(--rust);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  h1{
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    font-size: 28px;
-    margin: 0;
-    color: var(--brass-bright);
-    text-shadow: 0 0 18px rgba(224,184,118,0.25);
-  }
-  h1 .sub{
-    display:block;
-    font-family: 'Courier New', monospace;
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.25em;
-    color: var(--ivory-dim);
-    margin-top: 4px;
-  }
-  .credit{
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--ivory-dim);
-    opacity: 0.55;
-    margin-top: 8px;
-  }
-  .lang-select{
-    margin-top: 12px;
-    background: #0f0d09;
-    border: 1px solid #4a4332;
-    border-radius: 4px;
-    color: var(--brass-bright);
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .tabs{
-    display:flex;
-    gap: 6px;
-    margin-bottom: 18px;
-    background: #0f0d09;
-    border: 1px solid #3a3427;
-    border-radius: 6px;
-    padding: 4px;
-  }
-  .tab-btn{
-    flex: 1;
-    text-align:center;
-    padding: 10px 0;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ivory-dim);
-    border-radius: 4px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .tab-btn.active{
-    background: linear-gradient(180deg, #3a3020, #241d13);
-    color: var(--brass-bright);
-    box-shadow: 0 0 10px rgba(255,138,61,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .tab-panel{ display:none; }
-  .tab-panel.active{ display:block; }
-
-  .prefs-toggle{
-    text-align:center;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--brass);
-    padding: 8px 0;
-    margin-bottom: 12px;
-    cursor: pointer;
-    user-select: none;
-    border: 1px dashed #4a4332;
-    border-radius: 4px;
-  }
-  .prefs-toggle:active{ opacity: 0.7; }
-  .prefs-panel{ margin-bottom: 18px; }
-  .mode-row{
-    display:flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .mode-btn{
-    flex: 1 1 45%;
-    text-align:center;
-    padding: 9px 4px;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    background: #0f0d09;
-    border: 1px solid #4a4332;
-    border-radius: 3px;
-    color: var(--ivory-dim);
-    cursor: pointer;
-    user-select: none;
-  }
-  .mode-btn.active{
-    background: linear-gradient(180deg, #3a3020, #241d13);
-    border-color: var(--glow);
-    color: var(--brass-bright);
-    box-shadow: 0 0 8px rgba(255,138,61,0.15);
-  }
-  .mode-desc{
-    margin-top: 14px;
-    font-size: 12px;
-    color: var(--ivory-dim);
-    line-height: 1.5;
-  }
-  .charge-row.auto-locked{
-    pointer-events: none;
-    opacity: 0.55;
-  }
-  .charge-btn.charge-invalid{
-    opacity: 0.3;
-    color: var(--rust);
-    text-decoration: line-through;
-    cursor: not-allowed;
-  }
-  .charge-btn.charge-invalid.active{
-    opacity: 0.55;
-    box-shadow: 0 0 8px rgba(154,75,48,0.4);
-  }
-  .auto-badge{
-    display:inline-block;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--glow);
-    margin-left: 8px;
-  }
-
-  .plate{
-    background: linear-gradient(180deg, var(--panel-raised), var(--panel));
-    border: 1px solid #3a3427;
-    border-radius: 6px;
-    padding: 22px 20px;
-    position: relative;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.04),
-      0 10px 30px rgba(0,0,0,0.5);
-  }
-  .rivet{
-    position:absolute; width:8px; height:8px; border-radius:50%;
-    background: radial-gradient(circle at 35% 35%, #4a4332, var(--rivet));
-    box-shadow: 0 1px 1px rgba(0,0,0,0.6);
-  }
-  .rivet.tl{top:8px;left:8px;} .rivet.tr{top:8px;right:8px;}
-  .rivet.bl{bottom:8px;left:8px;} .rivet.br{bottom:8px;right:8px;}
-
-  .field{
-    margin-bottom: 18px;
-  }
-  .field-row{
-    display:flex;
-    gap: 12px;
-  }
-  .field-row .field{
-    flex: 1;
-  }
-  label{
-    display:block;
-    font-size: 13px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ivory-dim);
-    margin-bottom: 8px;
-  }
-  input[type=number], input[type=time], input[type=text]{
-    width: 100%;
-    background: #0f0d09;
-    border: 1px solid #4a4332;
-    border-radius: 3px;
-    color: var(--brass-bright);
-    font-family: 'Courier New', monospace;
-    font-size: 30px;
-    padding: 12px 14px;
-    letter-spacing: 0.05em;
-    outline: none;
-  }
-  input:focus{
-    border-color: var(--glow);
-    box-shadow: 0 0 0 2px rgba(255,138,61,0.15);
-  }
-  input[type=number]::-webkit-inner-spin-button{opacity:0.6;}
-  .roll-input{
-    text-align: right;
-    caret-color: transparent;
-    cursor: default;
-  }
-  .short-input{
-    text-align:center;
-    text-transform: uppercase;
-  }
-  .field-hint{
-    text-align: right;
-    font-size: 14px;
-    color: var(--ivory-dim);
-    letter-spacing: 0.12em;
-    margin-top: 6px;
-  }
-
-  .charge-row{
-    display:flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .charge-btn{
-    flex: 1 1 40px;
-    min-width: 40px;
-    padding: 13px 0;
-    text-align:center;
-    background: #0f0d09;
-    border: 1px solid #4a4332;
-    border-radius: 3px;
-    color: var(--ivory-dim);
-    font-size: 21px;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.12s ease;
-  }
-  .charge-btn.active{
-    background: linear-gradient(180deg, #3a3020, #241d13);
-    border-color: var(--glow);
-    color: var(--brass-bright);
-    box-shadow: 0 0 10px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .charge-btn.round-btn{
-    font-size: 15px;
-    letter-spacing: 0.03em;
-    padding: 16px 0 12px;
-    position: relative;
-    overflow: hidden;
-  }
-  .round-btn::before{
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-  }
-  .round-type-he{
-    background: rgba(255,140,0,0.12);
-    border-color: #ff8c00;
-    color: #ffb066;
-  }
-  .round-type-he::before{ background: #ff8c00; }
-  .round-type-he.active{
-    background: rgba(255,140,0,0.28);
-    border-color: #ff8c00;
-    color: #ffd7a8;
-    box-shadow: 0 0 10px rgba(255,140,0,0.4);
-  }
-
-  .round-type-ap{
-    background: rgba(198,40,40,0.12);
-    border-color: #c62828;
-    color: #ff8a80;
-  }
-  .round-type-ap::before{ background: #c62828; }
-  .round-type-ap.active{
-    background: rgba(198,40,40,0.28);
-    border-color: #c62828;
-    color: #ffb3ab;
-    box-shadow: 0 0 10px rgba(198,40,40,0.4);
-  }
-
-  .round-type-dril{
-    background: #0c0c0c;
-    border-color: #1565c0;
-    color: #b0bec5;
-  }
-  .round-type-dril::before{ background: #1565c0; }
-  .round-type-dril.active{
-    background: #1a1a1a;
-    border-color: #2196f3;
-    color: #e3f2fd;
-    box-shadow: 0 0 10px rgba(33,150,243,0.45);
-  }
-
-  .round-type-star{
-    background: #0d47a1;
-    border-color: #1565c0;
-    color: #cfe3fb;
-  }
-  .round-type-star::before{ background: #ffffff; }
-  .round-type-star.active{
-    background: #1565c0;
-    border-color: #ffffff;
-    color: #ffffff;
-    box-shadow: 0 0 10px rgba(255,255,255,0.35);
-  }
-  .round-tag{
-    display:inline-flex;
-    align-items:center;
-    position: relative;
-    padding: 2px 8px 2px 12px;
-    border-radius: 9px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    overflow: hidden;
-    white-space: nowrap;
-    background: rgba(195,154,84,0.15);
-    color: var(--brass-bright);
-  }
-  .round-tag::before{
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--brass);
-  }
-  .round-tag.round-type-he{ background: rgba(255,140,0,0.18); color: #ffb066; }
-  .round-tag.round-type-he::before{ background: #ff8c00; }
-  .round-tag.round-type-ap{ background: rgba(198,40,40,0.18); color: #ff8a80; }
-  .round-tag.round-type-ap::before{ background: #c62828; }
-  .round-tag.round-type-dril{ background: #0c0c0c; color: #b0bec5; }
-  .round-tag.round-type-dril::before{ background: #1565c0; }
-  .round-tag.round-type-star{ background: #0d47a1; color: #cfe3fb; }
-  .round-tag.round-type-star::before{ background: #ffffff; }
-  .gr-meta-row{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .divider{
-    height:1px;
-    background: linear-gradient(90deg, transparent, #4a4332, transparent);
-    margin: 20px 0;
-  }
-
-  .readout-group{
-    display:flex;
-    gap: 10px;
-  }
-  .readout{
-    text-align:center;
-    padding: 18px 10px 8px;
-    flex: 1;
-  }
-  .readout-label{
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--rust);
-    margin-bottom: 10px;
-  }
-  .readout-value{
-    font-size: 44px;
-    font-weight: 700;
-    color: var(--glow);
-    text-shadow: 0 0 25px rgba(255,138,61,0.45);
-    letter-spacing: 0.02em;
-    line-height:1;
-  }
-  .readout-value.small{ font-size: 30px; }
-  .readout-unit{
-    font-size: 13px;
-    color: var(--ivory-dim);
-    margin-top: 6px;
-    letter-spacing: 0.1em;
-  }
-
-  .history-plate{
-    margin-top: 20px;
-    padding: 18px 16px;
-  }
-  .history-header{
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-  .history-actions{
-    display:flex;
-    gap: 8px;
-  }
-  .log-btn-big{
-    display:block;
-    width: 100%;
-    margin-top: 16px;
-    padding: 18px 0;
-    font-family: 'Courier New', monospace;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--brass-bright);
-    background: linear-gradient(180deg, #3a3020, #241d13);
-    border: 1px solid var(--glow);
-    box-shadow: 0 0 14px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .log-btn-big:active{
-    transform: translateY(1px);
-  }
-  .log-btn, .clear-btn{
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    padding: 7px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    border: 1px solid #4a4332;
-    background: #0f0d09;
-    color: var(--ivory-dim);
-  }
-  .log-btn{
-    color: var(--brass-bright);
-    border-color: var(--glow);
-    box-shadow: 0 0 8px rgba(255,138,61,0.15);
-  }
-  .clear-btn:active, .log-btn:active{
-    transform: translateY(1px);
-  }
-  .history-list{
-    display:flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .history-empty{
-    text-align:center;
-    font-size: 12px;
-    color: var(--ivory-dim);
-    opacity: 0.6;
-    padding: 10px 0;
-  }
-  .history-row{
-    display:flex;
-    flex-direction: column;
-    gap: 5px;
-    background: #0f0d09;
-    border: 1px solid #35301f;
-    border-radius: 3px;
-    padding: 12px 14px;
-    font-size: 17px;
-    position: relative;
-  }
-  .history-row.assigned-1{ border-left: 4px solid var(--brass); }
-  .history-row.assigned-2{ border-left: 4px solid var(--rust); }
-  .h-controls{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 20px;
-  }
-  .gun-tag{
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    padding: 3px 9px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .gun-tag.gun-tag-1{
-    background: rgba(195,154,84,0.15);
-    color: var(--brass-bright);
-    border: 1px solid var(--brass);
-  }
-  .gun-tag.gun-tag-2{
-    background: rgba(154,75,48,0.18);
-    color: #e08a63;
-    border: 1px solid var(--rust);
-  }
-  .fired-tag{
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    padding: 3px 9px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    font-weight: 700;
-    background: rgba(255,255,255,0.06);
-    color: var(--ivory-dim);
-    border: 1px solid #4a4332;
-  }
-  .history-row.fired-row{
-    opacity: 0.55;
-  }
-  .history-row.fired-row .stat-value{
-    text-decoration: line-through;
-  }
-  .h-remove{
-    color: var(--ivory-dim);
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    padding: 2px 6px;
-    margin-left: auto;
-  }
-  .h-remove:active{
-    color: var(--rust);
-  }
-  .history-row .h-secondary{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    color: var(--ivory-dim);
-    font-size: 14px;
-    letter-spacing: 0.03em;
-  }
-  .history-row .h-time{
-    font-size: 12px;
-    color: var(--ivory-dim);
-    opacity: 0.65;
-    margin-left: 10px;
-  }
-  .stat-trio{
-    display:flex;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-  .stat-block{
-    flex: 1;
-    text-align:center;
-    background: rgba(255,255,255,0.03);
-    border-radius: 3px;
-    padding: 6px 2px 5px;
-  }
-  .stat-label{
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ivory-dim);
-    opacity: 0.75;
-    margin-bottom: 2px;
-  }
-  .stat-value{
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--brass-bright);
-    line-height: 1.05;
-  }
-  .stat-value.elev{
-    color: var(--glow);
-    text-shadow: 0 0 10px rgba(255,138,61,0.35);
-  }
-  .gun-round .stat-value{
-    font-size: 22px;
-  }
-  .gun-round .stat-label{
-    font-size: 9px;
-  }
-  .gun-stat-top{
-    display:flex;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-  .gun-stat-top .stat-block{
-    flex: 1;
-  }
-  .gun-stat-bearing{
-    width: 100%;
-    margin-bottom: 6px;
-  }
-  .drag-hint{
-    text-align:center;
-    font-size: 10px;
-    color: var(--ivory-dim);
-    opacity: 0.5;
-    margin-top: 10px;
-    letter-spacing: 0.08em;
-  }
-  .history-row.draggable-card{
-    cursor: grab;
-    touch-action: none;
-  }
-  .history-row.dragging-source{
-    opacity: 0.35;
-  }
-
-  .gun-controls{
-    display:flex;
-    justify-content:center;
-    margin-top: 18px;
-    margin-bottom: -6px;
-  }
-  .auto-sort-btn{
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    padding: 12px 32px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--brass-bright);
-    background: linear-gradient(180deg, #3a3020, #241d13);
-    border: 1px solid var(--glow);
-    box-shadow: 0 0 14px rgba(255,138,61,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .auto-sort-btn:active{
-    transform: translateY(1px);
-  }
-  .gun-panels{
-    display:flex;
-    gap: 12px;
-    margin-top: 20px;
-  }
-  .gun-panel{
-    flex: 1;
-    padding: 16px 12px;
-  }
-  .gun-header{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    margin-bottom: 12px;
-    gap: 8px;
-  }
-  .gun-enable-btn{
-    font-family: 'Courier New', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    border: 1px solid #4a4332;
-    background: #0f0d09;
-    color: var(--ivory-dim);
-  }
-  .gun-enable-btn.active{
-    border-color: var(--glow);
-    background: rgba(255,138,61,0.12);
-    color: var(--brass-bright);
-  }
-  .gun-enable-btn.disabled-state{
-    border-color: var(--rust);
-    background: rgba(154,75,48,0.15);
-    color: #e08a63;
-    text-decoration: line-through;
-  }
-  .gun-count{
-    font-size: 11px;
-    color: var(--brass);
-    letter-spacing: 0.08em;
-  }
-  .gun-dropzone{
-    display:flex;
-    flex-direction: column;
-    gap: 6px;
-    min-height: 90px;
-    border: 1px dashed #4a4332;
-    border-radius: 4px;
-    padding: 8px;
-    transition: all 0.12s ease;
-  }
-  .gun-dropzone.drop-hover{
-    border-color: var(--glow);
-    background: rgba(255,138,61,0.06);
-  }
-  .gun-dropzone.drop-full{
-    border-color: var(--rust);
-  }
-  .gun-empty{
-    text-align:center;
-    font-size: 11px;
-    color: var(--ivory-dim);
-    opacity: 0.5;
-    padding: 20px 0;
-  }
-  .gun-round{
-    background: #0f0d09;
-    border: 1px solid #35301f;
-    border-radius: 4px;
-    padding: 10px 12px;
-    font-size: 15px;
-    position: relative;
-    display:flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .gun-round .gr-top{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-  }
-  .gun-round .gr-num{
-    color: var(--rust);
-    font-weight: 700;
-    font-size: 18px;
-    min-width: 22px;
-  }
-  .gun-round .gr-meta{
-    color: var(--ivory-dim);
-    font-size: 12px;
-    opacity: 0.8;
-  }
-  .gun-round .gr-remove{
-    color: var(--rust);
-    cursor: pointer;
-    padding: 3px 10px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    line-height: 1;
-    border: 1px solid var(--rust);
-    border-radius: 3px;
-    background: rgba(154,75,48,0.12);
-  }
-  .gun-round .gr-remove:active{
-    background: rgba(154,75,48,0.3);
-    color: #ff9e7a;
-  }
-  .drag-ghost{
-    position: fixed;
-    z-index: 999;
-    pointer-events: none;
-    opacity: 0.9;
-    transform: scale(1.03);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-  }
-</style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="header">
-      <div class="eyebrow" data-i18n="eyebrow">Field Reference · Unofficial</div>
-      <h1>Iron Nest
-        <span class="sub" data-i18n="subtitle">Fire Control Calculator</span>
-      </h1>
-      <div class="credit"><span data-i18n="madeBy">made by:</span> Joe Oakley</div>
-      <select id="langSelect" class="lang-select">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
-        <option value="pt">Português</option>
-        <option value="ru">Русский</option>
-        <option value="it">Italiano</option>
-        <option value="zh">中文</option>
-        <option value="ja">日本語</option>
-      </select>
-    </div>
-
-    <div class="tabs">
-      <div class="tab-btn active" data-tab="basic" data-i18n="tabBasic">Basic</div>
-      <div class="tab-btn" data-tab="advanced" data-i18n="tabAdvanced">Advanced</div>
-    </div>
-
-    <div class="prefs-toggle" id="prefsToggle">⚙ <span data-i18n="prefsToggle">Charge Preferences</span></div>
-    <div class="plate prefs-panel" id="prefsPanel" style="display:none;">
-      <div class="rivet tl"></div><div class="rivet tr"></div>
-      <div class="rivet bl"></div><div class="rivet br"></div>
-
-      <label data-i18n="chargeModeLabel">Charge Selection Mode</label>
-      <div class="mode-row" id="modeRow">
-        <div class="mode-btn active" data-mode="manual" data-i18n="modeManual">Manual</div>
-        <div class="mode-btn" data-mode="lowangle" data-i18n="modeLowAngle">Low Angle</div>
-        <div class="mode-btn" data-mode="economy" data-i18n="modeEconomy">Economy</div>
-        <div class="mode-btn" data-mode="history" data-i18n="modeHistory">Match History</div>
-      </div>
-
-      <div class="field" id="lowAngleField" style="display:none; margin-top:16px;">
-        <label for="lowAngleMax" data-i18n="maxAngleLabel">Max Angle (Low Angle mode)</label>
-        <input type="number" id="lowAngleMax" value="45" min="1" max="60" step="1">
-      </div>
-
-      <div class="mode-desc" id="modeDesc" data-i18n="modeDescManual">Charge is selected manually below.</div>
-    </div>
-
-    <!-- BASIC PANEL -->
-    <div class="tab-panel active" id="panel-basic">
-      <div class="plate">
-        <div class="rivet tl"></div><div class="rivet tr"></div>
-        <div class="rivet bl"></div><div class="rivet br"></div>
-
-        <div class="field">
-          <label for="bearing" data-i18n="labelBearing">Bearing</label>
-          <input type="text" class="roll-input" id="bearing" inputmode="numeric" enterkeyhint="next" value="000.0">
-          <div class="field-hint" data-i18n="unitDegrees">degrees</div>
-        </div>
-
-        <div class="field">
-          <label for="distance" data-i18n="labelDistance">Target Distance</label>
-          <input type="text" class="roll-input" id="distance" inputmode="numeric" enterkeyhint="go" value="00.00">
-          <div class="field-hint" id="meterHint">= 0000 m</div>
-        </div>
-
-        <div class="field">
-          <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
-          <div class="charge-row" id="chargeRow"></div>
-        </div>
-
-        <div class="field">
-          <label data-i18n="labelRoundType">Round Type</label>
-          <div class="charge-row" id="basicRoundRow"></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="readout">
-          <div class="readout-label" data-i18n="requiredElevation">Required Elevation</div>
-          <div class="readout-value" id="output">—</div>
-          <div class="readout-unit" data-i18n="unitDegrees">degrees</div>
-        </div>
-
-        <button class="log-btn-big" id="basicLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
-      </div>
-    </div>
-
-    <!-- ADVANCED PANEL -->
-    <div class="tab-panel" id="panel-advanced">
-      <div class="plate">
-        <div class="rivet tl"></div><div class="rivet tr"></div>
-        <div class="rivet bl"></div><div class="rivet br"></div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="targetType" data-i18n="labelTargetType">Target Type</label>
-            <input type="text" class="short-input" id="targetType" maxlength="4" placeholder="ARTY" enterkeyhint="next">
-          </div>
-          <div class="field">
-            <label for="roundType" data-i18n="labelRoundType">Round Type</label>
-            <input type="text" class="short-input" id="roundType" maxlength="4" placeholder="HE" list="roundTypeList" autocomplete="off" enterkeyhint="next">
-            <datalist id="roundTypeList">
-              <option value="HE">
-              <option value="AP">
-              <option value="HCHE">
-              <option value="STAR">
-              <option value="PHGN">
-              <option value="SMK">
-              <option value="TEAR">
-              <option value="APHE">
-              <option value="ATMC">
-              <option value="CLMN">
-              <option value="CYAN">
-              <option value="DRIL">
-              <option value="EQKE">
-              <option value="FLCH">
-              <option value="INCN">
-              <option value="LE">
-              <option value="PLCM">
-              <option value="PRPG">
-              <option value="THRM">
-              <option value="WP">
-              <option value="EMPT">
-            </datalist>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="advBearing" data-i18n="labelBearing">Bearing</label>
-          <input type="text" class="roll-input" id="advBearing" inputmode="numeric" enterkeyhint="next" value="000.0">
-          <div class="field-hint" data-i18n="unitDegrees">degrees</div>
-        </div>
-
-        <div class="field">
-          <label for="advDistance" data-i18n="labelDistance">Target Distance</label>
-          <input type="text" class="roll-input" id="advDistance" inputmode="numeric" enterkeyhint="next" value="00.00">
-          <div class="field-hint" id="advMeterHint">= 0000 m</div>
-        </div>
-
-        <div class="field">
-          <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
-          <div class="charge-row" id="advChargeRow"></div>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="flightTime" data-i18n="labelFlightTime">Time of Flight (s)</label>
-            <input type="number" id="flightTime" step="0.1" min="0" placeholder="12.4" enterkeyhint="next">
-          </div>
-          <div class="field">
-            <label for="targetTime" data-i18n="labelTargetTime">Target Time (24hr)</label>
-            <input type="text" class="roll-input" id="targetTime" inputmode="numeric" enterkeyhint="go" value="00:00:00">
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="readout-group">
-          <div class="readout">
-            <div class="readout-label" data-i18n="labelElevation">Elevation</div>
-            <div class="readout-value small" id="advOutput">—</div>
-            <div class="readout-unit" data-i18n="unitDegrees">degrees</div>
-          </div>
-          <div class="readout">
-            <div class="readout-label" data-i18n="labelFireAt">Fire At</div>
-            <div class="readout-value small" id="fireTimeOutput">—</div>
-            <div class="readout-unit" data-i18n="unitClockTime">clock time</div>
-          </div>
-        </div>
-
-        <button class="log-btn-big" id="advLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
-      </div>
-    </div>
-
-    <div class="plate history-plate">
-      <div class="rivet tl"></div><div class="rivet tr"></div>
-      <div class="rivet bl"></div><div class="rivet br"></div>
-      <div class="history-header">
-        <span class="readout-label" style="margin-bottom:0;" data-i18n="firingLog">Firing Log</span>
-        <div class="history-actions">
-          <button class="clear-btn" id="clearBtn" data-i18n="clearBtn">CLEAR</button>
-        </div>
-      </div>
-      <div id="historyList" class="history-list">
-        <div class="history-empty" data-i18n="noShotsLogged">No shots logged yet.</div>
-      </div>
-      <div class="drag-hint" data-i18n="dragHint">Drag a card below onto GUN 1 or GUN 2</div>
-    </div>
-
-    <div class="gun-controls">
-      <button class="auto-sort-btn" id="autoSortBtn" data-i18n="autoSortBtn">AUTO SORT</button>
-    </div>
-
-    <div class="gun-panels">
-      <div class="plate gun-panel" id="gunPanel1" data-gun="1">
-        <div class="rivet tl"></div><div class="rivet tr"></div>
-        <div class="rivet bl"></div><div class="rivet br"></div>
-        <div class="gun-header">
-          <span class="readout-label" style="margin-bottom:0;" data-i18n="gun1">Gun 1</span>
-          <button class="gun-enable-btn active" id="gunEnable1" data-gun="1">ENABLED</button>
-          <span class="gun-count" id="gunCount1">0/7</span>
-        </div>
-        <div class="gun-dropzone" id="gunZone1" data-gun="1">
-          <div class="gun-empty" data-i18n="empty">Empty</div>
-        </div>
-      </div>
-      <div class="plate gun-panel" id="gunPanel2" data-gun="2">
-        <div class="rivet tl"></div><div class="rivet tr"></div>
-        <div class="rivet bl"></div><div class="rivet br"></div>
-        <div class="gun-header">
-          <span class="readout-label" style="margin-bottom:0;" data-i18n="gun2">Gun 2</span>
-          <button class="gun-enable-btn active" id="gunEnable2" data-gun="2">ENABLED</button>
-          <span class="gun-count" id="gunCount2">0/7</span>
-        </div>
-        <div class="gun-dropzone" id="gunZone2" data-gun="2">
-          <div class="gun-empty" data-i18n="empty">Empty</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<script>
-  // ---- Translations ----
-  const translations = {
-    en: {
-      eyebrow: "Field Reference · Unofficial", subtitle: "Fire Control Calculator", madeBy: "made by:",
-      tabBasic: "Basic", tabAdvanced: "Advanced", prefsToggle: "Charge Preferences",
-      chargeModeLabel: "Charge Selection Mode", modeManual: "Manual", modeLowAngle: "Low Angle",
-      modeEconomy: "Economy", modeHistory: "Match History", maxAngleLabel: "Max Angle (Low Angle mode)",
-      modeDescManual: "Charge is selected manually below.",
-      modeDescLowAngle: "Picks the lowest charge that keeps elevation at or under the max angle.",
-      modeDescEconomy: "Picks the lowest charge that lands elevation between 30°–50°.",
-      modeDescHistory: "Picks the charge that lands closest to your average logged elevation.",
-      labelBearing: "Bearing", unitDegrees: "degrees", labelDistance: "Target Distance",
-      labelCharges: "Powder Charges", labelRoundType: "Round Type", requiredElevation: "Required Elevation",
-      logShotBtn: "LOG SHOT", labelTargetType: "Target Type", labelFlightTime: "Time of Flight (s)",
-      labelTargetTime: "Target Time (24hr)", labelElevation: "Elevation", labelFireAt: "Fire At",
-      unitClockTime: "clock time", firingLog: "Firing Log", clearBtn: "CLEAR",
-      noShotsLogged: "No shots logged yet.", dragHint: "Drag a card below onto GUN 1 or GUN 2",
-      autoSortBtn: "AUTO SORT", gun1: "Gun 1", gun2: "Gun 2", enabled: "ENABLED", disabled: "DISABLED",
-      empty: "Empty", fireBtn: "FIRE", statCH: "CH#", statBearing: "Bearing", statElev: "Elev",
-      firedLabel: "FIRED @"
-    },
-    es: {
-      eyebrow: "Referencia de Campo · No Oficial", subtitle: "Calculadora de Control de Fuego", madeBy: "hecho por:",
-      tabBasic: "Básico", tabAdvanced: "Avanzado", prefsToggle: "Preferencias de Carga",
-      chargeModeLabel: "Modo de Selección de Carga", modeManual: "Manual", modeLowAngle: "Ángulo Bajo",
-      modeEconomy: "Económico", modeHistory: "Historial", maxAngleLabel: "Ángulo Máximo (modo Ángulo Bajo)",
-      modeDescManual: "La carga se selecciona manualmente abajo.",
-      modeDescLowAngle: "Elige la carga más baja que mantenga la elevación en o por debajo del ángulo máximo.",
-      modeDescEconomy: "Elige la carga más baja que sitúe la elevación entre 30°–50°.",
-      modeDescHistory: "Elige la carga más cercana a tu elevación promedio registrada.",
-      labelBearing: "Rumbo", unitDegrees: "grados", labelDistance: "Distancia al Objetivo",
-      labelCharges: "Cargas de Pólvora", labelRoundType: "Tipo de Proyectil", requiredElevation: "Elevación Requerida",
-      logShotBtn: "REGISTRAR DISPARO", labelTargetType: "Tipo de Objetivo", labelFlightTime: "Tiempo de Vuelo (s)",
-      labelTargetTime: "Hora del Objetivo (24h)", labelElevation: "Elevación", labelFireAt: "Disparar a las",
-      unitClockTime: "hora", firingLog: "Registro de Disparos", clearBtn: "BORRAR",
-      noShotsLogged: "Aún no hay disparos registrados.", dragHint: "Arrastra una tarjeta abajo hacia CAÑÓN 1 o CAÑÓN 2",
-      autoSortBtn: "ORDENAR AUTO", gun1: "Cañón 1", gun2: "Cañón 2", enabled: "ACTIVADO", disabled: "DESACTIVADO",
-      empty: "Vacío", fireBtn: "DISPARAR", statCH: "CG#", statBearing: "Rumbo", statElev: "Elev",
-      firedLabel: "DISPARADO A"
-    },
-    fr: {
-      eyebrow: "Référence de Terrain · Non Officiel", subtitle: "Calculateur de Tir", madeBy: "créé par :",
-      tabBasic: "Basique", tabAdvanced: "Avancé", prefsToggle: "Préférences de Charge",
-      chargeModeLabel: "Mode de Sélection de Charge", modeManual: "Manuel", modeLowAngle: "Angle Bas",
-      modeEconomy: "Économique", modeHistory: "Historique", maxAngleLabel: "Angle Max (mode Angle Bas)",
-      modeDescManual: "La charge est sélectionnée manuellement ci-dessous.",
-      modeDescLowAngle: "Choisit la charge la plus faible maintenant l'élévation sous l'angle max.",
-      modeDescEconomy: "Choisit la charge la plus faible donnant une élévation entre 30°–50°.",
-      modeDescHistory: "Choisit la charge la plus proche de votre élévation moyenne enregistrée.",
-      labelBearing: "Relèvement", unitDegrees: "degrés", labelDistance: "Distance Cible",
-      labelCharges: "Charges de Poudre", labelRoundType: "Type d'Obus", requiredElevation: "Élévation Requise",
-      logShotBtn: "ENREGISTRER TIR", labelTargetType: "Type de Cible", labelFlightTime: "Temps de Vol (s)",
-      labelTargetTime: "Heure Cible (24h)", labelElevation: "Élévation", labelFireAt: "Tirer à",
-      unitClockTime: "heure", firingLog: "Journal de Tir", clearBtn: "EFFACER",
-      noShotsLogged: "Aucun tir enregistré.", dragHint: "Glissez une carte ci-dessous vers CANON 1 ou CANON 2",
-      autoSortBtn: "TRI AUTO", gun1: "Canon 1", gun2: "Canon 2", enabled: "ACTIVÉ", disabled: "DÉSACTIVÉ",
-      empty: "Vide", fireBtn: "TIRER", statCH: "CH#", statBearing: "Relèv.", statElev: "Élév",
-      firedLabel: "TIRÉ À"
-    },
-    de: {
-      eyebrow: "Feldreferenz · Inoffiziell", subtitle: "Feuerleitrechner", madeBy: "erstellt von:",
-      tabBasic: "Einfach", tabAdvanced: "Erweitert", prefsToggle: "Ladungseinstellungen",
-      chargeModeLabel: "Ladungsauswahlmodus", modeManual: "Manuell", modeLowAngle: "Flacher Winkel",
-      modeEconomy: "Sparsam", modeHistory: "Verlaufsabgleich", maxAngleLabel: "Maximalwinkel (Modus Flacher Winkel)",
-      modeDescManual: "Die Ladung wird unten manuell ausgewählt.",
-      modeDescLowAngle: "Wählt die niedrigste Ladung, die die Erhöhung auf oder unter dem Maximalwinkel hält.",
-      modeDescEconomy: "Wählt die niedrigste Ladung, die die Erhöhung zwischen 30°–50° bringt.",
-      modeDescHistory: "Wählt die Ladung, die Ihrer durchschnittlichen protokollierten Erhöhung am nächsten kommt.",
-      labelBearing: "Peilung", unitDegrees: "Grad", labelDistance: "Zielentfernung",
-      labelCharges: "Treibladungen", labelRoundType: "Geschosstyp", requiredElevation: "Erforderliche Erhöhung",
-      logShotBtn: "SCHUSS PROTOKOLLIEREN", labelTargetType: "Zieltyp", labelFlightTime: "Flugzeit (s)",
-      labelTargetTime: "Zielzeit (24h)", labelElevation: "Erhöhung", labelFireAt: "Feuer um",
-      unitClockTime: "Uhrzeit", firingLog: "Feuerprotokoll", clearBtn: "LÖSCHEN",
-      noShotsLogged: "Noch keine Schüsse protokolliert.", dragHint: "Karte unten auf KANONE 1 oder KANONE 2 ziehen",
-      autoSortBtn: "AUTO-SORTIERUNG", gun1: "Kanone 1", gun2: "Kanone 2", enabled: "AKTIVIERT", disabled: "DEAKTIVIERT",
-      empty: "Leer", fireBtn: "FEUER", statCH: "LAD#", statBearing: "Peilung", statElev: "Erhöh",
-      firedLabel: "ABGEFEUERT UM"
-    },
-    pt: {
-      eyebrow: "Referência de Campo · Não Oficial", subtitle: "Calculadora de Controle de Tiro", madeBy: "feito por:",
-      tabBasic: "Básico", tabAdvanced: "Avançado", prefsToggle: "Preferências de Carga",
-      chargeModeLabel: "Modo de Seleção de Carga", modeManual: "Manual", modeLowAngle: "Ângulo Baixo",
-      modeEconomy: "Econômico", modeHistory: "Histórico", maxAngleLabel: "Ângulo Máximo (modo Ângulo Baixo)",
-      modeDescManual: "A carga é selecionada manualmente abaixo.",
-      modeDescLowAngle: "Escolhe a menor carga que mantém a elevação no máximo do ângulo definido.",
-      modeDescEconomy: "Escolhe a menor carga que resulta em elevação entre 30°–50°.",
-      modeDescHistory: "Escolhe a carga mais próxima da sua elevação média registrada.",
-      labelBearing: "Marcação", unitDegrees: "graus", labelDistance: "Distância do Alvo",
-      labelCharges: "Cargas de Pólvora", labelRoundType: "Tipo de Munição", requiredElevation: "Elevação Necessária",
-      logShotBtn: "REGISTRAR TIRO", labelTargetType: "Tipo de Alvo", labelFlightTime: "Tempo de Voo (s)",
-      labelTargetTime: "Hora do Alvo (24h)", labelElevation: "Elevação", labelFireAt: "Disparar às",
-      unitClockTime: "horário", firingLog: "Registro de Tiros", clearBtn: "LIMPAR",
-      noShotsLogged: "Nenhum tiro registrado ainda.", dragHint: "Arraste um cartão abaixo para CANHÃO 1 ou CANHÃO 2",
-      autoSortBtn: "ORDENAR AUTO", gun1: "Canhão 1", gun2: "Canhão 2", enabled: "ATIVADO", disabled: "DESATIVADO",
-      empty: "Vazio", fireBtn: "DISPARAR", statCH: "CG#", statBearing: "Marc.", statElev: "Elev",
-      firedLabel: "DISPARADO ÀS"
-    },
-    ru: {
-      eyebrow: "Полевой справочник · Неофициально", subtitle: "Калькулятор управления огнём", madeBy: "автор:",
-      tabBasic: "Базовый", tabAdvanced: "Расширенный", prefsToggle: "Настройки заряда",
-      chargeModeLabel: "Режим выбора заряда", modeManual: "Вручную", modeLowAngle: "Настильный огонь",
-      modeEconomy: "Экономичный", modeHistory: "По истории", maxAngleLabel: "Макс. угол (режим настильного огня)",
-      modeDescManual: "Заряд выбирается вручную ниже.",
-      modeDescLowAngle: "Выбирает наименьший заряд, при котором угол возвышения не превышает максимум.",
-      modeDescEconomy: "Выбирает наименьший заряд, дающий угол возвышения 30°–50°.",
-      modeDescHistory: "Выбирает заряд, ближайший к среднему углу из журнала.",
-      labelBearing: "Азимут", unitDegrees: "градусы", labelDistance: "Дальность до цели",
-      labelCharges: "Пороховые заряды", labelRoundType: "Тип снаряда", requiredElevation: "Требуемый угол возвышения",
-      logShotBtn: "ЗАПИСАТЬ ВЫСТРЕЛ", labelTargetType: "Тип цели", labelFlightTime: "Время полёта (с)",
-      labelTargetTime: "Время цели (24ч)", labelElevation: "Угол возвышения", labelFireAt: "Огонь в",
-      unitClockTime: "время", firingLog: "Журнал стрельбы", clearBtn: "ОЧИСТИТЬ",
-      noShotsLogged: "Выстрелов пока не записано.", dragHint: "Перетащите карточку на ОРУДИЕ 1 или ОРУДИЕ 2",
-      autoSortBtn: "АВТОСОРТИРОВКА", gun1: "Орудие 1", gun2: "Орудие 2", enabled: "ВКЛЮЧЕНО", disabled: "ВЫКЛЮЧЕНО",
-      empty: "Пусто", fireBtn: "ОГОНЬ", statCH: "ЗАР№", statBearing: "Азимут", statElev: "Возв",
-      firedLabel: "ВЫСТРЕЛ В"
-    },
-    it: {
-      eyebrow: "Riferimento da Campo · Non Ufficiale", subtitle: "Calcolatore di Controllo del Fuoco", madeBy: "creato da:",
-      tabBasic: "Base", tabAdvanced: "Avanzato", prefsToggle: "Preferenze Carica",
-      chargeModeLabel: "Modalità Selezione Carica", modeManual: "Manuale", modeLowAngle: "Angolo Basso",
-      modeEconomy: "Economico", modeHistory: "Cronologia", maxAngleLabel: "Angolo Massimo (modalità Angolo Basso)",
-      modeDescManual: "La carica viene selezionata manualmente qui sotto.",
-      modeDescLowAngle: "Sceglie la carica più bassa che mantiene l'elevazione entro l'angolo massimo.",
-      modeDescEconomy: "Sceglie la carica più bassa che porta l'elevazione tra 30°–50°.",
-      modeDescHistory: "Sceglie la carica più vicina alla tua elevazione media registrata.",
-      labelBearing: "Rilevamento", unitDegrees: "gradi", labelDistance: "Distanza Bersaglio",
-      labelCharges: "Cariche di Lancio", labelRoundType: "Tipo di Proiettile", requiredElevation: "Elevazione Richiesta",
-      logShotBtn: "REGISTRA COLPO", labelTargetType: "Tipo di Bersaglio", labelFlightTime: "Tempo di Volo (s)",
-      labelTargetTime: "Ora Bersaglio (24h)", labelElevation: "Elevazione", labelFireAt: "Sparare alle",
-      unitClockTime: "orario", firingLog: "Registro di Fuoco", clearBtn: "CANCELLA",
-      noShotsLogged: "Nessun colpo ancora registrato.", dragHint: "Trascina una scheda qui sotto su CANNONE 1 o CANNONE 2",
-      autoSortBtn: "ORDINA AUTO", gun1: "Cannone 1", gun2: "Cannone 2", enabled: "ABILITATO", disabled: "DISABILITATO",
-      empty: "Vuoto", fireBtn: "SPARA", statCH: "CAR#", statBearing: "Rilev.", statElev: "Elev",
-      firedLabel: "SPARATO ALLE"
-    },
-    zh: {
-      eyebrow: "现场参考 · 非官方", subtitle: "火控计算器", madeBy: "制作者：",
-      tabBasic: "基础", tabAdvanced: "高级", prefsToggle: "装药偏好设置",
-      chargeModeLabel: "装药选择模式", modeManual: "手动", modeLowAngle: "低角度",
-      modeEconomy: "经济模式", modeHistory: "历史匹配", maxAngleLabel: "最大角度（低角度模式）",
-      modeDescManual: "装药在下方手动选择。",
-      modeDescLowAngle: "选择能将仰角保持在最大角度以内的最小装药。",
-      modeDescEconomy: "选择能使仰角落在30°–50°之间的最小装药。",
-      modeDescHistory: "选择最接近你平均记录仰角的装药。",
-      labelBearing: "方位角", unitDegrees: "度", labelDistance: "目标距离",
-      labelCharges: "发射药", labelRoundType: "弹种", requiredElevation: "所需仰角",
-      logShotBtn: "记录射击", labelTargetType: "目标类型", labelFlightTime: "飞行时间（秒）",
-      labelTargetTime: "目标时间（24小时制）", labelElevation: "仰角", labelFireAt: "开火时间",
-      unitClockTime: "时间", firingLog: "射击日志", clearBtn: "清除",
-      noShotsLogged: "尚未记录任何射击。", dragHint: "将下方卡片拖到 火炮1 或 火炮2",
-      autoSortBtn: "自动排序", gun1: "火炮1", gun2: "火炮2", enabled: "已启用", disabled: "已禁用",
-      empty: "空", fireBtn: "开火", statCH: "装药", statBearing: "方位", statElev: "仰角",
-      firedLabel: "开火于"
-    },
-    ja: {
-      eyebrow: "フィールドリファレンス・非公式", subtitle: "射撃管制計算機", madeBy: "制作：",
-      tabBasic: "基本", tabAdvanced: "詳細", prefsToggle: "装薬設定",
-      chargeModeLabel: "装薬選択モード", modeManual: "手動", modeLowAngle: "低角度",
-      modeEconomy: "経済モード", modeHistory: "履歴照合", maxAngleLabel: "最大角度（低角度モード）",
-      modeDescManual: "装薬は下で手動で選択します。",
-      modeDescLowAngle: "仰角を最大角度以下に保つ最小の装薬を選択します。",
-      modeDescEconomy: "仰角が30°〜50°になる最小の装薬を選択します。",
-      modeDescHistory: "記録された平均仰角に最も近い装薬を選択します。",
-      labelBearing: "方位", unitDegrees: "度", labelDistance: "目標距離",
-      labelCharges: "装薬数", labelRoundType: "弾種", requiredElevation: "必要仰角",
-      logShotBtn: "射撃を記録", labelTargetType: "目標種別", labelFlightTime: "飛行時間（秒）",
-      labelTargetTime: "目標時刻（24時間制）", labelElevation: "仰角", labelFireAt: "発射時刻",
-      unitClockTime: "時刻", firingLog: "射撃記録", clearBtn: "クリア",
-      noShotsLogged: "まだ記録された射撃はありません。", dragHint: "下のカードを 砲1 または 砲2 にドラッグ",
-      autoSortBtn: "自動並べ替え", gun1: "砲1", gun2: "砲2", enabled: "有効", disabled: "無効",
-      empty: "空", fireBtn: "発射", statCH: "装薬", statBearing: "方位", statElev: "仰角",
-      firedLabel: "発射時刻"
-    }
-  };
-
-  let currentLang = 'en';
-  function t(key){
-    return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
-  }
-  const modeDescKeys = { manual: 'modeDescManual', lowangle: 'modeDescLowAngle', economy: 'modeDescEconomy', history: 'modeDescHistory' };
-
-  function applyLanguage(lang){
-    currentLang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      el.textContent = t(el.dataset.i18n);
-    });
-    modeDesc.textContent = t(modeDescKeys[prefs.mode]);
-    document.getElementById('gunEnable1').textContent = gun1Enabled ? t('enabled') : t('disabled');
-    document.getElementById('gunEnable2').textContent = gun2Enabled ? t('enabled') : t('disabled');
-    renderHistory();
-    renderGuns();
-  }
-
-  document.getElementById('langSelect').addEventListener('change', (e)=>{
-    applyLanguage(e.target.value);
-  });
-
-  // ---- Tabs ----
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
-      activeTab = btn.dataset.tab;
-      // move the log button into view context (it's shared, stays fixed below)
-    });
-  });
-  let activeTab = 'basic';
-
-  // ---- Reusable field factories ----
-  function makeBearingField(inputEl){
-    let bDigits = '0000'; // XXX.X
-    function render(){
-      let val = parseInt(bDigits, 10) / 10;
-      if(val > 359.9) val = 359.9;
-      inputEl.value = val.toFixed(1).padStart(5,'0');
-      return val;
-    }
-    function push(d){ bDigits = (bDigits + d).slice(-4); render(); }
-    function pop(){ bDigits = ('0' + bDigits).slice(0,4); render(); }
-    inputEl.addEventListener('focus', ()=>{ bDigits = '0000'; render(); });
-    inputEl.addEventListener('beforeinput', (e)=>{
-      e.preventDefault();
-      if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
-      else if(e.inputType === 'deleteContentBackward') pop();
-    });
-    render();
-    return { getValue: render };
-  }
-
-  function makeTimeField(inputEl, onChange){
-    let tDigits = '000000'; // HHMMSS, always 24hr
-    function render(){
-      let hh = parseInt(tDigits.slice(0,2), 10);
-      let mm = parseInt(tDigits.slice(2,4), 10);
-      let ss = parseInt(tDigits.slice(4,6), 10);
-      if(hh > 23) hh = 23;
-      if(mm > 59) mm = 59;
-      if(ss > 59) ss = 59;
-      const val = String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
-      inputEl.value = val;
-      return val;
-    }
-    function renderAndNotify(){
-      const val = render();
-      if(onChange) onChange(val);
-      return val;
-    }
-    function push(d){ tDigits = (tDigits + d).slice(-6); renderAndNotify(); }
-    function pop(){ tDigits = ('0' + tDigits).slice(0,6); renderAndNotify(); }
-    inputEl.addEventListener('focus', ()=>{ tDigits = '000000'; renderAndNotify(); });
-    inputEl.addEventListener('beforeinput', (e)=>{
-      e.preventDefault();
-      if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
-      else if(e.inputType === 'deleteContentBackward') pop();
-    });
-    render();
-    return { getValue: render };
-  }
-
-  function makeDistanceField(inputEl, hintEl, onChange){
-    let digits = '0000'; // KK.KK km
-    function render(){
-      const whole = digits.slice(0,2), frac = digits.slice(2,4);
-      inputEl.value = whole + '.' + frac;
-      const meters = parseInt(digits, 10) * 10;
-      if(hintEl) hintEl.textContent = '= ' + String(meters).padStart(4,'0') + ' m';
-      return meters;
-    }
-    function renderAndNotify(){
-      const meters = render();
-      if(onChange) onChange(meters);
-      return meters;
-    }
-    function push(d){ digits = (digits + d).slice(-4); renderAndNotify(); }
-    function pop(){ digits = ('0' + digits).slice(0,4); renderAndNotify(); }
-    inputEl.addEventListener('focus', ()=>{ digits = '0000'; renderAndNotify(); });
-    inputEl.addEventListener('beforeinput', (e)=>{
-      e.preventDefault();
-      if(e.data && /^[0-9]$/.test(e.data)) push(e.data);
-      else if(e.inputType === 'deleteContentBackward') pop();
-    });
-    render();
-    return { getMeters: render };
-  }
-
-  function makeChargeRow(containerEl, onChange){
-    let selected = 1;
-    const buttons = [];
-    for(let i=1;i<=6;i++){
-      const btn = document.createElement('div');
-      btn.className = 'charge-btn' + (i===1 ? ' active' : '');
-      btn.textContent = i;
-      btn.addEventListener('click', ()=>{
-        if(btn.classList.contains('charge-invalid')) return;
-        containerEl.querySelectorAll('.charge-btn').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        selected = i;
-        onChange(selected);
-      });
-      buttons.push(btn);
-      containerEl.appendChild(btn);
-    }
-    function setValue(v){
-      selected = v;
-      buttons.forEach(b => b.classList.toggle('active', parseInt(b.textContent,10) === v));
-    }
-    function updateValidity(meters){
-      buttons.forEach(b=>{
-        const c = parseInt(b.textContent,10);
-        const invalid = meters > 0 && ((meters * 0.012) / c) > 60;
-        b.classList.toggle('charge-invalid', invalid);
-      });
-      // if the currently selected charge is now invalid, bump up to the next charge that works
-      if(meters > 0 && ((meters * 0.012) / selected) > 60){
-        let found = null;
-        for(let c = selected + 1; c <= 6; c++){
-          if(((meters * 0.012) / c) <= 60){ found = c; break; }
-        }
-        // nothing higher works either -> settle on 6, the lowest achievable angle
-        setValue(found || 6);
-      }
-    }
-    return { getValue: ()=>selected, setValue, updateValidity };
-  }
-
-  function makeRoundTypeRow(containerEl, options){
-    let selected = null;
-    const buttons = [];
-    options.forEach(label=>{
-      const btn = document.createElement('div');
-      btn.className = 'charge-btn round-btn round-type-' + label.toLowerCase();
-      btn.textContent = label;
-      btn.addEventListener('click', ()=>{
-        if(selected === label){
-          selected = null;
-          btn.classList.remove('active');
-        } else {
-          buttons.forEach(b=>b.classList.remove('active'));
-          selected = label;
-          btn.classList.add('active');
-        }
-      });
-      buttons.push(btn);
-      containerEl.appendChild(btn);
-    });
-    return { getValue: ()=>selected };
-  }
-
-  // ---- Preferences ----
-  const prefs = { mode: 'manual', lowAngleMax: 45 };
-  const prefsToggle = document.getElementById('prefsToggle');
-  const prefsPanel = document.getElementById('prefsPanel');
-  const modeRow = document.getElementById('modeRow');
-  const lowAngleField = document.getElementById('lowAngleField');
-  const lowAngleMaxInput = document.getElementById('lowAngleMax');
-  const modeDesc = document.getElementById('modeDesc');
-  const basicAutoBadge = document.getElementById('basicAutoBadge');
-  const advAutoBadge = document.getElementById('advAutoBadge');
-
-  prefsToggle.addEventListener('click', ()=>{
-    prefsPanel.style.display = prefsPanel.style.display === 'none' ? 'block' : 'none';
-  });
-
-  modeRow.querySelectorAll('.mode-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      modeRow.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      prefs.mode = btn.dataset.mode;
-      modeDesc.textContent = t(modeDescKeys[prefs.mode]);
-      lowAngleField.style.display = prefs.mode === 'lowangle' ? 'block' : 'none';
-      const isAuto = prefs.mode !== 'manual';
-      document.getElementById('chargeRow').classList.toggle('auto-locked', isAuto);
-      document.getElementById('advChargeRow').classList.toggle('auto-locked', isAuto);
-      basicAutoBadge.style.display = isAuto ? 'inline-block' : 'none';
-      advAutoBadge.style.display = isAuto ? 'inline-block' : 'none';
-      calcBasic();
-      calcAdvanced();
-    });
-  });
-
-  lowAngleMaxInput.addEventListener('input', ()=>{
-    prefs.lowAngleMax = parseFloat(lowAngleMaxInput.value) || 45;
-    calcBasic();
-    calcAdvanced();
-  });
-
-  function getHistoryAvgElevation(){
-    if(history.length === 0) return null;
-    const sum = history.reduce((acc,e)=>acc + parseFloat(e.elevation), 0);
-    return sum / history.length;
-  }
-
-  function pickAutoCharge(meters, avgOverride){
-    if(meters <= 0) return null;
-    const elevs = {};
-    for(let c=1;c<=6;c++) elevs[c] = (meters * 0.012) / c;
-
-    if(prefs.mode === 'lowangle'){
-      for(let c=1;c<=6;c++){ if(elevs[c] <= prefs.lowAngleMax) return c; }
-      return 6; // fallback: highest charge gives lowest achievable angle
-    }
-    if(prefs.mode === 'economy'){
-      for(let c=1;c<=6;c++){ if(elevs[c] >= 30 && elevs[c] <= 50) return c; }
-      // fallback: charge closest to the 30-50 band
-      let best = 1, bestDist = Infinity;
-      for(let c=1;c<=6;c++){
-        const d = elevs[c] < 30 ? (30 - elevs[c]) : (elevs[c] > 50 ? (elevs[c] - 50) : 0);
-        if(d < bestDist){ bestDist = d; best = c; }
-      }
-      return best;
-    }
-    if(prefs.mode === 'history'){
-      const avg = avgOverride !== undefined ? avgOverride : getHistoryAvgElevation();
-      if(avg === null) return null; // no history yet, leave manual
-      let best = 1, bestDiff = Infinity;
-      for(let c=1;c<=6;c++){
-        const diff = Math.abs(elevs[c] - avg);
-        if(diff < bestDiff){ bestDiff = diff; best = c; }
-      }
-      return best;
-    }
-    return null; // manual
-  }
-
-  function computeFireTime(targetTimeStr, flightSeconds){
-    if(!targetTimeStr || isNaN(flightSeconds)) return null;
-    const parts = targetTimeStr.split(':').map(Number);
-    const h = parts[0] || 0, m = parts[1] || 0, s = parts[2] || 0;
-    const dayMs = 24*3600*1000;
-    let totalMs = ((h*3600)+(m*60)+s)*1000;
-    let fireMs = totalMs - (flightSeconds*1000);
-    fireMs = ((fireMs % dayMs) + dayMs) % dayMs;
-    const fh = Math.floor(fireMs/3600000);
-    const remH = fireMs - fh*3600000;
-    const fm = Math.floor(remH/60000);
-    const remM = remH - fm*60000;
-    const fs = remM/1000;
-    return String(fh).padStart(2,'0') + ':' + String(fm).padStart(2,'0') + ':' + fs.toFixed(1).padStart(4,'0');
-  }
-
-  // ---- Field chaining: "Next" moves focus forward, "Go" dismisses + scrolls to result ----
-  function attachFieldChain(inputEl, nextEl, scrollTargetEl){
-    function trigger(){
-      if(nextEl){
-        inputEl.blur();
-        setTimeout(()=> nextEl.focus(), 30);
-      } else {
-        inputEl.blur();
-        if(scrollTargetEl){
-          setTimeout(()=>{
-            scrollTargetEl.scrollIntoView({behavior:'smooth', block:'center'});
-          }, 60);
-        }
-      }
-    }
-    inputEl.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter'){ e.preventDefault(); trigger(); }
-    });
-    inputEl.addEventListener('beforeinput', (e)=>{
-      if(e.inputType === 'insertLineBreak'){ trigger(); }
-    });
-  }
-
-  // ---- Basic tab wiring ----
-  const output = document.getElementById('output');
-  const chargeRow = document.getElementById('chargeRow');
-  const basicCharges = makeChargeRow(chargeRow, ()=>calcBasic());
-  const basicBearing = makeBearingField(document.getElementById('bearing'));
-  const basicDistance = makeDistanceField(document.getElementById('distance'), document.getElementById('meterHint'), ()=>calcBasic());
-  const basicRoundType = makeRoundTypeRow(document.getElementById('basicRoundRow'), ['HE','AP','DRIL','STAR']);
-  attachFieldChain(document.getElementById('bearing'), document.getElementById('distance'));
-  attachFieldChain(document.getElementById('distance'), null, output.closest('.readout'));
-
-  function calcBasic(){
-    const meters = basicDistance.getMeters();
-    basicCharges.updateValidity(meters);
-    if(prefs.mode !== 'manual' && meters > 0){
-      const auto = pickAutoCharge(meters);
-      if(auto) basicCharges.setValue(auto);
-    }
-    const charges = basicCharges.getValue();
-    if(meters <= 0){ output.textContent = '—'; return; }
-    output.textContent = ((meters * 0.012) / charges).toFixed(2);
-  }
-
-
-  // ---- Advanced tab wiring ----
-  const advOutput = document.getElementById('advOutput');
-  const fireTimeOutput = document.getElementById('fireTimeOutput');
-  const advChargeRow = document.getElementById('advChargeRow');
-  const advCharges = makeChargeRow(advChargeRow, ()=>calcAdvanced());
-  const advBearing = makeBearingField(document.getElementById('advBearing'));
-  const advDistance = makeDistanceField(document.getElementById('advDistance'), document.getElementById('advMeterHint'), ()=>calcAdvanced());
-  const flightTimeInput = document.getElementById('flightTime');
-  const targetTimeField = makeTimeField(document.getElementById('targetTime'), ()=>calcAdvanced());
-  const advReadoutGroup = advOutput.closest('.readout-group');
-  attachFieldChain(document.getElementById('targetType'), document.getElementById('roundType'));
-  attachFieldChain(document.getElementById('roundType'), document.getElementById('advBearing'));
-  attachFieldChain(document.getElementById('advBearing'), document.getElementById('advDistance'));
-  attachFieldChain(document.getElementById('advDistance'), flightTimeInput);
-  attachFieldChain(flightTimeInput, document.getElementById('targetTime'));
-  attachFieldChain(document.getElementById('targetTime'), null, advReadoutGroup);
-
-  function calcAdvanced(){
-    const meters = advDistance.getMeters();
-    advCharges.updateValidity(meters);
-    if(prefs.mode !== 'manual' && meters > 0){
-      const auto = pickAutoCharge(meters);
-      if(auto) advCharges.setValue(auto);
-    }
-    const charges = advCharges.getValue();
-    if(meters <= 0){
-      advOutput.textContent = '—';
-    } else {
-      advOutput.textContent = ((meters * 0.012) / charges).toFixed(2);
-    }
-    const flight = parseFloat(flightTimeInput.value);
-    const fireTime = computeFireTime(targetTimeField.getValue(), flight);
-    fireTimeOutput.textContent = fireTime || '—';
-  }
-
-  flightTimeInput.addEventListener('input', calcAdvanced);
-
-  // ---- History log (shared) ----
-  const historyList = document.getElementById('historyList');
-  const clearBtn = document.getElementById('clearBtn');
-  let history = [];
-  let nextId = 1;
-
-  let gun1 = []; // array of entry ids, in drop order
-  let gun2 = [];
-
-  function statTrioHTML(entry){
-    return `
-      <div class="stat-trio">
-        <div class="stat-block">
-          <div class="stat-label">${t('statCH')}</div>
-          <div class="stat-value">${entry.charges}</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-label">${t('statBearing')}</div>
-          <div class="stat-value">${entry.bearing}°</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-label">${t('statElev')}</div>
-          <div class="stat-value elev">${entry.elevation}°</div>
-        </div>
-      </div>`;
-  }
-
-  function gunStatsHTML(entry){
-    return `
-      <div class="gun-stat-top">
-        <div class="stat-block">
-          <div class="stat-label">${t('statCH')}</div>
-          <div class="stat-value">${entry.charges}</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-label">${t('statElev')}</div>
-          <div class="stat-value elev">${entry.elevation}°</div>
-        </div>
-      </div>
-      <div class="stat-block gun-stat-bearing">
-        <div class="stat-label">${t('statBearing')}</div>
-        <div class="stat-value">${entry.bearing}°</div>
-      </div>`;
-  }
-
-  function secondaryLineHTML(entry){
-    const bits = [entry.meters + 'm'];
-    if(entry.targetType) bits.push('TGT ' + entry.targetType);
-    if(entry.fireTime) bits.push('FIRE @ ' + entry.fireTime);
-    return bits.join(' · ');
-  }
-
-  function roundTagHTML(entry){
-    if(!entry.roundType) return '';
-    return `<span class="round-tag round-type-${entry.roundType.toLowerCase()}">${entry.roundType}</span>`;
-  }
-
-  function renderHistory(){
-    if(history.length === 0){
-      historyList.innerHTML = '<div class="history-empty">No shots logged yet.</div>';
-      return;
-    }
-    historyList.innerHTML = history.map(entry => {
-      const gunNum = gun1.includes(entry.id) ? 1 : gun2.includes(entry.id) ? 2 : null;
-      return `
-      <div class="history-row draggable-card${gunNum ? ' assigned-'+gunNum : ''}${entry.fired ? ' fired-row' : ''}" data-id="${entry.id}">
-        <div class="h-controls">
-          ${gunNum ? `<span class="gun-tag gun-tag-${gunNum}">${t(gunNum===1?'gun1':'gun2')}</span>` : entry.fired ? `<span class="fired-tag">${t('firedLabel')} ${entry.firedAt}</span>` : '<span></span>'}
-          <span class="h-remove" data-remove-history="${entry.id}">✕</span>
-        </div>
-        ${statTrioHTML(entry)}
-        <div class="h-secondary">
-          <span>${secondaryLineHTML(entry)}</span>
-          ${roundTagHTML(entry)}
-          <span class="h-time">${entry.loggedAt}</span>
-        </div>
-      </div>
-    `;
-    }).join('');
-    historyList.querySelectorAll('.draggable-card').forEach(el=>{
-      el.addEventListener('pointerdown', onCardPointerDown);
-    });
-    historyList.querySelectorAll('.h-remove').forEach(btn=>{
-      btn.addEventListener('pointerdown', (e)=> e.stopPropagation());
-      btn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        deleteHistoryEntry(parseFloat(btn.dataset.removeHistory));
-      });
-    });
-  }
-
-  function deleteHistoryEntry(id){
-    const idx = history.findIndex(e => e.id === id);
-    if(idx > -1) history.splice(idx, 1);
-    const g1idx = gun1.indexOf(id);
-    if(g1idx > -1) gun1.splice(g1idx, 1);
-    const g2idx = gun2.indexOf(id);
-    if(g2idx > -1) gun2.splice(g2idx, 1);
-    renderHistory();
-    renderGuns();
-  }
-
-  function renderGuns(){
-    [ {arr: gun1, zone: document.getElementById('gunZone1'), count: document.getElementById('gunCount1')},
-      {arr: gun2, zone: document.getElementById('gunZone2'), count: document.getElementById('gunCount2')} ]
-    .forEach(({arr, zone, count})=>{
-      count.textContent = arr.length + '/7';
-      if(arr.length === 0){
-        zone.innerHTML = '<div class="gun-empty">Empty</div>';
-        return;
-      }
-      zone.innerHTML = arr.map((id, i)=>{
-        const entry = history.find(e=>e.id===id);
-        if(!entry) return '';
-        const label = i === 0 ? 'C' : i; // C = chamber, then 1-6 mag order
-        return `
-        <div class="gun-round" data-id="${entry.id}">
-          <div class="gr-top">
-            <span class="gr-num">${label}</span>
-            <span class="gr-remove" data-remove="${entry.id}" data-gun="${arr===gun1?1:2}">${t('fireBtn')}</span>
-          </div>
-          ${gunStatsHTML(entry)}
-          <div class="gr-meta-row">
-            <span class="gr-meta">${secondaryLineHTML(entry)}</span>
-            ${roundTagHTML(entry)}
-          </div>
-        </div>`;
-      }).join('');
-      zone.querySelectorAll('.gr-remove').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          const id = parseFloat(btn.dataset.remove);
-          const g = btn.dataset.gun === '1' ? gun1 : gun2;
-          const idx = g.indexOf(id);
-          if(idx > -1) g.splice(idx,1);
-          const entry = history.find(x=>x.id===id);
-          if(entry){
-            entry.fired = true;
-            entry.firedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-          }
-          renderGuns();
-          renderHistory();
-        });
-      });
-    });
-  }
-
-  function pruneGunsToHistory(){
-    const validIds = new Set(history.map(e=>e.id));
-    gun1 = gun1.filter(id=>validIds.has(id));
-    gun2 = gun2.filter(id=>validIds.has(id));
-  }
-
-  // ---- Auto-sort into gun magazines, grouped by bearing ----
-  function bearingOf(entry){ return parseFloat(entry.bearing); }
-
-  let gun1Enabled = true;
-  let gun2Enabled = true;
-
-  function setupGunEnableToggle(btnId, gunNum){
-    const btn = document.getElementById(btnId);
-    btn.addEventListener('click', ()=>{
-      const nowEnabled = !btn.classList.contains('active');
-      btn.classList.toggle('active', nowEnabled);
-      btn.classList.toggle('disabled-state', !nowEnabled);
-      btn.textContent = nowEnabled ? t('enabled') : t('disabled');
-      if(gunNum === 1) gun1Enabled = nowEnabled; else gun2Enabled = nowEnabled;
-    });
-  }
-  setupGunEnableToggle('gunEnable1', 1);
-  setupGunEnableToggle('gunEnable2', 2);
-
-  function autoSortAll(){
-    // never touch fired rounds - they're spent, not part of the loadout pool
-    const liveHistory = history.filter(e => !e.fired);
-
-    if(gun1Enabled && gun2Enabled){
-      const pool = liveHistory.slice().sort((a,b)=> bearingOf(a) - bearingOf(b));
-      const newGun1 = [], newGun2 = [];
-      pool.forEach((e, i)=>{
-        if(i % 2 === 0){
-          if(newGun1.length < 7) newGun1.push(e.id);
-        } else {
-          if(newGun2.length < 7) newGun2.push(e.id);
-        }
-      });
-      gun1 = newGun1;
-      gun2 = newGun2;
-    } else if(gun1Enabled){
-      const pool = liveHistory
-        .filter(e => gun1.includes(e.id) || (!gun1.includes(e.id) && !gun2.includes(e.id)))
-        .sort((a,b)=> bearingOf(a) - bearingOf(b));
-      gun1 = pool.slice(0, 7).map(e=>e.id);
-    } else if(gun2Enabled){
-      const pool = liveHistory
-        .filter(e => gun2.includes(e.id) || (!gun1.includes(e.id) && !gun2.includes(e.id)))
-        .sort((a,b)=> bearingOf(a) - bearingOf(b));
-      gun2 = pool.slice(0, 7).map(e=>e.id);
-    } else {
-      return; // both disabled - nothing to sort
-    }
-    renderGuns();
-    renderHistory();
-  }
-
-  document.getElementById('autoSortBtn').addEventListener('click', autoSortAll);
-
-  // ---- Drag and drop (pointer events, touch-friendly) ----
-  let dragState = null;
-
-  function onCardPointerDown(e){
-    const cardEl = e.currentTarget;
-    const id = parseFloat(cardEl.dataset.id);
-    const entry = history.find(x=>x.id===id);
-    if(!entry) return;
-    e.preventDefault();
-
-    const rect = cardEl.getBoundingClientRect();
-    const ghost = cardEl.cloneNode(true);
-    ghost.classList.add('drag-ghost');
-    ghost.style.width = rect.width + 'px';
-    ghost.style.left = rect.left + 'px';
-    ghost.style.top = rect.top + 'px';
-    document.body.appendChild(ghost);
-
-    cardEl.classList.add('dragging-source');
-
-    dragState = {
-      id, offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top,
-      ghost, cardEl
-    };
-
-    cardEl.setPointerCapture(e.pointerId);
-    cardEl.addEventListener('pointermove', onCardPointerMove);
-    cardEl.addEventListener('pointerup', onCardPointerUp);
-    cardEl.addEventListener('pointercancel', onCardPointerUp);
-  }
-
-  function onCardPointerMove(e){
-    if(!dragState) return;
-    dragState.ghost.style.left = (e.clientX - dragState.offsetX) + 'px';
-    dragState.ghost.style.top = (e.clientY - dragState.offsetY) + 'px';
-
-    document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover'));
-    dragState.ghost.style.display = 'none';
-    const under = document.elementFromPoint(e.clientX, e.clientY);
-    dragState.ghost.style.display = '';
-    const zone = under ? under.closest('.gun-dropzone') : null;
-    if(zone){
-      const gunNum = zone.dataset.gun;
-      const arr = gunNum === '1' ? gun1 : gun2;
-      zone.classList.toggle('drop-full', arr.length >= 7 && !arr.includes(dragState.id));
-      if(arr.length < 7 || arr.includes(dragState.id)) zone.classList.add('drop-hover');
-    }
-  }
-
-  function onCardPointerUp(e){
-    if(!dragState) return;
-    const { id, ghost, cardEl } = dragState;
-
-    ghost.style.display = 'none';
-    const under = document.elementFromPoint(e.clientX, e.clientY);
-    ghost.remove();
-    cardEl.classList.remove('dragging-source');
-    cardEl.removeEventListener('pointermove', onCardPointerMove);
-    cardEl.removeEventListener('pointerup', onCardPointerUp);
-    cardEl.removeEventListener('pointercancel', onCardPointerUp);
-    document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover','drop-full'));
-
-    const zone = under ? under.closest('.gun-dropzone') : null;
-    if(zone){
-      const gunNum = zone.dataset.gun;
-      const arr = gunNum === '1' ? gun1 : gun2;
-      const other = gunNum === '1' ? gun2 : gun1;
-      const idx = other.indexOf(id);
-      if(idx > -1) other.splice(idx,1); // move from other gun if it was there
-      if(!arr.includes(id) && arr.length < 7){
-        arr.push(id);
-      }
-      renderGuns();
-      renderHistory();
-    }
-    dragState = null;
-  }
-
-  function handleLogShot(){
-    const loggedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-    const id = nextId++;
-    if(activeTab === 'basic'){
-      const meters = basicDistance.getMeters();
-      if(meters <= 0) return;
-      const bearing = basicBearing.getValue();
-      const charges = basicCharges.getValue();
-      const elevation = ((meters * 0.012) / charges).toFixed(2);
-      const roundType = basicRoundType.getValue();
-      history.unshift({ id, bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt, roundType });
-    } else {
-      const meters = advDistance.getMeters();
-      if(meters <= 0) return;
-      const bearing = advBearing.getValue();
-      const charges = advCharges.getValue();
-      const elevation = ((meters * 0.012) / charges).toFixed(2);
-      const flight = parseFloat(flightTimeInput.value);
-      const fireTime = computeFireTime(targetTimeField.getValue(), flight);
-      const targetType = document.getElementById('targetType').value.trim();
-      const roundType = document.getElementById('roundType').value.trim();
-      history.unshift({ id, bearing: bearing.toFixed(1).padStart(5,'0'), meters, charges, elevation, loggedAt, targetType, roundType, fireTime });
-    }
-    if(history.length > 20){
-      history.pop();
-      pruneGunsToHistory();
-    }
-    renderHistory();
-    renderGuns();
-    if(prefs.mode === 'history'){ calcBasic(); calcAdvanced(); }
-  }
-
-  document.getElementById('advLogBtnBig').addEventListener('click', handleLogShot);
-  document.getElementById('basicLogBtnBig').addEventListener('click', handleLogShot);
-
-  clearBtn.addEventListener('click', ()=>{
-    history = [];
-    gun1 = [];
-    gun2 = [];
-    renderHistory();
-    renderGuns();
-  });
-</script>
-
+ 
 </body>
 </html>
+ 
