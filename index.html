@@ -1,12 +1,33 @@
-
-
-Iron nest calc · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.4, maximum-scale=4">
 <title>Iron Nest Unofficial Fire Control Calculator</title>
+
+<meta name="description" content="Free bearing, distance, and charge calculator for Iron Nest: Heavy Turret Simulator. Auto fire-time for moving targets, dual-gun magazine management, 9 languages. No install, works on phone or desktop.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Iron Nest Unofficial Fire Control Calculator">
+<meta property="og:description" content="Bearing, distance, and charge → elevation, instantly. Auto fire-time, dual-gun mag management, 9 languages. Free, no install.">
+<meta property="og:url" content="https://joeoakley52.github.io/UNOFFICIAL-Iron-Nest-FCC/">
+<meta property="og:image" content="https://joeoakley52.github.io/UNOFFICIAL-Iron-Nest-FCC/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iron Nest Unofficial Fire Control Calculator">
+<meta name="twitter:description" content="Bearing, distance, and charge → elevation, instantly. Free, no install.">
+<meta name="twitter:image" content="https://joeoakley52.github.io/UNOFFICIAL-Iron-Nest-FCC/og-image.png">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#17150f">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Iron Nest FCC">
+
 <style>
   :root{
     --iron: #17150f;
@@ -119,7 +140,27 @@ Iron nest calc · HTML
     color: var(--brass-bright);
     font-weight: 700;
   }
- 
+  .feedback-link{
+    display:inline-flex;
+    align-items:center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 8px;
+    padding: 5px 12px;
+    border-radius: 12px;
+    background: rgba(195,154,84,0.08);
+    border: 1px solid #4a4332;
+    color: var(--ivory-dim);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .feedback-link:hover{
+    border-color: var(--glow);
+    color: var(--brass-bright);
+  }
+
   .tabs{
     display:flex;
     gap: 6px;
@@ -148,7 +189,7 @@ Iron nest calc · HTML
   }
   .tab-panel{ display:none; }
   .tab-panel.active{ display:block; }
- 
+
   .prefs-toggle{
     text-align:center;
     font-size: 11px;
@@ -215,7 +256,7 @@ Iron nest calc · HTML
     color: var(--glow);
     margin-left: 8px;
   }
- 
+
   .plate{
     background: linear-gradient(180deg, var(--panel-raised), var(--panel));
     border: 1px solid #3a3427;
@@ -233,7 +274,7 @@ Iron nest calc · HTML
   }
   .rivet.tl{top:8px;left:8px;} .rivet.tr{top:8px;right:8px;}
   .rivet.bl{bottom:8px;left:8px;} .rivet.br{bottom:8px;right:8px;}
- 
+
   .field{
     margin-bottom: 18px;
   }
@@ -285,7 +326,7 @@ Iron nest calc · HTML
     letter-spacing: 0.12em;
     margin-top: 6px;
   }
- 
+
   .charge-row{
     display:flex;
     gap: 8px;
@@ -336,7 +377,7 @@ Iron nest calc · HTML
     color: #ffd7a8;
     box-shadow: 0 0 10px rgba(255,140,0,0.4);
   }
- 
+
   .round-type-ap{
     background: rgba(198,40,40,0.12);
     border-color: #c62828;
@@ -349,7 +390,7 @@ Iron nest calc · HTML
     color: #ffb3ab;
     box-shadow: 0 0 10px rgba(198,40,40,0.4);
   }
- 
+
   .round-type-dril{
     background: #0c0c0c;
     border-color: #1565c0;
@@ -362,7 +403,7 @@ Iron nest calc · HTML
     color: #e3f2fd;
     box-shadow: 0 0 10px rgba(33,150,243,0.45);
   }
- 
+
   .round-type-star{
     background: #0d47a1;
     border-color: #1565c0;
@@ -411,13 +452,13 @@ Iron nest calc · HTML
     gap: 8px;
     flex-wrap: wrap;
   }
- 
+
   .divider{
     height:1px;
     background: linear-gradient(90deg, transparent, #4a4332, transparent);
     margin: 20px 0;
   }
- 
+
   .readout-group{
     display:flex;
     gap: 10px;
@@ -449,7 +490,7 @@ Iron nest calc · HTML
     margin-top: 6px;
     letter-spacing: 0.1em;
   }
- 
+
   .history-plate{
     margin-top: 20px;
     padding: 18px 16px;
@@ -656,7 +697,7 @@ Iron nest calc · HTML
   .history-row.dragging-source{
     opacity: 0.35;
   }
- 
+
   .gun-controls{
     display:flex;
     justify-content:center;
@@ -756,6 +797,11 @@ Iron nest calc · HTML
     display:flex;
     flex-direction: column;
     gap: 4px;
+    cursor: grab;
+    touch-action: none;
+  }
+  .gun-round.dragging-source{
+    opacity: 0.35;
   }
   .gun-round .gr-top{
     display:flex;
@@ -810,6 +856,7 @@ Iron nest calc · HTML
       </h1>
       <div class="credit"><span data-i18n="madeBy">made by:</span> Joe Oakley</div>
       <div id="usageBadge" class="usage-badge" style="display:none;"></div>
+      <a href="https://github.com/JoeOakley52/UNOFFICIAL-Iron-Nest-FCC/discussions" target="_blank" rel="noopener noreferrer" class="feedback-link">💬 <span data-i18n="feedbackLink">Feedback &amp; Bug Reports</span></a>
       <select id="langSelect" class="lang-select">
         <option value="en">English</option>
         <option value="es">Español</option>
@@ -822,19 +869,19 @@ Iron nest calc · HTML
         <option value="ja">日本語</option>
       </select>
     </div>
- 
+
     <div class="desktop-grid">
     <div class="calc-column">
     <div class="tabs">
       <div class="tab-btn active" data-tab="basic" data-i18n="tabBasic">Basic</div>
       <div class="tab-btn" data-tab="advanced" data-i18n="tabAdvanced">Advanced</div>
     </div>
- 
+
     <div class="prefs-toggle" id="prefsToggle">⚙ <span data-i18n="prefsToggle">Charge Preferences</span></div>
     <div class="plate prefs-panel" id="prefsPanel" style="display:none;">
       <div class="rivet tl"></div><div class="rivet tr"></div>
       <div class="rivet bl"></div><div class="rivet br"></div>
- 
+
       <label data-i18n="chargeModeLabel">Charge Selection Mode</label>
       <div class="mode-row" id="modeRow">
         <div class="mode-btn active" data-mode="manual" data-i18n="modeManual">Manual</div>
@@ -842,61 +889,61 @@ Iron nest calc · HTML
         <div class="mode-btn" data-mode="economy" data-i18n="modeEconomy">Economy</div>
         <div class="mode-btn" data-mode="history" data-i18n="modeHistory">Match History</div>
       </div>
- 
+
       <div class="field" id="lowAngleField" style="display:none; margin-top:16px;">
         <label for="lowAngleMax" data-i18n="maxAngleLabel">Max Angle (Low Angle mode)</label>
         <input type="number" id="lowAngleMax" value="45" min="1" max="60" step="1">
       </div>
- 
+
       <div class="mode-desc" id="modeDesc" data-i18n="modeDescManual">Charge is selected manually below.</div>
     </div>
- 
+
     <!-- BASIC PANEL -->
     <div class="tab-panel active" id="panel-basic">
       <div class="plate">
         <div class="rivet tl"></div><div class="rivet tr"></div>
         <div class="rivet bl"></div><div class="rivet br"></div>
- 
+
         <div class="field">
           <label for="bearing" data-i18n="labelBearing">Bearing</label>
           <input type="text" class="roll-input" id="bearing" inputmode="numeric" enterkeyhint="next" value="000.0">
           <div class="field-hint" data-i18n="unitDegrees">degrees</div>
         </div>
- 
+
         <div class="field">
           <label for="distance" data-i18n="labelDistance">Target Distance</label>
           <input type="text" class="roll-input" id="distance" inputmode="numeric" enterkeyhint="go" value="00.00">
           <div class="field-hint" id="meterHint">= 0000 m</div>
         </div>
- 
+
         <div class="field">
           <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="basicAutoBadge" style="display:none;">AUTO</span></label>
           <div class="charge-row" id="chargeRow"></div>
         </div>
- 
+
         <div class="field">
           <label data-i18n="labelRoundType">Round Type</label>
           <div class="charge-row" id="basicRoundRow"></div>
         </div>
- 
+
         <div class="divider"></div>
- 
+
         <div class="readout">
           <div class="readout-label" data-i18n="requiredElevation">Required Elevation</div>
           <div class="readout-value" id="output">—</div>
           <div class="readout-unit" data-i18n="unitDegrees">degrees</div>
         </div>
- 
+
         <button class="log-btn-big" id="basicLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
       </div>
     </div>
- 
+
     <!-- ADVANCED PANEL -->
     <div class="tab-panel" id="panel-advanced">
       <div class="plate">
         <div class="rivet tl"></div><div class="rivet tr"></div>
         <div class="rivet bl"></div><div class="rivet br"></div>
- 
+
         <div class="field-row">
           <div class="field">
             <label for="targetType" data-i18n="labelTargetType">Target Type</label>
@@ -930,24 +977,24 @@ Iron nest calc · HTML
             </datalist>
           </div>
         </div>
- 
+
         <div class="field">
           <label for="advBearing" data-i18n="labelBearing">Bearing</label>
           <input type="text" class="roll-input" id="advBearing" inputmode="numeric" enterkeyhint="next" value="000.0">
           <div class="field-hint" data-i18n="unitDegrees">degrees</div>
         </div>
- 
+
         <div class="field">
           <label for="advDistance" data-i18n="labelDistance">Target Distance</label>
           <input type="text" class="roll-input" id="advDistance" inputmode="numeric" enterkeyhint="next" value="00.00">
           <div class="field-hint" id="advMeterHint">= 0000 m</div>
         </div>
- 
+
         <div class="field">
           <label><span data-i18n="labelCharges">Powder Charges</span> <span class="auto-badge" id="advAutoBadge" style="display:none;">AUTO</span></label>
           <div class="charge-row" id="advChargeRow"></div>
         </div>
- 
+
         <div class="field-row">
           <div class="field">
             <label for="flightTime" data-i18n="labelFlightTime">Time of Flight (s)</label>
@@ -958,9 +1005,9 @@ Iron nest calc · HTML
             <input type="text" class="roll-input" id="targetTime" inputmode="numeric" enterkeyhint="go" value="00:00:00">
           </div>
         </div>
- 
+
         <div class="divider"></div>
- 
+
         <div class="readout-group">
           <div class="readout">
             <div class="readout-label" data-i18n="labelElevation">Elevation</div>
@@ -973,12 +1020,12 @@ Iron nest calc · HTML
             <div class="readout-unit" data-i18n="unitClockTime">clock time</div>
           </div>
         </div>
- 
+
         <button class="log-btn-big" id="advLogBtnBig" data-i18n="logShotBtn">LOG SHOT</button>
       </div>
     </div>
     </div>
- 
+
     <div class="log-column">
     <div class="plate history-plate">
       <div class="rivet tl"></div><div class="rivet tr"></div>
@@ -994,11 +1041,11 @@ Iron nest calc · HTML
       </div>
       <div class="drag-hint" data-i18n="dragHint">Drag a card below onto GUN 1 or GUN 2</div>
     </div>
- 
+
     <div class="gun-controls">
       <button class="auto-sort-btn" id="autoSortBtn" data-i18n="autoSortBtn">AUTO SORT</button>
     </div>
- 
+
     <div class="gun-panels">
       <div class="plate gun-panel" id="gunPanel1" data-gun="1">
         <div class="rivet tl"></div><div class="rivet tr"></div>
@@ -1028,7 +1075,7 @@ Iron nest calc · HTML
     </div>
     </div>
   </div>
- 
+
 <script>
   // ---- Translations ----
   const translations = {
@@ -1049,7 +1096,7 @@ Iron nest calc · HTML
       noShotsLogged: "No shots logged yet.", dragHint: "Drag a card below onto GUN 1 or GUN 2",
       autoSortBtn: "AUTO SORT", gun1: "Gun 1", gun2: "Gun 2", enabled: "ENABLED", disabled: "DISABLED",
       empty: "Empty", fireBtn: "FIRE", statCH: "CH#", statBearing: "Bearing", statElev: "Elev",
-      firedLabel: "FIRED @", usageSuffix: "uses"
+      firedLabel: "FIRED @", usageSuffix: "uses", feedbackLink: "Feedback & Bug Reports"
     },
     es: {
       eyebrow: "Referencia de Campo · No Oficial", subtitle: "Calculadora de Control de Fuego", madeBy: "hecho por:",
@@ -1068,7 +1115,7 @@ Iron nest calc · HTML
       noShotsLogged: "Aún no hay disparos registrados.", dragHint: "Arrastra una tarjeta abajo hacia CAÑÓN 1 o CAÑÓN 2",
       autoSortBtn: "ORDENAR AUTO", gun1: "Cañón 1", gun2: "Cañón 2", enabled: "ACTIVADO", disabled: "DESACTIVADO",
       empty: "Vacío", fireBtn: "DISPARAR", statCH: "CG#", statBearing: "Rumbo", statElev: "Elev",
-      firedLabel: "DISPARADO A", usageSuffix: "usos"
+      firedLabel: "DISPARADO A", usageSuffix: "usos", feedbackLink: "Comentarios y Errores"
     },
     fr: {
       eyebrow: "Référence de Terrain · Non Officiel", subtitle: "Calculateur de Tir", madeBy: "créé par :",
@@ -1087,7 +1134,7 @@ Iron nest calc · HTML
       noShotsLogged: "Aucun tir enregistré.", dragHint: "Glissez une carte ci-dessous vers CANON 1 ou CANON 2",
       autoSortBtn: "TRI AUTO", gun1: "Canon 1", gun2: "Canon 2", enabled: "ACTIVÉ", disabled: "DÉSACTIVÉ",
       empty: "Vide", fireBtn: "TIRER", statCH: "CH#", statBearing: "Relèv.", statElev: "Élév",
-      firedLabel: "TIRÉ À", usageSuffix: "utilisations"
+      firedLabel: "TIRÉ À", usageSuffix: "utilisations", feedbackLink: "Retours & Bugs"
     },
     de: {
       eyebrow: "Feldreferenz · Inoffiziell", subtitle: "Feuerleitrechner", madeBy: "erstellt von:",
@@ -1106,7 +1153,7 @@ Iron nest calc · HTML
       noShotsLogged: "Noch keine Schüsse protokolliert.", dragHint: "Karte unten auf KANONE 1 oder KANONE 2 ziehen",
       autoSortBtn: "AUTO-SORTIERUNG", gun1: "Kanone 1", gun2: "Kanone 2", enabled: "AKTIVIERT", disabled: "DEAKTIVIERT",
       empty: "Leer", fireBtn: "FEUER", statCH: "LAD#", statBearing: "Peilung", statElev: "Erhöh",
-      firedLabel: "ABGEFEUERT UM", usageSuffix: "Nutzungen"
+      firedLabel: "ABGEFEUERT UM", usageSuffix: "Nutzungen", feedbackLink: "Feedback & Fehler"
     },
     pt: {
       eyebrow: "Referência de Campo · Não Oficial", subtitle: "Calculadora de Controle de Tiro", madeBy: "feito por:",
@@ -1125,7 +1172,7 @@ Iron nest calc · HTML
       noShotsLogged: "Nenhum tiro registrado ainda.", dragHint: "Arraste um cartão abaixo para CANHÃO 1 ou CANHÃO 2",
       autoSortBtn: "ORDENAR AUTO", gun1: "Canhão 1", gun2: "Canhão 2", enabled: "ATIVADO", disabled: "DESATIVADO",
       empty: "Vazio", fireBtn: "DISPARAR", statCH: "CG#", statBearing: "Marc.", statElev: "Elev",
-      firedLabel: "DISPARADO ÀS", usageSuffix: "usos"
+      firedLabel: "DISPARADO ÀS", usageSuffix: "usos", feedbackLink: "Feedback e Erros"
     },
     ru: {
       eyebrow: "Полевой справочник · Неофициально", subtitle: "Калькулятор управления огнём", madeBy: "автор:",
@@ -1144,7 +1191,7 @@ Iron nest calc · HTML
       noShotsLogged: "Выстрелов пока не записано.", dragHint: "Перетащите карточку на ОРУДИЕ 1 или ОРУДИЕ 2",
       autoSortBtn: "АВТОСОРТИРОВКА", gun1: "Орудие 1", gun2: "Орудие 2", enabled: "ВКЛЮЧЕНО", disabled: "ВЫКЛЮЧЕНО",
       empty: "Пусто", fireBtn: "ОГОНЬ", statCH: "ЗАР№", statBearing: "Азимут", statElev: "Возв",
-      firedLabel: "ВЫСТРЕЛ В", usageSuffix: "использований"
+      firedLabel: "ВЫСТРЕЛ В", usageSuffix: "использований", feedbackLink: "Отзывы и баги"
     },
     it: {
       eyebrow: "Riferimento da Campo · Non Ufficiale", subtitle: "Calcolatore di Controllo del Fuoco", madeBy: "creato da:",
@@ -1163,7 +1210,7 @@ Iron nest calc · HTML
       noShotsLogged: "Nessun colpo ancora registrato.", dragHint: "Trascina una scheda qui sotto su CANNONE 1 o CANNONE 2",
       autoSortBtn: "ORDINA AUTO", gun1: "Cannone 1", gun2: "Cannone 2", enabled: "ABILITATO", disabled: "DISABILITATO",
       empty: "Vuoto", fireBtn: "SPARA", statCH: "CAR#", statBearing: "Rilev.", statElev: "Elev",
-      firedLabel: "SPARATO ALLE", usageSuffix: "utilizzi"
+      firedLabel: "SPARATO ALLE", usageSuffix: "utilizzi", feedbackLink: "Feedback e Bug"
     },
     zh: {
       eyebrow: "现场参考 · 非官方", subtitle: "火控计算器", madeBy: "制作者：",
@@ -1182,7 +1229,7 @@ Iron nest calc · HTML
       noShotsLogged: "尚未记录任何射击。", dragHint: "将下方卡片拖到 火炮1 或 火炮2",
       autoSortBtn: "自动排序", gun1: "火炮1", gun2: "火炮2", enabled: "已启用", disabled: "已禁用",
       empty: "空", fireBtn: "开火", statCH: "装药", statBearing: "方位", statElev: "仰角",
-      firedLabel: "开火于", usageSuffix: "次使用"
+      firedLabel: "开火于", usageSuffix: "次使用", feedbackLink: "反馈与错误报告"
     },
     ja: {
       eyebrow: "フィールドリファレンス・非公式", subtitle: "射撃管制計算機", madeBy: "制作：",
@@ -1201,16 +1248,16 @@ Iron nest calc · HTML
       noShotsLogged: "まだ記録された射撃はありません。", dragHint: "下のカードを 砲1 または 砲2 にドラッグ",
       autoSortBtn: "自動並べ替え", gun1: "砲1", gun2: "砲2", enabled: "有効", disabled: "無効",
       empty: "空", fireBtn: "発射", statCH: "装薬", statBearing: "方位", statElev: "仰角",
-      firedLabel: "発射時刻", usageSuffix: "回使用"
+      firedLabel: "発射時刻", usageSuffix: "回使用", feedbackLink: "フィードバック・不具合報告"
     }
   };
- 
+
   let currentLang = 'en';
   function t(key){
     return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
   }
   const modeDescKeys = { manual: 'modeDescManual', lowangle: 'modeDescLowAngle', economy: 'modeDescEconomy', history: 'modeDescHistory' };
- 
+
   function applyLanguage(lang){
     currentLang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el=>{
@@ -1223,11 +1270,11 @@ Iron nest calc · HTML
     renderHistory();
     renderGuns();
   }
- 
+
   document.getElementById('langSelect').addEventListener('change', (e)=>{
     applyLanguage(e.target.value);
   });
- 
+
   // ---- Usage badge (total uses, via GoatCounter's public counter endpoint) ----
   let cachedUsageCount = null;
   function renderUsageBadge(){
@@ -1245,7 +1292,7 @@ Iron nest calc · HTML
       }
     })
     .catch(()=>{ /* analytics unavailable - fail silently, not critical to app function */ });
- 
+
   // ---- Tabs ----
   document.querySelectorAll('.tab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -1258,7 +1305,7 @@ Iron nest calc · HTML
     });
   });
   let activeTab = 'basic';
- 
+
   // ---- Reusable field factories ----
   function makeBearingField(inputEl){
     let bDigits = '0000'; // XXX.X
@@ -1279,7 +1326,7 @@ Iron nest calc · HTML
     render();
     return { getValue: render };
   }
- 
+
   function makeTimeField(inputEl, onChange){
     let tDigits = '000000'; // HHMMSS, always 24hr
     function render(){
@@ -1309,7 +1356,7 @@ Iron nest calc · HTML
     render();
     return { getValue: render };
   }
- 
+
   function makeDistanceField(inputEl, hintEl, onChange){
     let digits = '0000'; // KK.KK km
     function render(){
@@ -1335,7 +1382,7 @@ Iron nest calc · HTML
     render();
     return { getMeters: render };
   }
- 
+
   function makeChargeRow(containerEl, onChange){
     let selected = 1;
     const buttons = [];
@@ -1375,7 +1422,7 @@ Iron nest calc · HTML
     }
     return { getValue: ()=>selected, setValue, updateValidity };
   }
- 
+
   function makeRoundTypeRow(containerEl, options){
     let selected = null;
     const buttons = [];
@@ -1398,7 +1445,7 @@ Iron nest calc · HTML
     });
     return { getValue: ()=>selected };
   }
- 
+
   // ---- Preferences ----
   const prefs = { mode: 'manual', lowAngleMax: 45 };
   const prefsToggle = document.getElementById('prefsToggle');
@@ -1409,11 +1456,11 @@ Iron nest calc · HTML
   const modeDesc = document.getElementById('modeDesc');
   const basicAutoBadge = document.getElementById('basicAutoBadge');
   const advAutoBadge = document.getElementById('advAutoBadge');
- 
+
   prefsToggle.addEventListener('click', ()=>{
     prefsPanel.style.display = prefsPanel.style.display === 'none' ? 'block' : 'none';
   });
- 
+
   modeRow.querySelectorAll('.mode-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       modeRow.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
@@ -1430,24 +1477,24 @@ Iron nest calc · HTML
       calcAdvanced();
     });
   });
- 
+
   lowAngleMaxInput.addEventListener('input', ()=>{
     prefs.lowAngleMax = parseFloat(lowAngleMaxInput.value) || 45;
     calcBasic();
     calcAdvanced();
   });
- 
+
   function getHistoryAvgElevation(){
     if(history.length === 0) return null;
     const sum = history.reduce((acc,e)=>acc + parseFloat(e.elevation), 0);
     return sum / history.length;
   }
- 
+
   function pickAutoCharge(meters, avgOverride){
     if(meters <= 0) return null;
     const elevs = {};
     for(let c=1;c<=6;c++) elevs[c] = (meters * 0.012) / c;
- 
+
     if(prefs.mode === 'lowangle'){
       for(let c=1;c<=6;c++){ if(elevs[c] <= prefs.lowAngleMax) return c; }
       return 6; // fallback: highest charge gives lowest achievable angle
@@ -1474,7 +1521,7 @@ Iron nest calc · HTML
     }
     return null; // manual
   }
- 
+
   function computeFireTime(targetTimeStr, flightSeconds){
     if(!targetTimeStr || isNaN(flightSeconds)) return null;
     const parts = targetTimeStr.split(':').map(Number);
@@ -1490,7 +1537,7 @@ Iron nest calc · HTML
     const fs = remM/1000;
     return String(fh).padStart(2,'0') + ':' + String(fm).padStart(2,'0') + ':' + fs.toFixed(1).padStart(4,'0');
   }
- 
+
   // ---- Field chaining: "Next" moves focus forward, "Go" dismisses + scrolls to result ----
   function attachFieldChain(inputEl, nextEl, scrollTargetEl){
     function trigger(){
@@ -1513,7 +1560,7 @@ Iron nest calc · HTML
       if(e.inputType === 'insertLineBreak'){ trigger(); }
     });
   }
- 
+
   // ---- Basic tab wiring ----
   const output = document.getElementById('output');
   const chargeRow = document.getElementById('chargeRow');
@@ -1523,7 +1570,7 @@ Iron nest calc · HTML
   const basicRoundType = makeRoundTypeRow(document.getElementById('basicRoundRow'), ['HE','AP','DRIL','STAR']);
   attachFieldChain(document.getElementById('bearing'), document.getElementById('distance'));
   attachFieldChain(document.getElementById('distance'), null, output.closest('.readout'));
- 
+
   function calcBasic(){
     const meters = basicDistance.getMeters();
     basicCharges.updateValidity(meters);
@@ -1535,8 +1582,8 @@ Iron nest calc · HTML
     if(meters <= 0){ output.textContent = '—'; return; }
     output.textContent = ((meters * 0.012) / charges).toFixed(2);
   }
- 
- 
+
+
   // ---- Advanced tab wiring ----
   const advOutput = document.getElementById('advOutput');
   const fireTimeOutput = document.getElementById('fireTimeOutput');
@@ -1553,7 +1600,7 @@ Iron nest calc · HTML
   attachFieldChain(document.getElementById('advDistance'), flightTimeInput);
   attachFieldChain(flightTimeInput, document.getElementById('targetTime'));
   attachFieldChain(document.getElementById('targetTime'), null, advReadoutGroup);
- 
+
   function calcAdvanced(){
     const meters = advDistance.getMeters();
     advCharges.updateValidity(meters);
@@ -1571,18 +1618,18 @@ Iron nest calc · HTML
     const fireTime = computeFireTime(targetTimeField.getValue(), flight);
     fireTimeOutput.textContent = fireTime || '—';
   }
- 
+
   flightTimeInput.addEventListener('input', calcAdvanced);
- 
+
   // ---- History log (shared) ----
   const historyList = document.getElementById('historyList');
   const clearBtn = document.getElementById('clearBtn');
   let history = [];
   let nextId = 1;
- 
+
   let gun1 = []; // array of entry ids, in drop order
   let gun2 = [];
- 
+
   function statTrioHTML(entry){
     return `
       <div class="stat-trio">
@@ -1600,7 +1647,7 @@ Iron nest calc · HTML
         </div>
       </div>`;
   }
- 
+
   function gunStatsHTML(entry){
     return `
       <div class="gun-stat-top">
@@ -1618,19 +1665,19 @@ Iron nest calc · HTML
         <div class="stat-value">${entry.bearing}°</div>
       </div>`;
   }
- 
+
   function secondaryLineHTML(entry){
     const bits = [entry.meters + 'm'];
     if(entry.targetType) bits.push('TGT ' + entry.targetType);
     if(entry.fireTime) bits.push('FIRE @ ' + entry.fireTime);
     return bits.join(' · ');
   }
- 
+
   function roundTagHTML(entry){
     if(!entry.roundType) return '';
     return `<span class="round-tag round-type-${entry.roundType.toLowerCase()}">${entry.roundType}</span>`;
   }
- 
+
   function renderHistory(){
     if(history.length === 0){
       historyList.innerHTML = '<div class="history-empty">No shots logged yet.</div>';
@@ -1664,7 +1711,7 @@ Iron nest calc · HTML
       });
     });
   }
- 
+
   function deleteHistoryEntry(id){
     const idx = history.findIndex(e => e.id === id);
     if(idx > -1) history.splice(idx, 1);
@@ -1675,7 +1722,7 @@ Iron nest calc · HTML
     renderHistory();
     renderGuns();
   }
- 
+
   function renderGuns(){
     [ {arr: gun1, zone: document.getElementById('gunZone1'), count: document.getElementById('gunCount1')},
       {arr: gun2, zone: document.getElementById('gunZone2'), count: document.getElementById('gunCount2')} ]
@@ -1703,6 +1750,7 @@ Iron nest calc · HTML
         </div>`;
       }).join('');
       zone.querySelectorAll('.gr-remove').forEach(btn=>{
+        btn.addEventListener('pointerdown', (e)=> e.stopPropagation());
         btn.addEventListener('click', (e)=>{
           const id = parseFloat(btn.dataset.remove);
           const g = btn.dataset.gun === '1' ? gun1 : gun2;
@@ -1717,21 +1765,24 @@ Iron nest calc · HTML
           renderHistory();
         });
       });
+      zone.querySelectorAll('.gun-round').forEach(el=>{
+        el.addEventListener('pointerdown', onCardPointerDown);
+      });
     });
   }
- 
+
   function pruneGunsToHistory(){
     const validIds = new Set(history.map(e=>e.id));
     gun1 = gun1.filter(id=>validIds.has(id));
     gun2 = gun2.filter(id=>validIds.has(id));
   }
- 
+
   // ---- Auto-sort into gun magazines, grouped by bearing ----
   function bearingOf(entry){ return parseFloat(entry.bearing); }
- 
+
   let gun1Enabled = true;
   let gun2Enabled = true;
- 
+
   function setupGunEnableToggle(btnId, gunNum){
     const btn = document.getElementById(btnId);
     btn.addEventListener('click', ()=>{
@@ -1744,11 +1795,11 @@ Iron nest calc · HTML
   }
   setupGunEnableToggle('gunEnable1', 1);
   setupGunEnableToggle('gunEnable2', 2);
- 
+
   function autoSortAll(){
     // never touch fired rounds - they're spent, not part of the loadout pool
     const liveHistory = history.filter(e => !e.fired);
- 
+
     if(gun1Enabled && gun2Enabled){
       const pool = liveHistory.slice().sort((a,b)=> bearingOf(a) - bearingOf(b));
       const newGun1 = [], newGun2 = [];
@@ -1777,19 +1828,53 @@ Iron nest calc · HTML
     renderGuns();
     renderHistory();
   }
- 
+
   document.getElementById('autoSortBtn').addEventListener('click', autoSortAll);
- 
+
   // ---- Drag and drop (pointer events, touch-friendly) ----
   let dragState = null;
- 
+  let autoScrollDir = 0;
+  let autoScrollRAF = null;
+
+  function startAutoScrollLoop(){
+    if(autoScrollRAF) return;
+    function step(){
+      if(!dragState || autoScrollDir === 0){ autoScrollRAF = null; return; }
+      window.scrollBy(0, autoScrollDir * 16);
+      autoScrollRAF = requestAnimationFrame(step);
+    }
+    autoScrollRAF = requestAnimationFrame(step);
+  }
+
+  function updateAutoScroll(clientY){
+    const threshold = 90;
+    if(clientY < threshold && window.scrollY > 0){
+      autoScrollDir = -1;
+      startAutoScrollLoop();
+    } else if(clientY > window.innerHeight - threshold){
+      autoScrollDir = 1;
+      startAutoScrollLoop();
+    } else {
+      autoScrollDir = 0;
+    }
+  }
+
+  function getInsertionIndex(zoneEl, clientY, excludeId){
+    const cards = Array.from(zoneEl.querySelectorAll('.gun-round')).filter(c => parseFloat(c.dataset.id) !== excludeId);
+    for(let i=0; i<cards.length; i++){
+      const r = cards[i].getBoundingClientRect();
+      if(clientY < r.top + r.height/2) return i;
+    }
+    return cards.length;
+  }
+
   function onCardPointerDown(e){
     const cardEl = e.currentTarget;
     const id = parseFloat(cardEl.dataset.id);
     const entry = history.find(x=>x.id===id);
     if(!entry) return;
     e.preventDefault();
- 
+
     const rect = cardEl.getBoundingClientRect();
     const ghost = cardEl.cloneNode(true);
     ghost.classList.add('drag-ghost');
@@ -1797,25 +1882,27 @@ Iron nest calc · HTML
     ghost.style.left = rect.left + 'px';
     ghost.style.top = rect.top + 'px';
     document.body.appendChild(ghost);
- 
+
     cardEl.classList.add('dragging-source');
- 
+
     dragState = {
       id, offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top,
       ghost, cardEl
     };
- 
+
     cardEl.setPointerCapture(e.pointerId);
     cardEl.addEventListener('pointermove', onCardPointerMove);
     cardEl.addEventListener('pointerup', onCardPointerUp);
     cardEl.addEventListener('pointercancel', onCardPointerUp);
   }
- 
+
   function onCardPointerMove(e){
     if(!dragState) return;
     dragState.ghost.style.left = (e.clientX - dragState.offsetX) + 'px';
     dragState.ghost.style.top = (e.clientY - dragState.offsetY) + 'px';
- 
+
+    updateAutoScroll(e.clientY);
+
     document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover'));
     dragState.ghost.style.display = 'none';
     const under = document.elementFromPoint(e.clientX, e.clientY);
@@ -1828,11 +1915,12 @@ Iron nest calc · HTML
       if(arr.length < 7 || arr.includes(dragState.id)) zone.classList.add('drop-hover');
     }
   }
- 
+
   function onCardPointerUp(e){
     if(!dragState) return;
     const { id, ghost, cardEl } = dragState;
- 
+
+    autoScrollDir = 0;
     ghost.style.display = 'none';
     const under = document.elementFromPoint(e.clientX, e.clientY);
     ghost.remove();
@@ -1841,23 +1929,31 @@ Iron nest calc · HTML
     cardEl.removeEventListener('pointerup', onCardPointerUp);
     cardEl.removeEventListener('pointercancel', onCardPointerUp);
     document.querySelectorAll('.gun-dropzone').forEach(z=>z.classList.remove('drop-hover','drop-full'));
- 
+
     const zone = under ? under.closest('.gun-dropzone') : null;
     if(zone){
       const gunNum = zone.dataset.gun;
       const arr = gunNum === '1' ? gun1 : gun2;
       const other = gunNum === '1' ? gun2 : gun1;
-      const idx = other.indexOf(id);
-      if(idx > -1) other.splice(idx,1); // move from other gun if it was there
-      if(!arr.includes(id) && arr.length < 7){
-        arr.push(id);
+
+      const otherIdx = other.indexOf(id);
+      if(otherIdx > -1) other.splice(otherIdx,1); // moving in from the other gun
+
+      const sameGunIdx = arr.indexOf(id);
+      const alreadyHere = sameGunIdx > -1;
+
+      if(alreadyHere || arr.length < 7){
+        if(alreadyHere) arr.splice(sameGunIdx,1); // pull out, reinsert at new spot
+        const insertAt = getInsertionIndex(zone, e.clientY, id);
+        arr.splice(insertAt, 0, id);
       }
+
       renderGuns();
       renderHistory();
     }
     dragState = null;
   }
- 
+
   function handleLogShot(){
     const loggedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     const id = nextId++;
@@ -1889,10 +1985,10 @@ Iron nest calc · HTML
     renderGuns();
     if(prefs.mode === 'history'){ calcBasic(); calcAdvanced(); }
   }
- 
+
   document.getElementById('advLogBtnBig').addEventListener('click', handleLogShot);
   document.getElementById('basicLogBtnBig').addEventListener('click', handleLogShot);
- 
+
   clearBtn.addEventListener('click', ()=>{
     history = [];
     gun1 = [];
@@ -1901,7 +1997,6 @@ Iron nest calc · HTML
     renderGuns();
   });
 </script>
- 
+
 </body>
 </html>
- 
